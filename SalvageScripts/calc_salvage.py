@@ -30,7 +30,7 @@ Do not worry about what happens if you reduce the cost by 1c here and there
 
 Call function to get get TP values
 Call function to get list of materials to refine for better profit
-Call function to determine average value of salvage item 
+Call function to determine average value of salvage item
 Call function to compare cost vs value of item
 Call function to output final report
 """
@@ -38,39 +38,182 @@ Call function to output final report
 """API item and number
 
 Salvage items:
-    21690=Brittle Clump of Ore
-    21678=Bit of Metal Scrap
-    21691=Weak Clump of Ore
-    
-    safd
+    Metal
+        21690=Brittle Clump of Ore
+        21678=Bit of Metal Scrap
+        21691=Weak Clump of Ore
+        21679=Pile of Metal Scrap
+        21692=Clump of Ore
+        21680=Jagged Metal Scrap
+        21693=Laden Clump of Ore
+        21681="Metal Scrap
+        21694=Loaded Clump of Ore
+        21682=Salvageable Metal Scrap
+        21695=Rich Clump of Ore
+        21683=Valuable Metal Scrap
+        79079=Unstable Metal Chunk
+
+    Leather
+        21661=Tattered Hide
+        21684=Rawhide Leather Strap
+        21653=Tattered Pelt
+        21664=Ripped Hide
+        21685=Thin Leather Strap
+        21654=Ripped Pelt
+        21667=Torn Hide
+        21686=Coarse Leather Strap
+        21655=Torn Pelt
 
 Direct output material:
-    19697=Copper Ore
-    19703=Silver Ore
-    19699=Iron Ore
+    Metal
+        19697=Copper Ore
+        19703=Silver Ore
+        19699=Iron Ore
+        19698=Gold Ore
+        19702=Platinum Ore
+        19700=Mithril Ore
+        19701=Orichalcum Ore
+
+    Leather
+        19719=Rawhide Leather Section
+        19728=Thin Leather Section
+        19730=Coarse Leather Section
+
+
+Refinement materials:
+    Metal
+        19680=Copper Ingot
+        19679=Bronze Ingot
+        19687=Silver Ingot
+        19683=Iron Ingot
+        19688=Steel Ingot
+        19682=Gold Ingot
+        19686=Platinum Ingot
+        19681=Darksteel Ingot
+        19684=Mithril Ingot
+        19685=Orichalcum Ingot
+
+    Leather
+        19738=Stretched Rawhide Leather Square
+        19733=Cured Thin Leather Square
+        19734=Cured Coarse Leather Square
+
+Additional refinement materials:
+    =Lump of Tin
+    19750=Lump of Coal
+    19924=Lump of Primordium
+
+"""
+
+"""Refinement Equations
+
+Metal:
+    1x Copper Ingot = 2x Copper Ore
+    5x Bronze Ingot = 10x Copper + Lump of Tin
+    1x Silver Ingot = 2x Silver Ore
+    1x Iron Ingot = 3x Iron Ore
+    1x Steel Ingot = 3x Iron Ore + 1x Lump of Coal
+    1x Gold Ingot = 2x Gold Ore
+    1x Platinum Ingot = 2x Platinum Ore
+    1x Darksteel Ingot = 2x Platinum Ore + Lump of Primordium
+    1x Mithril Ingot = 2x Mithril Ore
+    1x Orichalcum Ingot = 2x Orichalcum Ore
+
+Leather
+    1x Stretched Rawhide Leather Square = 2x Rawhide Leather Section
+    1x Cured Thin Leather Square = 2x Thin Leather Section
+    1x Cured Coarse Leather Square = 2x Coarse Leather Section
 
 """
 
 """Salvage results
 
-    Brittle Clump of Ore = (1-3) Copper Ore
-    Bit of Metal Scrap = (1-3) Copper Ore
-    Weak Clump of Ore = (1-3) Copper Ore + (1-3) Iron Ore + (1-3) Silver Ore
-    
+The wiki sometimes indicates a number for each possible salvage result
+Specific numbers of salvage per salvage item doesn't really matter - want average value
+
+Metal Salvage:
+    Metal
+        Brittle Clump of Ore = (1-3) Copper Ore
+        Bit of Metal Scrap = (1-3) Copper Ore
+        Weak Clump of Ore = (1-3) Copper Ore + (1-3) Silver Ore + (1-3) Iron Ore
+        Pile of Metal Scrap = (1-3) Copper Ore + (1-3) Silver Ore + (1-3) Iron Ore
+        Clump of Ore = (1-3) Silver Ore + (1-3) Iron Ore + (1-3) Gold Ore
+        Jagged Metal Scrap = (1-3) Silver Ore + (1-3) Iron Ore + (1-3) Gold Ore
+        Laden Clump of Ore = (1-3) Iron Ore + (1-3) Gold Ore + (1-3) Platinum Ore
+        Metal Scrap = (1-3) Iron Ore + (1-3) Gold Ore + (1-3) Platinum Ore
+        Loaded Clump of Ore = (1-3) Platinum Ore + (1-3) Mithril Ore
+        Salvageable Metal Scrap = (1-3) Platinum Ore + (1-3) Mithril Ore
+        Rich Clump of Ore = (1-3) Mithril Ore + (?0-1?) Orichalcum Ore
+        Valuable Metal Scrap = (1-3) Mithril Ore + (?0-1?) Orichalcum Ore
+        Unstable Metal Chunk = Copper, Iron, Platinum, Mithril, Orichalcum (no gold or silver apparently)
+
+    Leather
+        Tattered Hide = (1-3) Rawhide Leather Section
+        Rawhide Leather Strap = (1-3) Rawhide Leather Section
+        Tattered Pelt = (1-3) Rawhide Leather Section
+        Ripped Hide = (1-3) Rawhide Leather Section + (1-3) Thin Leather Section
+        Thin Leather Strap = (1-3) Rawhide Leather Section + (1-3) Thin Leather Section
+        Ripped Pelt = (1-3) Rawhide Leather Section + (1-3) Thin Leather Section
+        Torn Hide = (1-3) Thin Leather Section + (1-3) Coarse Leather Section
+        Coarse Leather Strap = (1-3) Thin Leather Section + (1-3) Coarse Leather Section
+        Torn Pelt = (1-3) Thin Leather Section + (1-3) Coarse Leather Section
+        Frayed Hide
+        Thick Leather Strap
+        Frayed Pelt
+        Filthy Hide
+        Rugged Leather Strap
+        Filthy Pelt
+        Salvageable Hide
+        Hard Leather Strap
+        Salvageable Pelt
+        Unstable Hide
+        Bloodstone-Warped Hide
+
+    Cloth
+        Shredded Garment
+        Half-Eaten Mass
+        Shredded Rag
+        Worn Garment
+        Decaying Mass
+        Worn Rag
+        Ragged Garment
+        Fetid Mass
+        Soiled Rag
+        Frayed Garment
+        Malodorous Mass
+        Frayed Rag
+        Torn Garment
+        Half-Digested Mass
+        Torn Rag
+        Discarded Garment
+        Regurgitated Mass
+        Rag
+        Unstable Rag
+
+    Wood
+        Reglaimed Wood Chunk
+
+    Rare Metal Salvage
+        Bit or Aetherized Metal
+        Bit of Fused Metal Scrap
+        Bit of Twisted Watchwork Scrap
+        Pile of Aetherized Metal Scrap
+        Pile of Fused Metal Scrap
+        Pile of Twisted Watchwork Scrap
+        Jagged Aetherized Metal Scrap
+        Jagged Fused Metal Scrap
+        Jagged Twisted Watchwork Scrap
+        Aetherized Metal Scrap
+        Fused Metal Scrap
+        Twisted Watchwork Scrap
+        Salvageable Aetherized Metal Scrap
+        Salvageable Fused Metal Scrap
+        Salvageable Twisted Watchwork Scrap
 
 """
 
-"""Refinement
 
-    Copper Ingot = 2x Copper Ore
-    5x Bronze Ingot = 10x Copper + Lump of Tin
-    
-2 mithril ore = 1 mithril ingot
-sdfgjhfgdhdfgh
-
-"""
-
-# Requires the Python GW2 API wrapper library 
+# Requires the Python GW2 API wrapper library
 
 def getPrices:
     #Call GW2 API wrapper to get the prices of all items
@@ -81,7 +224,7 @@ def compareRefined:
     #separate buy and sell listings for reference because time is also money
 
 def calculateSalvage:
-    #calculate the average value of the salvage item - buy and sell 
+    #calculate the average value of the salvage item - buy and sell
 
 def getProfit:
     #calculate the profit of each salvage item using refined/unrefined options
