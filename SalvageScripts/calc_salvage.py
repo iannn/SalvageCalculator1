@@ -42,29 +42,56 @@ Salvage items:
         21690=Brittle Clump of Ore
         21678=Bit of Metal Scrap
         21691=Weak Clump of Ore
+
         21679=Pile of Metal Scrap
         21692=Clump of Ore
         21680=Jagged Metal Scrap
+
         21693=Laden Clump of Ore
         21681="Metal Scrap
         21694=Loaded Clump of Ore
+
         21682=Salvageable Metal Scrap
         21695=Rich Clump of Ore
         21683=Valuable Metal Scrap
+
         79079=Unstable Metal Chunk
+
 
     Leather
         21661=Tattered Hide
         21684=Rawhide Leather Strap
         21653=Tattered Pelt
+
         21664=Ripped Hide
         21685=Thin Leather Strap
         21654=Ripped Pelt
+
         21667=Torn Hide
         21686=Coarse Leather Strap
         21655=Torn Pelt
 
-Direct output material:
+        21668=Frayed Hide
+        21687=Thick Leather Strap
+        21656=Frayed Pelt
+
+        21670=Filthy Hide
+        21688=Rugged Leather Strap
+        21657=Filthy Pelt
+
+        22331=Salvageable Hide
+        21689=Hard Leather Strap
+        21658=Salvageable Pelt
+
+    Cloth
+        aaaaa
+
+
+    Wood
+        79423=Reclaimed Wood Chunk
+
+
+Direct salvage output material:
     Metal
         19697=Copper Ore
         19703=Silver Ore
@@ -78,6 +105,15 @@ Direct output material:
         19719=Rawhide Leather Section
         19728=Thin Leather Section
         19730=Coarse Leather Section
+        19731=Rugged Leather Section
+        19729=Thick Leather Section
+        19732=Hardened Leather Section
+
+    Cloth
+        aaaaaaaaaa
+
+    Wood
+        19723=Green Wood Log
 
 
 Refinement materials:
@@ -97,6 +133,15 @@ Refinement materials:
         19738=Stretched Rawhide Leather Square
         19733=Cured Thin Leather Square
         19734=Cured Coarse Leather Square
+        19736=Cured Rugged Leather Square
+        19735=Cured Thick Leather Square
+        19737=Cured Hardened Leather Square
+
+    Cloth
+        aaaaaaa
+
+    Wood
+
 
 Additional refinement materials:
     =Lump of Tin
@@ -122,7 +167,16 @@ Metal:
 Leather
     1x Stretched Rawhide Leather Square = 2x Rawhide Leather Section
     1x Cured Thin Leather Square = 2x Thin Leather Section
-    1x Cured Coarse Leather Square = 2x Coarse Leather Section
+    1x Cured Coarse Leather Square = 2x Coarse Leather Square
+    1x Cured Rugged Leather Square = 2x Rugged Leather Square
+    1x Cured Thick Leather Square = 4x Thick Leather Section
+    1x Cured Hardened Leather Square = 3x Hardened Leather Section
+
+Cloth
+    1x
+
+Wood
+    1x
 
 """
 
@@ -157,17 +211,17 @@ Metal Salvage:
         Torn Hide = (1-3) Thin Leather Section + (1-3) Coarse Leather Section
         Coarse Leather Strap = (1-3) Thin Leather Section + (1-3) Coarse Leather Section
         Torn Pelt = (1-3) Thin Leather Section + (1-3) Coarse Leather Section
-        Frayed Hide
-        Thick Leather Strap
-        Frayed Pelt
-        Filthy Hide
-        Rugged Leather Strap
-        Filthy Pelt
-        Salvageable Hide
-        Hard Leather Strap
-        Salvageable Pelt
-        Unstable Hide
-        Bloodstone-Warped Hide
+        Frayed Hide = (1-3) Coarse Leather Section + (1-3) Rugged Leather Section
+        Thick Leather Strap = (1-3) Coarse Leather Section + (1-3) Rugged Leather Section
+        Frayed Pelt = (1-3) Coarse Leather Section + (1-3) Rugged Leather Section
+        Filthy Hide = (1-3) Rugged Leather Section + (1-3) Thick Leather Section
+        Rugged Leather Strap = (1-3) Rugged Leather Section + (1-3) Thick Leather Section
+        Filthy Pelt = (1-3) Rugged Leather Section + (1-3) Thick Leather Section
+        Salvageable Hide = (1-3) Thick Leather Section + Hardened Leather Section
+        Hard Leather Strap = (1-3) Thick Leather Section + Hardened Leather Section
+        Salvageable Pelt = (1-3) Thick Leather Section + Hardened Leather Section
+        Unstable Hide = Rawhide, Thin Leather, Coarse, Rugged, Thick, Hardened
+        Bloodstone-Warped Hide = Rawhide, Thin Leather, Coarse, Rugged, Thick, Hardened
 
     Cloth
         Shredded Garment
@@ -191,7 +245,7 @@ Metal Salvage:
         Unstable Rag
 
     Wood
-        Reglaimed Wood Chunk
+        Reglaimed Wood Chunk = Green, Soft, Seasoned, Hard, Elder, Ancient
 
     Rare Metal Salvage
         Bit or Aetherized Metal
@@ -215,21 +269,55 @@ Metal Salvage:
 
 # Requires the Python GW2 API wrapper library
 
-def getPrices:
+
+#Get prices
     #Call GW2 API wrapper to get the prices of all items
     #Organize the TP values somehow
+def getMetal():
+    #api call for all metal TP prices
+    #separate into base and refined
+    #return format is a dict
+    return
 
-def compareRefined:
+
+def getLeather():
+    #api call for all metal TP prices
+    #separate into base and refined
+    #return format is a dict
+    return
+
+
+def getCloth():
+    #api call for all metal TP prices
+    #separate into base and refined
+    #return format is a dict
+    return
+
+
+def getWood():
+    #api call for all metal TP prices
+    #separate into base and refined
+    #return format is a dict
+    return
+
+
+def compareRefined():
     #compare prices of raw vs refined
     #separate buy and sell listings for reference because time is also money
+    return
 
-def calculateSalvage:
+
+def calculateSalvage():
     #calculate the average value of the salvage item - buy and sell
+    return
 
-def getProfit:
+
+def getProfit():
     #calculate the profit of each salvage item using refined/unrefined options
+    return
 
-def printReport:
+
+def printReport():
 ##not sure if lumping all the material values at once is better or repeat per item
 
     #CLEARLY state if item is profitable to cost
@@ -237,3 +325,4 @@ def printReport:
     #state cost of salvage item and average value of salvage output
     #state material values
     #state if refined is more profitable, and by how much
+    return
