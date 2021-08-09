@@ -132,6 +132,13 @@ Salvage items:
         41736=Fused Metal Scrap
         45042=Twisted Watchwork Scrap
 
+        43556=Salvageable Aetherized Metal Scrap
+        41737=Salvageable Fused Metal Scrap
+
+    Other
+        82488=Salvageable Intact Forged Scrap
+
+
 Direct salvage output material:
     Metal Material
         19697=Copper Ore
@@ -166,21 +173,24 @@ Direct salvage output material:
         19722=Elder Wood Log
         19725=Ancient Wood Log
 
-    Rare Salvage Materials
+    Rare Materials
         24301=Charged Sliver
         24302=Charged Fragment
         24303=Charged Shard
         24304=Charged Core
+        24305=Charged Lodestone
 
         24311=Molten Sliver
         24312=Molten Fragment
         24313=Molten Shard
         24314=Molten Core
+        24315=Molten Lodestone
 
         24316=Glacial Sliver
         24317=Glacial Fragment
         24318=Glacial Shard
         24319=Glacial Core
+        24320=Glacial Lodestone
 
         24307=Onyx Fragment
         24308=Onyx Shard
@@ -227,9 +237,9 @@ Refinement materials:
         19712=Ancient Wood Plank
 
 Additional refinement materials:
-    =Lump of Tin
-    19750=Lump of Coal
-    19924=Lump of Primordium
+    19704=Lump of Tin (Bronze Ingots)
+    19750=Lump of Coal (Steel INgot)
+    19924=Lump of Primordium (Darksteel)
 
 """
 
@@ -352,11 +362,15 @@ Metal Salvage:
         Jagged Twisted Watchwork Scrap = Iron, Gold, Platinum, Charged Shard, Onyx Shard, Watchwork Sprocket
         Aetherized Metal Scrap = Silver, Iron, Gold, Platinum, Mithril, Orichalcum, Charged Sliver, Charged Fragment, Charged Core
         Fused Metal Scrap = Copper, Iron, Platinum, Mithril, Orichalcum, Molten Sliver, Molten Core, Glacial Core
-        Twisted Watchwork Scrap
-        Salvageable Aetherized Metal Scrap
-        Salvageable Fused Metal Scrap
-        Salvageable Twisted Watchwork Scrap
+        Twisted Watchwork Scrap = Gold, Platinum, Mithril, Charged Core, Onyx Core, Watchwork Sprocket
+        Salvageable Aetherized Metal Scrap = Mithril, Orichalcum, Charged Core, Charge Lodestone
+        Salvageable Fused Metal Scrap = Mithril, Orichalcum, Molten Core, Molten Lodestone, Glacial Core, Glacial Lodestone
+        Salvageable Twisted Watchwork Scrap = Mithril, Orichalcum, Watchwork Sprocket, Charged Core, Charged Lodestone, Onyx Core, Onyx Lodestone
 
+    Other
+        Salvageable Intact Forged Scrap = (3-9) Mithril xor (3) Orichalcum xor (1,5) Forgemetal + (1-3) 10 luck xor (1-3) 50 luck xor 100 luck xor 200 luck
+        Don't care about Ambrite
+        Ectoplasm use cases deserve their own script since the drop rate is so well understood already
 """
 
 
