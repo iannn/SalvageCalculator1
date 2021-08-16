@@ -31,8 +31,7 @@ Do not worry about what happens if you reduce the cost by 1c here and there
 Call function to get get TP values
 Call function to get list of materials to refine for better profit
 Call function to determine average value of salvage item
-Call function to compare cost vs value of item
-Call function to output final report
+Call function to output final report - profit y/n
 """
 
 """API item and number
@@ -238,7 +237,7 @@ Refinement materials:
 
 Additional refinement materials:
     19704=Lump of Tin (Bronze Ingots)
-    19750=Lump of Coal (Steel INgot)
+    19750=Lump of Coal (Steel Ingot)
     19924=Lump of Primordium (Darksteel)
 
 """
@@ -446,11 +445,6 @@ def compareWood():
 
 def calculateSalvage():
     #calculate the average value of the salvage item - buy and sell
-    return
-
-
-def getProfit():
-    #calculate the profit of each salvage item using refined/unrefined options
     return
 
 
