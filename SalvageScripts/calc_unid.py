@@ -109,19 +109,20 @@ https://wiki.guildwars2.com/wiki/Silver-Fed_Salvage-o-Matic
 from gw2api import GuildWars2Client
 gw2_client = GuildWars2Client()
 
-#charm and symbol values were a bit skewed so I'm altering
+#charm and symbol values I have are low data so using wiki values
 unidFine_droprate = {'Orichalcum Ore':0.0424,'Ancient Wood Log':0.0289,'Gossamer Scrap':0.0154,'Hardened Leather Section':0.0204,'Mithril Ore':0.4344,'Elder Wood Log':0.3870,'Silk Scrap':0.3036,'Thick Leather Square':0.2542,'Ectoplasm':0.0077,'Lucent Mote':0.1011,'Symbol of Control':0.0004,'Symbol of Enhancement':0.0004,'Symbol of Pain':0.0004,'Charm of Brilliance':0.0003,'Charm of Potence':0.0003,'Charm of Skill':0.0003}
+unidMasterwork_droprate = {'Orichalcum Ore':0.0387,'Ancient Wood Log':0.0200,'Gossamer Scrap':0.0193,'Hardened Leather Section':0.0213,'Mithril Ore':0.4647,'Elder Wood Log':0.3513,'Silk Scrap':0.3453,'Thick Leather Square':0.2680,'Ectoplasm':0.0413,'Lucent Mote':0.9793,'Symbol of Control':0.0017,'Symbol of Enhancement':0.0048,'Symbol of Pain':0.0037,'Charm of Brilliance':0.0041,'Charm of Potence':0.0029,'Charm of Skill':0.0029}
 
-unidMasterwork_droprate = {'Orichalcum Ore':-1,'Ancient Wood Log':-1,'Gossamer Scrap':-1,'Hardened Leather Section':-1,'Mithril Ore':-1,'Elder Wood Log':-1,'Silk Scrap':-1,'Thick Leather Square':-1,'Ectoplasm':-1,'Lucent Mote':-1,'Symbol of Control':-1,'Symbol of Enhancement':-1,'Symbol of Pain':-1,'Charm of Brilliance':-1,'Charm of Potence':-1,'Charm of Skill':-1}
-unidRare_droprate = {'Orichalcum Ore':-1,'Ancient Wood Log':-1,'Gossamer Scrap':-1,'Hardened Leather Section':-1,'Mithril Ore':-1,'Elder Wood Log':-1,'Silk Scrap':-1,'Thick Leather Square':-1,'Ectoplasm':-1,'Lucent Mote':-1,'Symbol of Control':-1,'Symbol of Enhancement':-1,'Symbol of Pain':-1,'Charm of Brilliance':-1,'Charm of Potence':-1,'Charm of Skill':-1}
+#pure wiki
+unidRare_droprate = {'Orichalcum Ore':0.0407,'Ancient Wood Log':0.0295,'Gossamer Scrap':0.0165,'Hardened Leather Section':0.0153,'Mithril Ore':0.4611,'Elder Wood Log':0.3837,'Silk Scrap':0.3239,'Thick Leather Square':0.2556,'Ectoplasm':0.8751,'Lucent Mote':1.3881,'Symbol of Control':0.0035,'Symbol of Enhancement':0.0065,'Symbol of Pain':0.0029,'Charm of Brilliance':0.0056,'Charm of Potence':0.0033,'Charm of Skill':0.0034}
 #,'Luck':-1 is out because I don't have value for this yet
 
 #Never salvage with just one kit becuase better gear will come out
 #Exotics are so rare that they will generate far more than the salvage + I may use BLKit
-salvageCost = {'Mystic':10.5, 'Copper':5 , 'Runecrafter':30}
+salvageCost = {'Mystic':10.5, 'Copper':5 , 'Runecrafter':30, 'Silver':60}
 unidFine_salvageCost = salvageCost['Mystic']*0.0127 + salvageCost['Runecrafter']*0.0887 + salvageCost['Copper']*0.8974
 unidMasterwork_salvageCost = salvageCost['Mystic']*0.0447 + salvageCost['Runecrafter']*0.9527
-unidRare_salvageCost = salvageCost['Mystic']*1
+unidRare_salvageCost = salvageCost['Silver']*1
 
 #Fill with api values
 unid_prices= {}
@@ -334,7 +335,7 @@ print("multiplier_prices:", multiplier_prices)
 
 #Calculation phase
 #salvage value = drop rate * multiplier_prices
-#Now I add in TP cut
+#Now I add in TP cut. Adding to salvage value is fine because the TP prices are on
 
 #Fine
 for key in unidFine_droprate:
@@ -355,7 +356,7 @@ for key in unidRare_droprate:
 #Report time
 print()
 print('Fine unid gear costs {cost} to buy order, has an average value of {salvageCost} to salvage, and will salvage into a total value of {salvageValue} resulting in {profit} profit per salvage'.format(cost=unid_prices['Fine'][0], salvageValue=unidFine_sum, profit=unidFine_sum-unid_prices['Fine'][0]-unidFine_salvageCost, salvageCost=unidFine_salvageCost))
-print('Masterwork unid gear costs {cost} to buy order, has an average value of {salvageCost} to salvage, and will salvage into a total value of {salvageValue} resulting in {profit} profit per salvage'.format(cost=unid_prices['Masterwork'][0], salvageValue=unidFine_sum, profit=unidFine_sum-unid_prices['Masterwork'][0]-unidMasterwork_salvageCost, salvageCost=unidMasterwork_salvageCost))
-print('Rare unid gear costs {cost} to buy order, has an average value of {salvageCost} to salvage, and will salvage into a total value of {salvageValue} resulting in {profit} profit per salvage'.format(cost=unid_prices['Rare'][0], salvageValue=unidFine_sum, profit=unidFine_sum-unid_prices['Rare'][0]-unidRare_salvageCost, salvageCost=unidRare_salvageCost))
+print('Masterwork unid gear costs {cost} to buy order, has an average value of {salvageCost} to salvage, and will salvage into a total value of {salvageValue} resulting in {profit} profit per salvage'.format(cost=unid_prices['Masterwork'][0], salvageValue=unidMasterwork_sum, profit=unidMasterwork_sum-unid_prices['Masterwork'][0]-unidMasterwork_salvageCost, salvageCost=unidMasterwork_salvageCost))
+print('Rare unid gear costs {cost} to buy order, has an average value of {salvageCost} to salvage, and will salvage into a total value of {salvageValue} resulting in {profit} profit per salvage'.format(cost=unid_prices['Rare'][0], salvageValue=unidRare_sum, profit=unidRare_sum-unid_prices['Rare'][0]-unidRare_salvageCost, salvageCost=unidRare_salvageCost))
 
 print("The end")
