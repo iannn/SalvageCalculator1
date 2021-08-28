@@ -64,7 +64,7 @@ print('Instead of buying dust, buy and salvage ecto for 1.85 dust at {sCost} per
 
 #Have ecto - sell dust
 print('\nHave ecto - sell dust')
-print('Instead of buying dust, buy ecto and salvage for 1.85 dust at {sCost} per salvage.\nSavings compared to buying is {diff}'.format(sCost=salvageCost, diff=dust_price['buy']*1.85 - ecto_price['buy'] - salvageCost))
+print('Instead of selling ecto, salvage ecto for 1.85 dust at {sCost} per salvage and sell dust.\nProfit compared to selling ecto is {diff}'.format(sCost=salvageCost, diff=dust_price['sell']*1.85*.85 - ecto_price['sell']*.85 - salvageCost))
 
 #Buy ecto - sell dust
 print('\nBuy ecto - sell dust')
