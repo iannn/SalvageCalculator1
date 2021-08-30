@@ -110,8 +110,10 @@ from gw2api import GuildWars2Client
 gw2_client = GuildWars2Client()
 
 #charm and symbol values I have are low data so using wiki values
-unidFine_droprate = {'Orichalcum Ore':0.0424,'Ancient Wood Log':0.0289,'Gossamer Scrap':0.0154,'Hardened Leather Section':0.0204,'Mithril Ore':0.4344,'Elder Wood Log':0.3870,'Silk Scrap':0.3036,'Thick Leather Square':0.2542,'Ectoplasm':0.0077,'Lucent Mote':0.1011,'Symbol of Control':0.0004,'Symbol of Enhancement':0.0004,'Symbol of Pain':0.0004,'Charm of Brilliance':0.0003,'Charm of Potence':0.0003,'Charm of Skill':0.0003}
-unidMasterwork_droprate = {'Orichalcum Ore':0.0387,'Ancient Wood Log':0.0200,'Gossamer Scrap':0.0193,'Hardened Leather Section':0.0213,'Mithril Ore':0.4647,'Elder Wood Log':0.3513,'Silk Scrap':0.3453,'Thick Leather Square':0.2680,'Ectoplasm':0.0413,'Lucent Mote':0.9793,'Symbol of Control':0.0017,'Symbol of Enhancement':0.0048,'Symbol of Pain':0.0037,'Charm of Brilliance':0.0041,'Charm of Potence':0.0029,'Charm of Skill':0.0029}
+unidFine_droprate = {'Orichalcum Ore':0.0397,'Ancient Wood Log':0.0311,'Gossamer Scrap':0.0148,'Hardened Leather Section':0.0173,'Mithril Ore':0.4310,'Elder Wood Log':0.3877,'Silk Scrap':0.3069,'Thick Leather Square':0.2473,'Ectoplasm':0.0068,'Lucent Mote':0.1018,'Symbol of Control':0.0004,'Symbol of Enhancement':0.0004,'Symbol of Pain':0.0004,'Charm of Brilliance':0.0003,'Charm of Potence':0.0003,'Charm of Skill':0.0003}
+
+#My data
+unidMasterwork_droprate = {'Orichalcum Ore':0.0419,'Ancient Wood Log':0.0257,'Gossamer Scrap':0.0193,'Hardened Leather Section':0.0192,'Mithril Ore':0.4440,'Elder Wood Log':0.3658,'Silk Scrap':0.3469,'Thick Leather Square':0.2757,'Ectoplasm':0.0298,'Lucent Mote':0.9768,'Symbol of Control':0.0016,'Symbol of Enhancement':0.0046,'Symbol of Pain':0.0036,'Charm of Brilliance':0.0051,'Charm of Potence':0.0025,'Charm of Skill':0.0041}
 
 #pure wiki
 unidRare_droprate = {'Orichalcum Ore':0.0407,'Ancient Wood Log':0.0295,'Gossamer Scrap':0.0165,'Hardened Leather Section':0.0153,'Mithril Ore':0.4611,'Elder Wood Log':0.3837,'Silk Scrap':0.3239,'Thick Leather Square':0.2556,'Ectoplasm':0.8751,'Lucent Mote':1.3881,'Symbol of Control':0.0035,'Symbol of Enhancement':0.0065,'Symbol of Pain':0.0029,'Charm of Brilliance':0.0056,'Charm of Potence':0.0033,'Charm of Skill':0.0034}
@@ -330,8 +332,13 @@ else:
 for key in other_prices:
     multiplier_prices[key] = other_prices[key][1]
 
-print("decision prices:", decision)
-print("multiplier_prices:", multiplier_prices)
+print("Decision prices:")#, decision)
+for key,value in decision.items():
+    print(key,':',value)
+
+print("\nMultiplier_prices:")#, multiplier_prices)
+for key, value in multiplier_prices.items():
+    print(key,':',value)
 
 #Calculation phase
 #salvage value = drop rate * multiplier_prices
