@@ -116,14 +116,14 @@ unidFine_droprate = {'Orichalcum Ore':0.0397,'Ancient Wood Log':0.0311,'Gossamer
 unidMasterwork_droprate = {'Orichalcum Ore':0.0419,'Ancient Wood Log':0.0257,'Gossamer Scrap':0.0193,'Hardened Leather Section':0.0192,'Mithril Ore':0.4440,'Elder Wood Log':0.3658,'Silk Scrap':0.3469,'Thick Leather Square':0.2757,'Ectoplasm':0.0298,'Lucent Mote':0.9768,'Symbol of Control':0.0016,'Symbol of Enhancement':0.0046,'Symbol of Pain':0.0036,'Charm of Brilliance':0.0051,'Charm of Potence':0.0025,'Charm of Skill':0.0041}
 
 #pure wiki
-unidRare_droprate = {'Orichalcum Ore':0.0407,'Ancient Wood Log':0.0295,'Gossamer Scrap':0.0165,'Hardened Leather Section':0.0153,'Mithril Ore':0.4611,'Elder Wood Log':0.3837,'Silk Scrap':0.3239,'Thick Leather Square':0.2556,'Ectoplasm':0.8751,'Lucent Mote':1.3881,'Symbol of Control':0.0035,'Symbol of Enhancement':0.0065,'Symbol of Pain':0.0029,'Charm of Brilliance':0.0056,'Charm of Potence':0.0033,'Charm of Skill':0.0034}
+unidRare_droprate = {'Orichalcum Ore':0.0403,'Ancient Wood Log':0.0268,'Gossamer Scrap':0.0189,'Hardened Leather Section':0.0175,'Mithril Ore':0.4425,'Elder Wood Log':0.3638,'Silk Scrap':0.3497,'Thick Leather Square':0.2802,'Ectoplasm':0.0303,'Lucent Mote':1.0908,'Symbol of Control':0.0015,'Symbol of Enhancement':0.0049,'Symbol of Pain':0.0036,'Charm of Brilliance':0.0046,'Charm of Potence':0.0025,'Charm of Skill':0.0034}
 #,'Luck':-1 is out because I don't have value for this yet
 
 #Never salvage with just one kit becuase better gear will come out
 #Exotics are so rare that they will generate far more than the salvage + I may use BLKit
 salvageCost = {'Mystic':10.5, 'Copper':5 , 'Runecrafter':30, 'Silver':60}
 unidFine_salvageCost = salvageCost['Mystic']*0.0127 + salvageCost['Runecrafter']*0.0887 + salvageCost['Copper']*0.8974
-unidMasterwork_salvageCost = salvageCost['Mystic']*0.0447 + salvageCost['Runecrafter']*0.9527
+unidMasterwork_salvageCost = salvageCost['Mystic']*0.0351 + salvageCost['Runecrafter']*0.9623
 unidRare_salvageCost = salvageCost['Silver']*1
 
 #Fill with api values
