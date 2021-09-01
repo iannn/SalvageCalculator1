@@ -112,11 +112,11 @@ gw2_client = GuildWars2Client()
 #charm and symbol values I have are low data so using wiki values
 unidFine_droprate = {'Orichalcum Ore':0.0397,'Ancient Wood Log':0.0311,'Gossamer Scrap':0.0148,'Hardened Leather Section':0.0173,'Mithril Ore':0.4310,'Elder Wood Log':0.3877,'Silk Scrap':0.3069,'Thick Leather Square':0.2473,'Ectoplasm':0.0068,'Lucent Mote':0.1018,'Symbol of Control':0.0004,'Symbol of Enhancement':0.0004,'Symbol of Pain':0.0004,'Charm of Brilliance':0.0003,'Charm of Potence':0.0003,'Charm of Skill':0.0003}
 
-#My data
-unidMasterwork_droprate = {'Orichalcum Ore':0.0419,'Ancient Wood Log':0.0257,'Gossamer Scrap':0.0193,'Hardened Leather Section':0.0192,'Mithril Ore':0.4440,'Elder Wood Log':0.3658,'Silk Scrap':0.3469,'Thick Leather Square':0.2757,'Ectoplasm':0.0298,'Lucent Mote':0.9768,'Symbol of Control':0.0016,'Symbol of Enhancement':0.0046,'Symbol of Pain':0.0036,'Charm of Brilliance':0.0051,'Charm of Potence':0.0025,'Charm of Skill':0.0041}
+#My data 19500
+unidMasterwork_droprate = {'Orichalcum Ore':0.0395,'Ancient Wood Log':0.0274,'Gossamer Scrap':0.0183,'Hardened Leather Section':0.0176,'Mithril Ore':0.4430,'Elder Wood Log':0.3658,'Silk Scrap':0.3476,'Thick Leather Square':0.2813,'Ectoplasm':0.0294,'Lucent Mote':1.0711,'Symbol of Control':0.0013,'Symbol of Enhancement':0.0047,'Symbol of Pain':0.0037,'Charm of Brilliance':0.0046,'Charm of Potence':0.0026,'Charm of Skill':0.0031}
 
 #pure wiki
-unidRare_droprate = {'Orichalcum Ore':0.0403,'Ancient Wood Log':0.0268,'Gossamer Scrap':0.0189,'Hardened Leather Section':0.0175,'Mithril Ore':0.4425,'Elder Wood Log':0.3638,'Silk Scrap':0.3497,'Thick Leather Square':0.2802,'Ectoplasm':0.0303,'Lucent Mote':1.0908,'Symbol of Control':0.0015,'Symbol of Enhancement':0.0049,'Symbol of Pain':0.0036,'Charm of Brilliance':0.0046,'Charm of Potence':0.0025,'Charm of Skill':0.0034}
+unidRare_droprate = {'Orichalcum Ore':0.0407,'Ancient Wood Log':0.0295,'Gossamer Scrap':0.0165,'Hardened Leather Section':0.0153,'Mithril Ore':0.4611,'Elder Wood Log':0.3837,'Silk Scrap':0.3239,'Thick Leather Square':0.2556,'Ectoplasm':0.8751,'Lucent Mote':1.3881,'Symbol of Control':0.0035,'Symbol of Enhancement':0.0065,'Symbol of Pain':0.0029,'Charm of Brilliance':0.0056,'Charm of Potence':0.0033,'Charm of Skill':0.0034}
 #,'Luck':-1 is out because I don't have value for this yet
 
 #Never salvage with just one kit becuase better gear will come out
