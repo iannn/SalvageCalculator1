@@ -1,5 +1,6 @@
 #This is a basic scrip for calculating the value of unidentified gear TO Sell
 #SAVINGS not currently calculated
+#This only looks at current prices. Price walls, fractional differences between raw cost/material and refined cost/material, and very low offers aren't considered
 """Unidentified Gear Overview
 
 There are 3 types of unidentified gear:
@@ -106,6 +107,7 @@ https://wiki.guildwars2.com/wiki/Silver-Fed_Salvage-o-Matic
 
 """
 
+#Main gw2 API call return list of dics that may not always be in the same order so filter and arrange data for unids here
 def sort_allAPI(allAPI):
     #Fill with api values
     unid_prices= {}
@@ -113,10 +115,8 @@ def sort_allAPI(allAPI):
     refined_prices = {}
     other_prices = {}
 
-    testcount = 0
     #assemble the dictionaries
     for entryAPI in allAPI:
-        testcount= testcount + 1
         if(entryAPI['id']==85016):
             unid_prices['Fine'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
 
@@ -210,6 +210,7 @@ def sort_allAPI(allAPI):
 #End of sort_allAPI
 
 def generate_multiplier(unrefined_prices,refined_prices,other_prices):
+    #value per RAW MATERIAL goes into the multiplier dict, decision of raw/refined goes into decision dict
     #Compare and finalize values of material
     decision = {}
     multiplier_prices = {}
@@ -217,71 +218,75 @@ def generate_multiplier(unrefined_prices,refined_prices,other_prices):
     #TP cut to be added in later
     if(unrefined_prices['Orichalcum Ore'][1] > refined_prices['Orichalcum Ingot'][1]/2):
         decision['Orichalcum Ore'] = 'raw'
-        multiplier_prices['Orichalcum Ore']=unrefined_prices['Orichalcum Ore'][1]
+        multiplier_prices['Orichalcum Ore']=round(unrefined_prices['Orichalcum Ore'][1],4)
     else:
         decision['Orichalcum Ore'] = 'refined'
-        multiplier_prices['Orichalcum Ore']=refined_prices['Orichalcum Ingot'][1]/2
+        multiplier_prices['Orichalcum Ore']=round(refined_prices['Orichalcum Ingot'][1]/2,4)
 
     if(unrefined_prices['Ancient Wood Log'][1] > refined_prices['Ancient Wood Plank'][1]/3):
         decision['Ancient Wood Log'] = 'raw'
-        multiplier_prices['Ancient Wood Log']=unrefined_prices['Ancient Wood Log'][1]
+        multiplier_prices['Ancient Wood Log']=round(unrefined_prices['Ancient Wood Log'][1],4)
     else:
         decision['Ancient Wood Log'] = 'refined'
-        multiplier_prices['Ancient Wood Log']=refined_prices['Ancient Wood Plank'][1]/3
+        multiplier_prices['Ancient Wood Log']=round(refined_prices['Ancient Wood Plank'][1]/3,4)
 
     if(unrefined_prices['Gossamer Scrap'][1] > refined_prices['Bolt of Gossamer'][1]/2):
         decision['Gossamer Scrap'] = 'raw'
-        multiplier_prices['Gossamer Scrap']=unrefined_prices['Gossamer Scrap'][1]
+        multiplier_prices['Gossamer Scrap']=round(unrefined_prices['Gossamer Scrap'][1],4)
     else:
         decision['Gossamer Scrap'] = 'refined'
-        multiplier_prices['Gossamer Scrap']=refined_prices['Bolt of Gossamer'][1]/2
+        multiplier_prices['Gossamer Scrap']=round(refined_prices['Bolt of Gossamer'][1]/2,4)
 
     if(unrefined_prices['Hardened Leather Section'][1] > refined_prices['Cured Hardened Leather Square'][1]/3):
         decision['Hardened Leather Section'] = 'raw'
-        multiplier_prices['Hardened Leather Section']=unrefined_prices['Hardened Leather Section'][1]
+        multiplier_prices['Hardened Leather Section']=round(unrefined_prices['Hardened Leather Section'][1],4)
     else:
         decision['Hardened Leather Section'] = 'refined'
-        multiplier_prices['Hardened Leather Section']=refined_prices['Cured Hardened Leather Square'][1]/3
+        multiplier_prices['Hardened Leather Section']=round(refined_prices['Cured Hardened Leather Square'][1]/3,4)
 
     if(unrefined_prices['Mithril Ore'][1] > refined_prices['Mithril Ingot'][1]/2):
         decision['Mithril Ore'] = 'raw'
-        multiplier_prices['Mithril Ore']=unrefined_prices['Mithril Ore'][1]
+        multiplier_prices['Mithril Ore']=round(unrefined_prices['Mithril Ore'][1],4)
     else:
         decision['Mithril Ore'] = 'refined'
-        multiplier_prices['Mithril Ore']=refined_prices['Mithril Ingot'][1]/2
+        multiplier_prices['Mithril Ore']=round(refined_prices['Mithril Ingot'][1]/2,4)
 
     if(unrefined_prices['Elder Wood Log'][1] > refined_prices['Elder Wood Plank'][1]/3):
         decision['Elder Wood Log'] = 'raw'
-        multiplier_prices['Elder Wood Log']=unrefined_prices['Elder Wood Log'][1]
+        multiplier_prices['Elder Wood Log']=round(unrefined_prices['Elder Wood Log'][1],4)
     else:
         decision['Elder Wood Log'] = 'refined'
-        multiplier_prices['Elder Wood Log']=refined_prices['Elder Wood Plank'][1]/3
+        multiplier_prices['Elder Wood Log']=round(refined_prices['Elder Wood Plank'][1]/3,4)
 
     if(unrefined_prices['Silk Scrap'][1] > refined_prices['Bolt of Silk'][1]/3):
         decision['Silk Scrap'] = 'raw'
-        multiplier_prices['Silk Scrap']=unrefined_prices['Silk Scrap'][1]
+        multiplier_prices['Silk Scrap']=round(unrefined_prices['Silk Scrap'][1],4)
     else:
         decision['Silk Scrap'] = 'refined'
-        multiplier_prices['Silk Scrap']=refined_prices['Bolt of Silk'][1]/3
+        multiplier_prices['Silk Scrap']=round(refined_prices['Bolt of Silk'][1]/3,4)
 
     if(unrefined_prices['Thick Leather Square'][1] > refined_prices['Cured Thick Leather Square'][1]/4):
         decision['Thick Leather Square'] = 'raw'
-        multiplier_prices['Thick Leather Square']=unrefined_prices['Thick Leather Square'][1]
+        multiplier_prices['Thick Leather Square']=round(unrefined_prices['Thick Leather Square'][1],4)
     else:
         decision['Thick Leather Square'] = 'refined'
-        multiplier_prices['Thick Leather Square']=refined_prices['Cured Thick Leather Square'][1]/4
+        multiplier_prices['Thick Leather Square']=round(refined_prices['Cured Thick Leather Square'][1]/4,4)
 
     if(unrefined_prices['Lucent Mote'][1] > refined_prices['Pile of Lucent Crystal'][1]/10):
         decision['Lucent Mote'] = 'raw'
-        multiplier_prices['Lucent Mote']=unrefined_prices['Lucent Mote'][1]
+        multiplier_prices['Lucent Mote']=round(unrefined_prices['Lucent Mote'][1],4)
     else:
         decision['Lucent Mote'] = 'refined'
-        multiplier_prices['Lucent Mote']=refined_prices['Pile of Lucent Crystal'][1]/10
+        multiplier_prices['Lucent Mote']=round(refined_prices['Pile of Lucent Crystal'][1]/10,4)
     #refine vs raw done. Include the other stuff now to finish multiplier_prices dict
     for key in other_prices:
         multiplier_prices[key] = other_prices[key][1]
     return multiplier_prices,decision
+#end of generate_multiplier
 
+"""
+Main Program start
+"""
 
 from gw2api import GuildWars2Client
 gw2_client = GuildWars2Client()
@@ -303,17 +308,6 @@ unidFine_salvageCost = salvageCost['Mystic']*0.0127 + salvageCost['Runecrafter']
 unidMasterwork_salvageCost = salvageCost['Mystic']*0.0351 + salvageCost['Runecrafter']*0.9623
 unidRare_salvageCost = salvageCost['Silver']*1
 
-
-#Fill with api values
-unid_prices= {}
-unrefined_prices = {}
-refined_prices = {}
-other_prices = {}
-
-
-#Compare and finalize values of material
-decision = {}
-multiplier_prices = {}
 
 #Final value calculation
 unidFine_salvageValue = {}
@@ -341,99 +335,20 @@ allAPI=gw2_client.commerceprices.get(ids=allIDs)
 
 unid_prices,unrefined_prices,refined_prices,other_prices = sort_allAPI(allAPI)
 
-"""
-print('Prices')
-print('unrefined: ',unrefined_prices)
-print('refined: ',refined_prices)
-print('other: ',other_prices)
-print('unid: ',unid_prices)
-"""
-
 #Go through materials to see which are more profitable to be refined
-#check math though because placing a raw material 1c higher may blow the refined material out of the water cause current unrefined may just have a few listings left
-#value per RAW MATERIAL goes into the multiplier dict, decision of raw/refined goes into decision dict
-
 #Right now, only care about buy low and sell high
-#There is an issue where if the refined item is not 1c/raw higher than the raw item, it's better to just increase the raw item by 1 if it's not too high/will hit a massive wall
 
 multiplier_prices,decision = generate_multiplier(unrefined_prices,refined_prices,other_prices)
-"""
-#DECIDE WHEN TO ADD IN TP CUT
-if(unrefined_prices['Orichalcum Ore'][1] > refined_prices['Orichalcum Ingot'][1]/2):
-    decision['Orichalcum Ore'] = 'raw'
-    multiplier_prices['Orichalcum Ore']=unrefined_prices['Orichalcum Ore'][1]
-else:
-    decision['Orichalcum Ore'] = 'refined'
-    multiplier_prices['Orichalcum Ore']=refined_prices['Orichalcum Ingot'][1]/2
 
-if(unrefined_prices['Ancient Wood Log'][1] > refined_prices['Ancient Wood Plank'][1]/3):
-    decision['Ancient Wood Log'] = 'raw'
-    multiplier_prices['Ancient Wood Log']=unrefined_prices['Ancient Wood Log'][1]
-else:
-    decision['Ancient Wood Log'] = 'refined'
-    multiplier_prices['Ancient Wood Log']=refined_prices['Ancient Wood Plank'][1]/3
-
-if(unrefined_prices['Gossamer Scrap'][1] > refined_prices['Bolt of Gossamer'][1]/2):
-    decision['Gossamer Scrap'] = 'raw'
-    multiplier_prices['Gossamer Scrap']=unrefined_prices['Gossamer Scrap'][1]
-else:
-    decision['Gossamer Scrap'] = 'refined'
-    multiplier_prices['Gossamer Scrap']=refined_prices['Bolt of Gossamer'][1]/2
-
-if(unrefined_prices['Hardened Leather Section'][1] > refined_prices['Cured Hardened Leather Square'][1]/3):
-    decision['Hardened Leather Section'] = 'raw'
-    multiplier_prices['Hardened Leather Section']=unrefined_prices['Hardened Leather Section'][1]
-else:
-    decision['Hardened Leather Section'] = 'refined'
-    multiplier_prices['Hardened Leather Section']=refined_prices['Cured Hardened Leather Square'][1]/3
-
-if(unrefined_prices['Mithril Ore'][1] > refined_prices['Mithril Ingot'][1]/2):
-    decision['Mithril Ore'] = 'raw'
-    multiplier_prices['Mithril Ore']=unrefined_prices['Mithril Ore'][1]
-else:
-    decision['Mithril Ore'] = 'refined'
-    multiplier_prices['Mithril Ore']=refined_prices['Mithril Ingot'][1]/2
-
-if(unrefined_prices['Elder Wood Log'][1] > refined_prices['Elder Wood Plank'][1]/3):
-    decision['Elder Wood Log'] = 'raw'
-    multiplier_prices['Elder Wood Log']=unrefined_prices['Elder Wood Log'][1]
-else:
-    decision['Elder Wood Log'] = 'refined'
-    multiplier_prices['Elder Wood Log']=refined_prices['Elder Wood Plank'][1]/3
-
-if(unrefined_prices['Silk Scrap'][1] > refined_prices['Bolt of Silk'][1]/3):
-    decision['Silk Scrap'] = 'raw'
-    multiplier_prices['Silk Scrap']=unrefined_prices['Silk Scrap'][1]
-else:
-    decision['Silk Scrap'] = 'refined'
-    multiplier_prices['Silk Scrap']=refined_prices['Bolt of Silk'][1]/3
-
-if(unrefined_prices['Thick Leather Square'][1] > refined_prices['Cured Thick Leather Square'][1]/4):
-    decision['Thick Leather Square'] = 'raw'
-    multiplier_prices['Thick Leather Square']=unrefined_prices['Thick Leather Square'][1]
-else:
-    decision['Thick Leather Square'] = 'refined'
-    multiplier_prices['Thick Leather Square']=refined_prices['Cured Thick Leather Square'][1]/4
-
-if(unrefined_prices['Lucent Mote'][1] > refined_prices['Pile of Lucent Crystal'][1]/10):
-    decision['Lucent Mote'] = 'raw'
-    multiplier_prices['Lucent Mote']=unrefined_prices['Lucent Mote'][1]
-else:
-    decision['Lucent Mote'] = 'refined'
-    multiplier_prices['Lucent Mote']=refined_prices['Pile of Lucent Crystal'][1]/10
-
-#refine vs raw done. Include the other stuff now to finish
-for key in other_prices:
-    multiplier_prices[key] = other_prices[key][1]
-
-"""
-print("Decision prices:")#, decision)
-for key,value in decision.items():
-    print(key,':',value)
-
-print("\nMultiplier_prices:")#, multiplier_prices)
+#make new table. Include decision description if decision present
+print('{:<24} : {:>10}   {:<10}'.format('Material','Sell Price','State'))
+print('-'*50)
 for key, value in multiplier_prices.items():
-    print(key,':',value)
+    if key in decision:
+        print('{:<24} : {:>10}   {:<10}'.format(key,value, decision[key]))#decision[key]
+    else:
+        print('{:<24} : {:>10}'.format(key,value))
+
 
 #Calculation phase
 #salvage value = drop rate * multiplier_prices
@@ -441,24 +356,23 @@ for key, value in multiplier_prices.items():
 
 #Fine
 for key in unidFine_droprate:
-    unidFine_salvageValue[key] = 0.85*unidFine_droprate[key]*multiplier_prices[key]
+    unidFine_salvageValue[key] = round(0.85*unidFine_droprate[key]*multiplier_prices[key],4)
     unidFine_sum = unidFine_sum + unidFine_salvageValue[key]
 
 #Masterwork
 for key in unidMasterwork_droprate:
-    unidMasterwork_salvageValue[key] = 0.85*unidMasterwork_droprate[key]*multiplier_prices[key]
+    unidMasterwork_salvageValue[key] = round(0.85*unidMasterwork_droprate[key]*multiplier_prices[key],4)
     unidMasterwork_sum = unidMasterwork_sum + unidMasterwork_salvageValue[key]
 
 #Rare
 for key in unidRare_droprate:
-    unidRare_salvageValue[key] = 0.85*unidRare_droprate[key]*multiplier_prices[key]
+    unidRare_salvageValue[key] = round(0.85*unidRare_droprate[key]*multiplier_prices[key],4)
     unidRare_sum = unidRare_sum + unidRare_salvageValue[key]
 
 
 #Report time
-print()
-print('Fine unid gear costs {cost} to buy order, has an average value of {salvageCost} to salvage, and will salvage into a total value of {salvageValue} resulting in {profit} profit per salvage'.format(cost=unid_prices['Fine'][0], salvageValue=unidFine_sum, profit=unidFine_sum-unid_prices['Fine'][0]-unidFine_salvageCost, salvageCost=unidFine_salvageCost))
-print('Masterwork unid gear costs {cost} to buy order, has an average value of {salvageCost} to salvage, and will salvage into a total value of {salvageValue} resulting in {profit} profit per salvage'.format(cost=unid_prices['Masterwork'][0], salvageValue=unidMasterwork_sum, profit=unidMasterwork_sum-unid_prices['Masterwork'][0]-unidMasterwork_salvageCost, salvageCost=unidMasterwork_salvageCost))
-print('Rare unid gear costs {cost} to buy order, has an average value of {salvageCost} to salvage, and will salvage into a total value of {salvageValue} resulting in {profit} profit per salvage'.format(cost=unid_prices['Rare'][0], salvageValue=unidRare_sum, profit=unidRare_sum-unid_prices['Rare'][0]-unidRare_salvageCost, salvageCost=unidRare_salvageCost))
+print('Fine gear       : Buy order = {cost}; Average salvage cost = {salvageCost}; Average salvage value = {salvageValue}; Estimated {profit} profit per salvage'.format(cost=unid_prices['Fine'][0], salvageValue=round(unidFine_sum,4), profit=round(unidFine_sum-unid_prices['Fine'][0]-unidFine_salvageCost,4), salvageCost=unidFine_salvageCost))
+print('Masterwork gear : Buy order = {cost}; Average salvage cost = {salvageCost}; Average salvage value = {salvageValue}; Estimated {profit} profit per salvage'.format(cost=unid_prices['Masterwork'][0], salvageValue=round(unidMasterwork_sum,4), profit=round(unidMasterwork_sum-unid_prices['Masterwork'][0]-unidMasterwork_salvageCost,4), salvageCost=unidMasterwork_salvageCost))
+print('Rare gear       : Buy order = {cost}; Average salvage cost = {salvageCost}; Average salvage value = {salvageValue}; Estimated {profit} profit per salvage'.format(cost=unid_prices['Rare'][0], salvageValue=round(unidRare_sum,4), profit=round(unidRare_sum-unid_prices['Rare'][0]-unidRare_salvageCost,4), salvageCost=unidRare_salvageCost))
 
 print("The end")
