@@ -39,16 +39,24 @@ salvageCost = 10.5
 apivalues=gw2_client.commerceprices.get(ids=[19721,24277])#this is very dangerous because if I change the order, this messes up. Should switch to some kind if for x in apivalues: if ... else if ...
 
 ecto_price={}
-ecto_price['buy']=apivalues[0]['buys']['unit_price']
-ecto_price['sell']=apivalues[0]['sells']['unit_price']
 dust_price={}
-dust_price['buy']=apivalues[1]['buys']['unit_price']
-dust_price['sell']=apivalues[1]['sells']['unit_price']
+#For loop
+
+for entryAPI in apivalues:
+    if(entryAPI['id']==19721):
+        ecto_price['buy']=entryAPI['buys']['unit_price']
+        ecto_price['sell']=entryAPI['sells']['unit_price']
+    elif(entryAPI['id']==24277):
+        dust_price['buy']=entryAPI['buys']['unit_price']
+        dust_price['sell']=entryAPI['sells']['unit_price']
+    else:
+        print("Unexpected API return")
+        print(entryAPI)
 
 #ecto salvages into 1.85 dust/ecto
 dust_salvage={}
-dust_salvage['buy']=round((ecto_price['buy']+salvageCost)/1.85)
-dust_salvage['sell']=round((ecto_price['sell']+salvageCost)/1.85)
+dust_salvage['buy']=round((ecto_price['buy']+salvageCost)/1.85,4)
+dust_salvage['sell']=round((ecto_price['sell']+salvageCost)/1.85,4)
 
 #reference information
 print('Reference numbers:\nEcto - buy={ebuy}; sell={esell}\nDust - buy={dbuy}; sell={dsell}\nSalvaged dust at 1.85 dust/ecto - buy={sbuy}; sell={ssell}'.format(ebuy=ecto_price['buy'],esell=ecto_price['sell'],dbuy=dust_price['buy'],dsell=dust_price['sell'],sbuy=dust_salvage['buy'],ssell=dust_salvage['sell']))
