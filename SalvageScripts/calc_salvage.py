@@ -372,9 +372,8 @@ Metal Salvage:
         Ectoplasm use cases deserve their own script since the drop rate is so well understood already
 """
 
-
-# Requires the Python GW2 API wrapper library
-
+"""
+THIS IS EVERYTHING I WOULD LIKE TO DO BUT IS TOO MUCH FOR PASS ONE UPON FINISHING Unidentified GEAR SCRIPT
 
 #Get prices
     #Call GW2 API wrapper to get the prices of all items
@@ -457,3 +456,159 @@ def printReport():
     #state material values
     #state if refined is more profitable, and by how much
     return
+
+END VERY NICE TO HAVE SECTION"""
+
+"""
+Main Program
+"""
+
+# Requires the Python GW2 API wrapper library
+
+from gw2api import GuildWars2Client
+gw2_client = GuildWars2Client()
+
+"""Drop rates"""
+#Drop rates: Metals
+
+
+#Drop rates: Leathers
+#Unstable Hide
+droprateCopper_UnstableHide = {'Rawhide Leather Section':0.2289395441,'Thin Leather Section':0.3686818632,'Coarse Leather Section':0.3875123885,'Rugged Leather Section':0.4836471754,'Thick Leather Section':0.2190287413,'Hardened Leather Section':0.3131813677}
+droprateRunecrafter_UnstableHide = {'Rawhide Leather Section':0.141,'Thin Leather Section':0.471,'Coarse Leather Section':0.476,'Rugged Leather Section':0.506,'Thick Leather Section':0.178,'Hardened Leather Section':0.372}
+droprateRare_UnstableHide = {'Rawhide Leather Section':0.196,'Thin Leather Section':0.424,'Coarse Leather Section':0.412,'Rugged Leather Section':0.444,'Thick Leather Section':0.236,'Hardened Leather Section':0.372}
+
+
+
+#Drop rates: Cloth
+
+
+#Drop rate for the one wood
+
+
+#Salvage options
+salvageCost = {'Mystic':10.5, 'Copper':5 , 'Runecrafter':30, 'Silver':60}
+
+#Containers
+salvageLeather = {}
+unrefined_prices = {}
+refined_prices = {}
+decision = {}
+multiplier_prices = {}
+
+#Salvage Value containers
+valueCopper_UnstableHide = {}
+sumCopper_UnstableHide = 0
+valueRunecrafter_UnstableHide = {}
+sumRunecrafter_UnstableHide = 0
+valueRare_UnstableHide = {}
+sumRare_UnstableHide = 0
+#All relevant IDs
+#Once salvage item at a time
+allIDs =    [79213,#Leather salvage
+            19719,19728,19730,19731,19729,19732,#raw leather
+            19738,19733,19734,19736,19735,19737]#refined leather
+
+allAPI=gw2_client.commerceprices.get(ids=allIDs)
+
+
+#Organize API entries
+for entryAPI in allAPI:
+    if(entryAPI['id']==79213):
+        salvageLeather['Unstable Hide'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+    elif(entryAPI['id']==19719):
+        unrefined_prices['Rawhide Leather Section'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+    elif(entryAPI['id']==19728):
+        unrefined_prices['Thin Leather Section'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+    elif(entryAPI['id']==19730):
+        unrefined_prices['Coarse Leather Section'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+    elif(entryAPI['id']==19731):
+        unrefined_prices['Rugged Leather Section'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+    elif(entryAPI['id']==19729):
+        unrefined_prices['Thick Leather Section'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+    elif(entryAPI['id']==19732):
+        unrefined_prices['Hardened Leather Section'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+    elif(entryAPI['id']==19738):
+        refined_prices['Stretched Rawhide Leather Square'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+    elif(entryAPI['id']==19733):
+        refined_prices['Cured Thin Leather Square'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+    elif(entryAPI['id']==19734):
+        refined_prices['Cured Coarse Leather Square'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+    elif(entryAPI['id']==19736):
+        refined_prices['Cured Rugged Leather Square'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+    elif(entryAPI['id']==19735):
+        refined_prices['Cured Thick Leather Square'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+    elif(entryAPI['id']==19737):
+        refined_prices['Cured Hardened Leather Square'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+    else:
+        print("Unexpected API return")
+        print(entryAPI)
+
+#Multiplier creation
+#Yes, big if-else
+#Leather
+if(unrefined_prices['Hardened Leather Section'][1] > refined_prices['Cured Hardened Leather Square'][1]/3):
+    decision['Hardened Leather Section'] = 'raw'
+    multiplier_prices['Hardened Leather Section']=round(unrefined_prices['Hardened Leather Section'][1],4)
+else:
+    decision['Hardened Leather Section'] = 'refined'
+    multiplier_prices['Hardened Leather Section']=round(refined_prices['Cured Hardened Leather Square'][1]/3,4)
+if(unrefined_prices['Thick Leather Section'][1] > refined_prices['Cured Thick Leather Square'][1]/4):
+    decision['Thick Leather Section'] = 'raw'
+    multiplier_prices['Thick Leather Section']=round(unrefined_prices['Thick Leather Section'][1],4)
+else:
+    decision['Thick Leather Section'] = 'refined'
+    multiplier_prices['Thick Leather Section']=round(refined_prices['Cured Thick Leather Square'][1]/4,4)
+if(unrefined_prices['Rugged Leather Section'][1] > refined_prices['Cured Rugged Leather Square'][1]/2):
+    decision['Rugged Leather Section'] = 'raw'
+    multiplier_prices['Rugged Leather Section']=round(unrefined_prices['Rugged Leather Section'][1],4)
+else:
+    decision['Rugged Leather Section'] = 'refined'
+    multiplier_prices['Rugged Leather Section']=round(refined_prices['Cured Rugged Leather Square'][1]/2,4)
+if(unrefined_prices['Coarse Leather Section'][1] > refined_prices['Cured Coarse Leather Square'][1]/2):
+    decision['Coarse Leather Section'] = 'raw'
+    multiplier_prices['Coarse Leather Section']=round(unrefined_prices['Coarse Leather Section'][1],4)
+else:
+    decision['Coarse Leather Section'] = 'refined'
+    multiplier_prices['Coarse Leather Section']=round(refined_prices['Cured Coarse Leather Square'][1]/2,4)
+if(unrefined_prices['Thin Leather Section'][1] > refined_prices['Cured Thin Leather Square'][1]/2):
+    decision['Thin Leather Section'] = 'raw'
+    multiplier_prices['Thin Leather Section']=round(unrefined_prices['Thin Leather Section'][1],4)
+else:
+    decision['Thin Leather Section'] = 'refined'
+    multiplier_prices['Thin Leather Section']=round(refined_prices['Cured Thin Leather Square'][1]/2,4)
+if(unrefined_prices['Rawhide Leather Section'][1] > refined_prices['Stretched Rawhide Leather Square'][1]/2):
+    decision['Rawhide Leather Section'] = 'raw'
+    multiplier_prices['Rawhide Leather Section']=round(unrefined_prices['Rawhide Leather Section'][1],4)
+else:
+    decision['Rawhide Leather Section'] = 'refined'
+    multiplier_prices['Rawhide Leather Section']=round(refined_prices['Stretched Rawhide Leather Square'][1]/2,4)
+#End multiplier and decision
+
+
+#Price Chart
+print('{:<24} : {:>10}   {:<10}'.format('Material','Sell Price','State'))
+print('-'*50)
+for key, value in multiplier_prices.items():
+    if key in decision:
+        print('{:<24} : {:>10}   {:<10}'.format(key,value, decision[key]))#decision[key]
+    else:
+        print('{:<24} : {:>10}'.format(key,value))
+
+#Calculate salvaged values
+#Different salvage rates with different kits. Each thing needs 3x reports then
+for key in droprateCopper_UnstableHide:
+    valueCopper_UnstableHide[key] = round(0.85*droprateCopper_UnstableHide[key]*multiplier_prices[key],4)
+    sumCopper_UnstableHide = sumCopper_UnstableHide + valueCopper_UnstableHide[key]
+
+for key in droprateRunecrafter_UnstableHide:
+    valueRunecrafter_UnstableHide[key] = round(0.85*droprateRunecrafter_UnstableHide[key]*multiplier_prices[key],4)
+    sumRunecrafter_UnstableHide = sumRunecrafter_UnstableHide + valueRunecrafter_UnstableHide[key]
+
+for key in droprateRare_UnstableHide:
+    valueRare_UnstableHide[key] = round(0.85*droprateRare_UnstableHide[key]*multiplier_prices[key],4)
+    sumRare_UnstableHide = sumRare_UnstableHide + valueRare_UnstableHide[key]
+
+print("unstable hide Copper salvage profit is ",sumCopper_UnstableHide - salvageCost['Copper']-salvageLeather['Unstable Hide'][0])
+print("unstable hide Runecrafter salvage profit is ",sumRunecrafter_UnstableHide - salvageCost['Runecrafter']-salvageLeather['Unstable Hide'][0])
+print("unstable hide Rare salvage profit is ",sumRare_UnstableHide - salvageCost['Silver']-salvageLeather['Unstable Hide'][0])
