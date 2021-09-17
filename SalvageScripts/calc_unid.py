@@ -341,11 +341,11 @@ unid_prices,unrefined_prices,refined_prices,other_prices = sort_allAPI(allAPI)
 multiplier_prices,decision = generate_multiplier(unrefined_prices,refined_prices,other_prices)
 
 #make new table. Include decision description if decision present
-print('{:<24} : {:>10}   {:<10}'.format('Material','Sell Price','State'))
-print('-'*50)
+print('{:<24} : {:>10}   {:<10}   {:<10}   {:<10}'.format('Material','Sell Price','State','Raw','Refined'))
+print('-'*74)
 for key, value in multiplier_prices.items():
     if key in decision:
-        print('{:<24} : {:>10}   {:<10}'.format(key,value, decision[key]))#decision[key]
+        print('{:<24} : {:>10}   {:<10}   {:<10}'.format(key,value, decision[key],unrefined_prices[key][1]))#,refined_prices[key][1]
     else:
         print('{:<24} : {:>10}'.format(key,value))
 

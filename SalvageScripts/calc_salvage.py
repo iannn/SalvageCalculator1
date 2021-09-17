@@ -587,11 +587,12 @@ else:
 
 
 #Price Chart
-print('{:<24} : {:>10}   {:<10}'.format('Material','Sell Price','State'))
-print('-'*50)
+#The if is from the unid chart because there is no refinement on charm/symbol
+print('{:<24} : {:>10}   {:<10}   {:<10}   {:<10}'.format('Material','Sell Price','State','Raw','Refined'))
+print('-'*74)
 for key, value in multiplier_prices.items():
     if key in decision:
-        print('{:<24} : {:>10}   {:<10}'.format(key,value, decision[key]))#decision[key]
+        print('{:<24} : {:>10}   {:<10}   {:<10}'.format(key,value, decision[key],unrefined_prices[key][1]))#,refined_prices[key][1]
     else:
         print('{:<24} : {:>10}'.format(key,value))
 
@@ -609,6 +610,7 @@ for key in droprateRare_UnstableHide:
     valueRare_UnstableHide[key] = round(0.85*droprateRare_UnstableHide[key]*multiplier_prices[key],4)
     sumRare_UnstableHide = sumRare_UnstableHide + valueRare_UnstableHide[key]
 
+print("unstable hide buy order: ",salvageLeather['Unstable Hide'][0])
 print("unstable hide Copper salvage profit is ",sumCopper_UnstableHide - salvageCost['Copper']-salvageLeather['Unstable Hide'][0])
 print("unstable hide Runecrafter salvage profit is ",sumRunecrafter_UnstableHide - salvageCost['Runecrafter']-salvageLeather['Unstable Hide'][0])
 print("unstable hide Rare salvage profit is ",sumRare_UnstableHide - salvageCost['Silver']-salvageLeather['Unstable Hide'][0])
