@@ -308,6 +308,8 @@ unidFine_salvageCost = salvageCost['Mystic']*0.0127 + salvageCost['Runecrafter']
 unidMasterwork_salvageCost = salvageCost['Mystic']*0.0351 + salvageCost['Runecrafter']*0.9623
 unidRare_salvageCost = salvageCost['Silver']*1
 
+#needed for better table
+unrefined_to_refined = {'Orichalcum Ore':'Orichalcum Ingot','Ancient Wood Log':'Ancient Wood Plank','Gossamer Scrap':'Bolt of Gossamer','Hardened Leather Section':'Cured Hardened Leather Square','Mithril Ore':'Mithril Ingot','Elder Wood Log':'Elder Wood Plank','Silk Scrap':'Bolt of Silk','Thick Leather Square':'Cured Thick Leather Square','Lucent Mote':'Pile of Lucent Crystal'}
 
 #Final value calculation
 unidFine_salvageValue = {}
@@ -345,7 +347,7 @@ print('{:<24} : {:>10}   {:<10}   {:<10}   {:<10}'.format('Material','Sell Price
 print('-'*74)
 for key, value in multiplier_prices.items():
     if key in decision:
-        print('{:<24} : {:>10}   {:<10}   {:<10}'.format(key,value, decision[key],unrefined_prices[key][1]))#,refined_prices[key][1]
+        print('{:<24} : {:>10}   {:<10}   {:<10}   {:<10}'.format(key,value, decision[key],unrefined_prices[key][1],refined_prices[unrefined_to_refined[key]][1]))
     else:
         print('{:<24} : {:>10}'.format(key,value))
 
