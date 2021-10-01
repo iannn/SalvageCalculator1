@@ -225,8 +225,8 @@ def generate_multiplier(unrefined_prices,refined_prices,refined_scaler,refined_l
                 multiplier_prices[material_key] = round(unrefined_prices[material_key][buysell],4)
             else:
                 decision[material_key] = 'refined'
-                multiplier_prices[material_key] = round(unrefined_prices[material_key][buysell]/refined_scaler[material_key],4)
-        else:
+                multiplier_prices[material_key] = round(refined_prices[refined_lookup[material_key]][buysell]/refined_scaler[material_key],4)
+        else:#This assumes that this was part of the "other materials" dict ie charm, symbol, ecto
             decision[material_key]='none'
             multiplier_prices[material_key]=unrefined_prices[material_key][buysell]
 
@@ -238,11 +238,11 @@ def compute_result(droprate_dict,multiplier_dict,salvageCost_val,unid_name):
     unid_sum = 0
 
     for key in droprate_dict:
-        unid_salvageValue[key] = round(0.85*unidFine_droprate[key]*multiplier_prices[key],4)
+        unid_salvageValue[key] = round(0.85*droprate_dict[key]*multiplier_dict[key],4)
         unid_sum = unidFine_sum + unid_salvageValue[key]
 
 
-    print('{outname:<16}: Buy order = {cost}; Average salvage cost = {salvageCost}; Average salvage value = {salvageValue}; Estimated {profit} profit per salvage'.format(outname=unid_name,cost=unid_prices['Fine'][0], salvageValue=round(unidFine_sum,4), profit=round(unidFine_sum-unid_prices['Fine'][0]-unidFine_salvageCost,4), salvageCost=unidFine_salvageCost))
+    print('{outname:<16}: Buy order = {cost}; Average salvage cost = {salvageCost}; Average salvage value = {salvageValue}; Estimated {profit} profit per salvage'.format(outname=unid_name,cost=unid_prices[unid_name][0], salvageValue=round(unid_sum,4), profit=round(unid_salvageValue-unid_prices[unid_sum][0]-unid_salvageCost,4), salvageCost=unid_salvageCost))
 
 
 """
