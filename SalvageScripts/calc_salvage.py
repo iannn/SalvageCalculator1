@@ -481,7 +481,7 @@ Drop rates: Leathers
 ##Unstable Hide
 #My data
 droprateCopper_UnstableHide = {'Rawhide Leather Section':0.162189054726368,'Thin Leather Section':0.507462686567164,'Coarse Leather Section':0.464676616915423,'Rugged Leather Section':0.511442786069652,'Thick Leather Section':0.154228855721393,'Hardened Leather Section':0.276616915422886}
-droprateRunecrafter_UnstableHide = {'Rawhide Leather Section':0.188764829030007,'Thin Leather Section':0.464061409630147,'Coarse Leather Section':0.469295184926727,'Rugged Leather Section':0.469644103279833,'Thick Leather Section':0.186322400558269,'Hardened Leather Section':0.321702721563154}
+droprateRunecrafter_UnstableHide = {'Rawhide Leather Section':0.185832566697332,'Thin Leather Section':0.458141674333027,'Coarse Leather Section':0.462128181539405,'Rugged Leather Section':0.48359398957375,'Thick Leather Section':0.179699478687519,'Hardened Leather Section':0.328426862925483}
 #pure peu
 droprateRare_UnstableHide = {'Rawhide Leather Section':0.196,'Thin Leather Section':0.424,'Coarse Leather Section':0.412,'Rugged Leather Section':0.444,'Thick Leather Section':0.236,'Hardened Leather Section':0.372}
 
