@@ -209,11 +209,17 @@ def sort_allAPI(allAPI):
     return unid_prices,unrefined_prices,refined_prices,other_prices
 #End of sort_allAPI
 
-def generate_multiplier(unrefined_prices,refined_prices,other_prices):
+def generate_multiplier(unrefined_prices,refined_prices,refined_scaler,refined_lookup):
+    #Input: unrefined material prices, refined material prices, the scaler values to get value of raw material from refined, lookup to get refined from unrefined
+    #Output: multiplier for the best prices, the decision to refine or not
+
     #value per RAW MATERIAL goes into the multiplier dict, decision of raw/refined goes into decision dict
     #Compare and finalize values of material
     decision = {}
     multiplier_prices = {}
+
+
+    """
 
     #TP cut to be added in later
     if(unrefined_prices['Orichalcum Ore'][1] > refined_prices['Orichalcum Ingot'][1]/2):
@@ -281,8 +287,21 @@ def generate_multiplier(unrefined_prices,refined_prices,other_prices):
     #refine vs raw done. Include the other stuff now to finish multiplier_prices dict
     for key in other_prices:
         multiplier_prices[key] = other_prices[key][1]
+"""
     return multiplier_prices,decision
 #end of generate_multiplier
+
+def compute_result(droprate_dict,multiplier_dict,salvageCost_val,unid_name):
+    unid_salvageValue = {}
+    unid_sum = 0
+
+    for key in droprate_dict:
+        unid_salvageValue[key] = round(0.85*unidFine_droprate[key]*multiplier_prices[key],4)
+        unid_sum = unidFine_sum + unid_salvageValue[key]
+
+
+    print('{outname:<16}: Buy order = {cost}; Average salvage cost = {salvageCost}; Average salvage value = {salvageValue}; Estimated {profit} profit per salvage'.format(outname=unid_name,cost=unid_prices['Fine'][0], salvageValue=round(unidFine_sum,4), profit=round(unidFine_sum-unid_prices['Fine'][0]-unidFine_salvageCost,4), salvageCost=unidFine_salvageCost))
+
 
 """
 Main Program start
@@ -308,8 +327,10 @@ unidFine_salvageCost = salvageCost['Mystic']*0.0102 + salvageCost['Runecrafter']
 unidMasterwork_salvageCost = salvageCost['Mystic']*0.0343 + salvageCost['Runecrafter']*0.9628
 unidRare_salvageCost = salvageCost['Silver']*1
 
-#needed for better table
+#Helper dictionaries
 unrefined_to_refined = {'Orichalcum Ore':'Orichalcum Ingot','Ancient Wood Log':'Ancient Wood Plank','Gossamer Scrap':'Bolt of Gossamer','Hardened Leather Section':'Cured Hardened Leather Square','Mithril Ore':'Mithril Ingot','Elder Wood Log':'Elder Wood Plank','Silk Scrap':'Bolt of Silk','Thick Leather Square':'Cured Thick Leather Square','Lucent Mote':'Pile of Lucent Crystal'}
+refined_scaler = {'Orichalcum Ingot':-1,'Ancient Wood Plank':-1}
+
 
 #Final value calculation
 unidFine_salvageValue = {}
@@ -340,7 +361,7 @@ unid_prices,unrefined_prices,refined_prices,other_prices = sort_allAPI(allAPI)
 #Go through materials to see which are more profitable to be refined
 #Right now, only care about buy low and sell high
 
-multiplier_prices,decision = generate_multiplier(unrefined_prices,refined_prices,other_prices)
+multiplier_prices,decision = generate_multiplier(unrefined_prices.update(other_prices),refined_prices,)
 
 #make new table. Include decision description if decision present
 print('{:<24} : {:>10}   {:<10}   {:<10}   {:<10}'.format('Material','Sell Price','State','Raw','Refined'))
@@ -376,5 +397,9 @@ for key in unidRare_droprate:
 print('Fine gear       : Buy order = {cost}; Average salvage cost = {salvageCost}; Average salvage value = {salvageValue}; Estimated {profit} profit per salvage'.format(cost=unid_prices['Fine'][0], salvageValue=round(unidFine_sum,4), profit=round(unidFine_sum-unid_prices['Fine'][0]-unidFine_salvageCost,4), salvageCost=unidFine_salvageCost))
 print('Masterwork gear : Buy order = {cost}; Average salvage cost = {salvageCost}; Average salvage value = {salvageValue}; Estimated {profit} profit per salvage'.format(cost=unid_prices['Masterwork'][0], salvageValue=round(unidMasterwork_sum,4), profit=round(unidMasterwork_sum-unid_prices['Masterwork'][0]-unidMasterwork_salvageCost,4), salvageCost=unidMasterwork_salvageCost))
 print('Rare gear       : Buy order = {cost}; Average salvage cost = {salvageCost}; Average salvage value = {salvageValue}; Estimated {profit} profit per salvage'.format(cost=unid_prices['Rare'][0], salvageValue=round(unidRare_sum,4), profit=round(unidRare_sum-unid_prices['Rare'][0]-unidRare_salvageCost,4), salvageCost=unidRare_salvageCost))
+
+print('\nResult function test')
+compute_result(unidFine_droprate,multiplier_prices,unidFine_salvageCost,'Fine')
+
 
 print("The end")
