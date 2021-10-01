@@ -154,25 +154,25 @@ def sort_allAPI(allAPI):
             unrefined_prices['Lucent Mote'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
 
         elif(entryAPI['id']==19721):
-            other_prices['Ectoplasm'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+            unrefined_prices['Ectoplasm'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
 
         elif(entryAPI['id']==89098):
-            other_prices['Symbol of Control'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+            unrefined_prices['Symbol of Control'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
 
         elif(entryAPI['id']==89141):
-            other_prices['Symbol of Enhancement'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+            unrefined_prices['Symbol of Enhancement'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
 
         elif(entryAPI['id']==89182):
-            other_prices['Symbol of Pain'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+            unrefined_prices['Symbol of Pain'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
 
         elif(entryAPI['id']==89103):
-            other_prices['Charm of Brilliance'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+            unrefined_prices['Charm of Brilliance'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
 
         elif(entryAPI['id']==89258):
-            other_prices['Charm of Potence'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+            unrefined_prices['Charm of Potence'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
 
         elif(entryAPI['id']==89216):
-            other_prices['Charm of Skill'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+            unrefined_prices['Charm of Skill'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
 
         elif(entryAPI['id']==19685):
             refined_prices['Orichalcum Ingot'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
@@ -209,8 +209,8 @@ def sort_allAPI(allAPI):
     return unid_prices,unrefined_prices,refined_prices,other_prices
 #End of sort_allAPI
 
-def generate_multiplier(unrefined_prices,refined_prices,refined_scaler,refined_lookup):
-    #Input: unrefined material prices, refined material prices, the scaler values to get value of raw material from refined, lookup to get refined from unrefined
+def generate_multiplier(unrefined_prices,refined_prices,refined_scaler,refined_lookup,buysell):
+    #Input: unrefined material prices, refined material prices, the scaler values to get value of raw material from refined, lookup to get refined from unrefined,buysell is array position 0=buy 1=sell
     #Output: multiplier for the best prices, the decision to refine or not
 
     #value per RAW MATERIAL goes into the multiplier dict, decision of raw/refined goes into decision dict
@@ -218,76 +218,18 @@ def generate_multiplier(unrefined_prices,refined_prices,refined_scaler,refined_l
     decision = {}
     multiplier_prices = {}
 
+    for material_key in unrefined_prices:
+        if material_key in refined_scaler:
+            if unrefined_prices[material_key][buysell] >= refined_prices[refined_lookup[material_key]][buysell]/refined_scaler[material_key]:
+                decision[material_key] = 'raw'
+                multiplier_prices[material_key] = round(unrefined_prices[material_key][buysell],4)
+            else:
+                decision[material_key] = 'refined'
+                multiplier_prices[material_key] = round(unrefined_prices[material_key][buysell]/refined_scaler[material_key],4)
+        else:
+            decision[material_key]='none'
+            multiplier_prices[material_key]=unrefined_prices[material_key][buysell]
 
-    """
-
-    #TP cut to be added in later
-    if(unrefined_prices['Orichalcum Ore'][1] > refined_prices['Orichalcum Ingot'][1]/2):
-        decision['Orichalcum Ore'] = 'raw'
-        multiplier_prices['Orichalcum Ore']=round(unrefined_prices['Orichalcum Ore'][1],4)
-    else:
-        decision['Orichalcum Ore'] = 'refined'
-        multiplier_prices['Orichalcum Ore']=round(refined_prices['Orichalcum Ingot'][1]/2,4)
-
-    if(unrefined_prices['Ancient Wood Log'][1] > refined_prices['Ancient Wood Plank'][1]/3):
-        decision['Ancient Wood Log'] = 'raw'
-        multiplier_prices['Ancient Wood Log']=round(unrefined_prices['Ancient Wood Log'][1],4)
-    else:
-        decision['Ancient Wood Log'] = 'refined'
-        multiplier_prices['Ancient Wood Log']=round(refined_prices['Ancient Wood Plank'][1]/3,4)
-
-    if(unrefined_prices['Gossamer Scrap'][1] > refined_prices['Bolt of Gossamer'][1]/2):
-        decision['Gossamer Scrap'] = 'raw'
-        multiplier_prices['Gossamer Scrap']=round(unrefined_prices['Gossamer Scrap'][1],4)
-    else:
-        decision['Gossamer Scrap'] = 'refined'
-        multiplier_prices['Gossamer Scrap']=round(refined_prices['Bolt of Gossamer'][1]/2,4)
-
-    if(unrefined_prices['Hardened Leather Section'][1] > refined_prices['Cured Hardened Leather Square'][1]/3):
-        decision['Hardened Leather Section'] = 'raw'
-        multiplier_prices['Hardened Leather Section']=round(unrefined_prices['Hardened Leather Section'][1],4)
-    else:
-        decision['Hardened Leather Section'] = 'refined'
-        multiplier_prices['Hardened Leather Section']=round(refined_prices['Cured Hardened Leather Square'][1]/3,4)
-
-    if(unrefined_prices['Mithril Ore'][1] > refined_prices['Mithril Ingot'][1]/2):
-        decision['Mithril Ore'] = 'raw'
-        multiplier_prices['Mithril Ore']=round(unrefined_prices['Mithril Ore'][1],4)
-    else:
-        decision['Mithril Ore'] = 'refined'
-        multiplier_prices['Mithril Ore']=round(refined_prices['Mithril Ingot'][1]/2,4)
-
-    if(unrefined_prices['Elder Wood Log'][1] > refined_prices['Elder Wood Plank'][1]/3):
-        decision['Elder Wood Log'] = 'raw'
-        multiplier_prices['Elder Wood Log']=round(unrefined_prices['Elder Wood Log'][1],4)
-    else:
-        decision['Elder Wood Log'] = 'refined'
-        multiplier_prices['Elder Wood Log']=round(refined_prices['Elder Wood Plank'][1]/3,4)
-
-    if(unrefined_prices['Silk Scrap'][1] > refined_prices['Bolt of Silk'][1]/3):
-        decision['Silk Scrap'] = 'raw'
-        multiplier_prices['Silk Scrap']=round(unrefined_prices['Silk Scrap'][1],4)
-    else:
-        decision['Silk Scrap'] = 'refined'
-        multiplier_prices['Silk Scrap']=round(refined_prices['Bolt of Silk'][1]/3,4)
-
-    if(unrefined_prices['Thick Leather Square'][1] > refined_prices['Cured Thick Leather Square'][1]/4):
-        decision['Thick Leather Square'] = 'raw'
-        multiplier_prices['Thick Leather Square']=round(unrefined_prices['Thick Leather Square'][1],4)
-    else:
-        decision['Thick Leather Square'] = 'refined'
-        multiplier_prices['Thick Leather Square']=round(refined_prices['Cured Thick Leather Square'][1]/4,4)
-
-    if(unrefined_prices['Lucent Mote'][1] > refined_prices['Pile of Lucent Crystal'][1]/10):
-        decision['Lucent Mote'] = 'raw'
-        multiplier_prices['Lucent Mote']=round(unrefined_prices['Lucent Mote'][1],4)
-    else:
-        decision['Lucent Mote'] = 'refined'
-        multiplier_prices['Lucent Mote']=round(refined_prices['Pile of Lucent Crystal'][1]/10,4)
-    #refine vs raw done. Include the other stuff now to finish multiplier_prices dict
-    for key in other_prices:
-        multiplier_prices[key] = other_prices[key][1]
-"""
     return multiplier_prices,decision
 #end of generate_multiplier
 
@@ -328,8 +270,10 @@ unidMasterwork_salvageCost = salvageCost['Mystic']*0.0343 + salvageCost['Runecra
 unidRare_salvageCost = salvageCost['Silver']*1
 
 #Helper dictionaries
+#lookup unrefined to get refined
 unrefined_to_refined = {'Orichalcum Ore':'Orichalcum Ingot','Ancient Wood Log':'Ancient Wood Plank','Gossamer Scrap':'Bolt of Gossamer','Hardened Leather Section':'Cured Hardened Leather Square','Mithril Ore':'Mithril Ingot','Elder Wood Log':'Elder Wood Plank','Silk Scrap':'Bolt of Silk','Thick Leather Square':'Cured Thick Leather Square','Lucent Mote':'Pile of Lucent Crystal'}
-refined_scaler = {'Orichalcum Ingot':-1,'Ancient Wood Plank':-1}
+#Everything is based off of the raw material so use raw material as lookup.
+refined_scaler = {'Orichalcum Ore':2,'Ancient Wood Log':3,'Gossamer Scrap':2,'Hardened Leather Section':3,'Mithril Ore':2,'Elder Wood Log':3,'Silk Scrap':3,'Thick Leather Square':4,'Lucent Mote':10}
 
 
 #Final value calculation
@@ -361,16 +305,16 @@ unid_prices,unrefined_prices,refined_prices,other_prices = sort_allAPI(allAPI)
 #Go through materials to see which are more profitable to be refined
 #Right now, only care about buy low and sell high
 
-multiplier_prices,decision = generate_multiplier(unrefined_prices.update(other_prices),refined_prices,)
+multiplier_prices,decision = generate_multiplier(unrefined_prices,refined_prices,refined_scaler,unrefined_to_refined,1)
 
 #make new table. Include decision description if decision present
 print('{:<24} : {:>10}   {:<10}   {:<10}   {:<10}'.format('Material','Sell Price','State','Raw','Refined'))
 print('-'*74)
 for key, value in multiplier_prices.items():
-    if key in decision:
+    if key in unrefined_to_refined:
         print('{:<24} : {:>10}   {:<10}   {:<10}   {:<10}'.format(key,value, decision[key],unrefined_prices[key][1],refined_prices[unrefined_to_refined[key]][1]))
     else:
-        print('{:<24} : {:>10}'.format(key,value))
+        print('{:<24} : {:>10}   {:<10}'.format(key,value, decision[key]))
 
 
 #Calculation phase
@@ -400,6 +344,7 @@ print('Rare gear       : Buy order = {cost}; Average salvage cost = {salvageCost
 
 print('\nResult function test')
 compute_result(unidFine_droprate,multiplier_prices,unidFine_salvageCost,'Fine')
-
+compute_result(unidMasterwork_droprate,multiplier_prices,unidMasterwork_salvageCost,'Masterwork')
+compute_result(unidRare_droprate,multiplier_prices,unidRare_salvageCost,'Rare')
 
 print("The end")
