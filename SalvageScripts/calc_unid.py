@@ -234,15 +234,15 @@ def generate_multiplier(unrefined_prices,refined_prices,refined_scaler,refined_l
 #end of generate_multiplier
 
 def compute_result(droprate_dict,multiplier_dict,salvageCost_val,unid_name,unid_price):
-    unid_salvageValue = {}
-    unid_sum = 0
+    salvageValue_dct = {}
+    sum_val = 0
 
     for key in droprate_dict:
-        unid_salvageValue[key] = round(0.85*droprate_dict[key]*multiplier_dict[key],4)
-        unid_sum = unidFine_sum + unid_salvageValue[key]
+        salvageValue_dct[key] = round(0.85*droprate_dict[key]*multiplier_dict[key],4)
+        sum_val = sum_val + salvageValue_dct[key]
 
 
-    print('{outname:<16}: Buy order = {cost}; Average salvage cost = {salvageCost}; Average salvage value = {salvageValue}; Estimated {profit} profit per salvage'.format(outname=unid_name,cost=unid_price, salvageValue=round(unid_sum,4), profit=round(unid_salvageValue-unid_price-salvageCost_val,4), salvageCost=salvageCost_val))
+    print('{print_outname:<16}: Buy order = {print_cost}; Average salvage cost = {print_salvageCost}; Average salvage value = {print_salvageValue}; Estimated {print_profit} profit per salvage'.format(print_outname=unid_name,print_cost=unid_price, print_salvageValue=round(sum_val,4), print_profit=round(sum_val-unid_price-salvageCost_val,4), print_salvageCost=salvageCost_val))
 
 
 """
@@ -346,5 +346,10 @@ print('\nResult function test')
 compute_result(unidFine_droprate,multiplier_prices,unidFine_salvageCost,'Fine',unid_prices['Fine'][0])
 compute_result(unidMasterwork_droprate,multiplier_prices,unidMasterwork_salvageCost,'Masterwork',unid_prices['Masterwork'][0])
 compute_result(unidRare_droprate,multiplier_prices,unidRare_salvageCost,'Rare',unid_prices['Rare'][0])
+
+
+print('\nBuy testing')
+buymultiplier,buydecisions = generate_multiplier(unrefined_prices,refined_prices,refined_scaler,unrefined_to_refined,1)
+
 
 print("The end")
