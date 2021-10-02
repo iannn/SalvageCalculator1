@@ -233,7 +233,7 @@ def generate_multiplier(unrefined_prices,refined_prices,refined_scaler,refined_l
     return multiplier_prices,decision
 #end of generate_multiplier
 
-def compute_result(droprate_dict,multiplier_dict,salvageCost_val,unid_name):
+def compute_result(droprate_dict,multiplier_dict,salvageCost_val,unid_name,unid_price):
     unid_salvageValue = {}
     unid_sum = 0
 
@@ -242,7 +242,7 @@ def compute_result(droprate_dict,multiplier_dict,salvageCost_val,unid_name):
         unid_sum = unidFine_sum + unid_salvageValue[key]
 
 
-    print('{outname:<16}: Buy order = {cost}; Average salvage cost = {salvageCost}; Average salvage value = {salvageValue}; Estimated {profit} profit per salvage'.format(outname=unid_name,cost=unid_prices[unid_name][0], salvageValue=round(unid_sum,4), profit=round(unid_salvageValue-unid_prices[unid_sum][0]-unid_salvageCost,4), salvageCost=unid_salvageCost))
+    print('{outname:<16}: Buy order = {cost}; Average salvage cost = {salvageCost}; Average salvage value = {salvageValue}; Estimated {profit} profit per salvage'.format(outname=unid_name,cost=unid_price, salvageValue=round(unid_sum,4), profit=round(unid_salvageValue-unid_price-salvageCost_val,4), salvageCost=salvageCost_val))
 
 
 """
@@ -343,8 +343,8 @@ print('Masterwork gear : Buy order = {cost}; Average salvage cost = {salvageCost
 print('Rare gear       : Buy order = {cost}; Average salvage cost = {salvageCost}; Average salvage value = {salvageValue}; Estimated {profit} profit per salvage'.format(cost=unid_prices['Rare'][0], salvageValue=round(unidRare_sum,4), profit=round(unidRare_sum-unid_prices['Rare'][0]-unidRare_salvageCost,4), salvageCost=unidRare_salvageCost))
 
 print('\nResult function test')
-compute_result(unidFine_droprate,multiplier_prices,unidFine_salvageCost,'Fine')
-compute_result(unidMasterwork_droprate,multiplier_prices,unidMasterwork_salvageCost,'Masterwork')
-compute_result(unidRare_droprate,multiplier_prices,unidRare_salvageCost,'Rare')
+compute_result(unidFine_droprate,multiplier_prices,unidFine_salvageCost,'Fine',unid_prices['Fine'][0])
+compute_result(unidMasterwork_droprate,multiplier_prices,unidMasterwork_salvageCost,'Masterwork',unid_prices['Masterwork'][0])
+compute_result(unidRare_droprate,multiplier_prices,unidRare_salvageCost,'Rare',unid_prices['Rare'][0])
 
 print("The end")
