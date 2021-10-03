@@ -209,7 +209,7 @@ def sort_allAPI(allAPI):
     return unid_prices,unrefined_prices,refined_prices,other_prices
 #End of sort_allAPI
 
-def generate_multiplier(unrefined_prices,refined_prices,refined_scaler,refined_lookup,buysell):
+def generate_multiplier(unrefined_dct,refined_dct,refined_scaler,refined_lookup,buysell):
     #Input: unrefined material prices, refined material prices, the scaler values to get value of raw material from refined, lookup to get refined from unrefined,buysell is array position 0=buy 1=sell
     #Output: multiplier for the best prices, the decision to refine or not
 
@@ -218,17 +218,17 @@ def generate_multiplier(unrefined_prices,refined_prices,refined_scaler,refined_l
     decision = {}
     multiplier_prices = {}
 
-    for material_key in unrefined_prices:
+    for material_key in unrefined_dct:
         if material_key in refined_scaler:
-            if unrefined_prices[material_key][buysell] >= refined_prices[refined_lookup[material_key]][buysell]/refined_scaler[material_key]:
+            if unrefined_dct[material_key][buysell] >= refined_dct[refined_lookup[material_key]][buysell]/refined_scaler[material_key]:
                 decision[material_key] = 'raw'
-                multiplier_prices[material_key] = round(unrefined_prices[material_key][buysell],4)
+                multiplier_prices[material_key] = round(unrefined_dct[material_key][buysell],4)
             else:
                 decision[material_key] = 'refined'
-                multiplier_prices[material_key] = round(refined_prices[refined_lookup[material_key]][buysell]/refined_scaler[material_key],4)
+                multiplier_prices[material_key] = round(refined_dct[refined_lookup[material_key]][buysell]/refined_scaler[material_key],4)
         else:#This assumes that this was part of the "other materials" dict ie charm, symbol, ecto
             decision[material_key]='none'
-            multiplier_prices[material_key]=unrefined_prices[material_key][buysell]
+            multiplier_prices[material_key]=unrefined_dct[material_key][buysell]
 
     return multiplier_prices,decision
 #end of generate_multiplier
@@ -350,6 +350,6 @@ compute_result(unidRare_droprate,multiplier_prices,unidRare_salvageCost,'Rare',u
 
 print('\nBuy testing')
 buymultiplier,buydecisions = generate_multiplier(unrefined_prices,refined_prices,refined_scaler,unrefined_to_refined,1)
-
+compute_result(unidFine_droprate,multiplier_prices,unidFine_salvageCost,'Fine',unid_prices['Fine'][0])
 
 print("The end")
