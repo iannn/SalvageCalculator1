@@ -233,7 +233,7 @@ def generate_multiplier(unrefined_dct,refined_dct,refined_scaler,refined_lookup,
     return multiplier_prices,decision
 #end of generate_multiplier
 
-def compute_result(droprate_dict,multiplier_dict,salvageCost_val,unid_name,unid_price):
+def compute_result(droprate_dict,multiplier_dict):
     salvageValue_dct = {}
     sum_val = 0
 
@@ -241,7 +241,9 @@ def compute_result(droprate_dict,multiplier_dict,salvageCost_val,unid_name,unid_
         salvageValue_dct[key] = round(0.85*droprate_dict[key]*multiplier_dict[key],4)
         sum_val = sum_val + salvageValue_dct[key]
 
+    return salvageValue_dct,sum_val
 
+def unidPrint(droprate_dict,multiplier_dict,salvageCost_val,unid_name,unid_price,sum_val):
     print('{print_outname:<16}: Buy order = {print_cost}; Average salvage cost = {print_salvageCost}; Average salvage value = {print_salvageValue}; Estimated {print_profit} profit per salvage'.format(print_outname=unid_name,print_cost=unid_price, print_salvageValue=round(sum_val,4), print_profit=round(sum_val-unid_price-salvageCost_val,4), print_salvageCost=salvageCost_val))
 
 
@@ -276,14 +278,6 @@ unrefined_to_refined = {'Orichalcum Ore':'Orichalcum Ingot','Ancient Wood Log':'
 refined_scaler = {'Orichalcum Ore':2,'Ancient Wood Log':3,'Gossamer Scrap':2,'Hardened Leather Section':3,'Mithril Ore':2,'Elder Wood Log':3,'Silk Scrap':3,'Thick Leather Square':4,'Lucent Mote':10}
 
 
-#Final value calculation
-unidFine_salvageValue = {}
-unidMasterwork_salvageValue = {}
-unidRare_salvageValue = {}
-
-unidFine_sum = 0
-unidMasterwork_sum = 0
-unidRare_sum = 0
 
 
 
@@ -316,12 +310,14 @@ for key, value in multiplier_prices.items():
     else:
         print('{:<24} : {:>10}   {:<10}'.format(key,value, decision[key]))
 
-
 print('\nResult function: Sell')
-compute_result(unidFine_droprate,multiplier_prices,unidFine_salvageCost,'Fine',unid_prices['Fine'][0])
-compute_result(unidMasterwork_droprate,multiplier_prices,unidMasterwork_salvageCost,'Masterwork',unid_prices['Masterwork'][0])
-compute_result(unidRare_droprate,multiplier_prices,unidRare_salvageCost,'Rare',unid_prices['Rare'][0])
+unidFine_SalvageValue, unidFine_sum = compute_result(unidFine_droprate,multiplier_prices,unidFine_salvageCost,'Fine',)
+unidMasterwork_salvageValue, unidMasterwork_sum = compute_result(unidMasterwork_droprate,multiplier_prices,unidMasterwork_salvageCost,'Masterwork',unid_prices['Masterwork'][0])
+unidRare_salvageValue, unidRare_sum = compute_result(unidRare_droprate,multiplier_prices,unidRare_salvageCost,'Rare',unid_prices['Rare'][0])
 
+unidPrint(droprate_dict,multiplier_dict,salvageCost_val,'Fine',unid_prices['Fine'][0],unidFine_sum)
+unidPrint(droprate_dict,multiplier_dict,salvageCost_val,unid_name,unid_price,sum_val)
+unidPrint(droprate_dict,multiplier_dict,salvageCost_val,unid_name,unid_price,sum_val)
 
 print('\nBuy testing')
 buymultiplier,buydecisions = generate_multiplier(unrefined_prices,refined_prices,refined_scaler,unrefined_to_refined,1)
