@@ -308,41 +308,16 @@ unid_prices,unrefined_prices,refined_prices,other_prices = sort_allAPI(allAPI)
 multiplier_prices,decision = generate_multiplier(unrefined_prices,refined_prices,refined_scaler,unrefined_to_refined,1)
 
 #make new table. Include decision description if decision present
-print('{:<24} : {:>10}   {:<10}   {:<10}   {:<10}'.format('Material','Sell Price','State','Raw','Refined'))
+print('{:<24} : {:>10}   {:<10}   {:<5}   {:>10}'.format('Material','Sell Price','State','Raw','Refined'))
 print('-'*74)
 for key, value in multiplier_prices.items():
     if key in unrefined_to_refined:
-        print('{:<24} : {:>10}   {:<10}   {:<10}   {:<10}'.format(key,value, decision[key],unrefined_prices[key][1],refined_prices[unrefined_to_refined[key]][1]))
+        print('{:<24} : {:>10}   {:<10}   {:>5}   {:>10}'.format(key,value, decision[key],unrefined_prices[key][1],refined_prices[unrefined_to_refined[key]][1]))
     else:
         print('{:<24} : {:>10}   {:<10}'.format(key,value, decision[key]))
 
 
-#Calculation phase
-#salvage value = drop rate * multiplier_prices
-#Now I add in TP cut. Adding to salvage value is fine because the TP prices are on
-
-#Fine
-for key in unidFine_droprate:
-    unidFine_salvageValue[key] = round(0.85*unidFine_droprate[key]*multiplier_prices[key],4)
-    unidFine_sum = unidFine_sum + unidFine_salvageValue[key]
-
-#Masterwork
-for key in unidMasterwork_droprate:
-    unidMasterwork_salvageValue[key] = round(0.85*unidMasterwork_droprate[key]*multiplier_prices[key],4)
-    unidMasterwork_sum = unidMasterwork_sum + unidMasterwork_salvageValue[key]
-
-#Rare
-for key in unidRare_droprate:
-    unidRare_salvageValue[key] = round(0.85*unidRare_droprate[key]*multiplier_prices[key],4)
-    unidRare_sum = unidRare_sum + unidRare_salvageValue[key]
-
-
-#Report time
-print('Fine gear       : Buy order = {cost}; Average salvage cost = {salvageCost}; Average salvage value = {salvageValue}; Estimated {profit} profit per salvage'.format(cost=unid_prices['Fine'][0], salvageValue=round(unidFine_sum,4), profit=round(unidFine_sum-unid_prices['Fine'][0]-unidFine_salvageCost,4), salvageCost=unidFine_salvageCost))
-print('Masterwork gear : Buy order = {cost}; Average salvage cost = {salvageCost}; Average salvage value = {salvageValue}; Estimated {profit} profit per salvage'.format(cost=unid_prices['Masterwork'][0], salvageValue=round(unidMasterwork_sum,4), profit=round(unidMasterwork_sum-unid_prices['Masterwork'][0]-unidMasterwork_salvageCost,4), salvageCost=unidMasterwork_salvageCost))
-print('Rare gear       : Buy order = {cost}; Average salvage cost = {salvageCost}; Average salvage value = {salvageValue}; Estimated {profit} profit per salvage'.format(cost=unid_prices['Rare'][0], salvageValue=round(unidRare_sum,4), profit=round(unidRare_sum-unid_prices['Rare'][0]-unidRare_salvageCost,4), salvageCost=unidRare_salvageCost))
-
-print('\nResult function test')
+print('\nResult function: Sell')
 compute_result(unidFine_droprate,multiplier_prices,unidFine_salvageCost,'Fine',unid_prices['Fine'][0])
 compute_result(unidMasterwork_droprate,multiplier_prices,unidMasterwork_salvageCost,'Masterwork',unid_prices['Masterwork'][0])
 compute_result(unidRare_droprate,multiplier_prices,unidRare_salvageCost,'Rare',unid_prices['Rare'][0])
