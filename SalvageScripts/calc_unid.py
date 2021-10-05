@@ -113,7 +113,6 @@ def sort_allAPI(allAPI):
     unid_prices= {}
     unrefined_prices = {}
     refined_prices = {}
-    other_prices = {}
 
     #assemble the dictionaries
     for entryAPI in allAPI:
@@ -260,7 +259,7 @@ allIDs = [85016,84731,83008,#unidentified gear
 
 allAPI=gw2_client.commerceprices.get(ids=allIDs)
 
-unid_prices,unrefined_prices,refined_prices,other_prices = sort_allAPI(allAPI)
+unid_prices,unrefined_prices,refined_prices = sort_allAPI(allAPI)
 
 #Right now, only care about buy low and sell high
 #Determine if material is more profitable
