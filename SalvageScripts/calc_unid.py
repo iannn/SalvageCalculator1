@@ -210,8 +210,16 @@ def sort_allAPI(allAPI):
 #End of sort_allAPI
 
 def generate_multiplier(unrefined_dct,refined_dct,refined_scaler,refined_lookup,buysell):
-    #Input: unrefined material prices, refined material prices, the scaler values to get value of raw material from refined, lookup to get refined from unrefined,buysell is array position 0=buy 1=sell
-    #Output: multiplier for the best prices, the decision to refine or not
+    """Input:
+        unrefined material prices dictionary
+        refined material prices dictionary
+        the scaler values to get value of raw material from refined
+        lookup dictionary to get refined from unrefined
+        buysell value. It is the array position 0=buy 1=sell"""
+
+    """Output:
+        multiplier for the best value/raw material
+        the decision to refine or not"""
 
     #value per RAW MATERIAL goes into the multiplier dict, decision of raw/refined goes into decision dict
     #Compare and finalize values of material
@@ -233,17 +241,21 @@ def generate_multiplier(unrefined_dct,refined_dct,refined_scaler,refined_lookup,
     return multiplier_prices,decision
 #end of generate_multiplier
 
-def compute_result(droprate_dict,multiplier_dict):
+def compute_result(droprate_dict,multiplier_dict,TPCut):
     salvageValue_dct = {}
     sum_val = 0
+    if TPCut == True:
+        TPValue = 0.85
+    else:
+        TPValue = 1
 
     for key in droprate_dict:
-        salvageValue_dct[key] = round(0.85*droprate_dict[key]*multiplier_dict[key],4)
+        salvageValue_dct[key] = round(TPValue*droprate_dict[key]*multiplier_dict[key],4)
         sum_val = sum_val + salvageValue_dct[key]
 
     return salvageValue_dct,sum_val
 
-def unidPrint(droprate_dict,multiplier_dict,salvageCost_val,unid_name,unid_price,sum_val):
+def unidPrint(droprate_dict,salvageCost_val,unid_name,unid_price,sum_val):
     print('{print_outname:<16}: Buy order = {print_cost}; Average salvage cost = {print_salvageCost}; Average salvage value = {print_salvageValue}; Estimated {print_profit} profit per salvage'.format(print_outname=unid_name,print_cost=unid_price, print_salvageValue=round(sum_val,4), print_profit=round(sum_val-unid_price-salvageCost_val,4), print_salvageCost=salvageCost_val))
 
 
@@ -296,31 +308,33 @@ allAPI=gw2_client.commerceprices.get(ids=allIDs)
 
 unid_prices,unrefined_prices,refined_prices,other_prices = sort_allAPI(allAPI)
 
-#Go through materials to see which are more profitable to be refined
 #Right now, only care about buy low and sell high
+#Determine if material is more profitable
 
 multiplier_prices,decision = generate_multiplier(unrefined_prices,refined_prices,refined_scaler,unrefined_to_refined,1)
 
+#Post
+unidFine_SalvageValue, unidFine_sum = compute_result(unidFine_droprate,multiplier_prices,True)
+unidMasterwork_salvageValue, unidMasterwork_sum = compute_result(unidMasterwork_droprate,multiplier_prices,True)
+unidRare_salvageValue, unidRare_sum = compute_result(unidRare_droprate,multiplier_prices,True)
+
 #make new table. Include decision description if decision present
-print('{:<24} : {:>10}   {:<10}   {:<5}   {:>10}'.format('Material','Sell Price','State','Raw','Refined'))
-print('-'*74)
+print('{:<24} : {:>10}   {:<10}   {:<5}   {:>10}   {:>10}   {:>10}   {:>10}'.format('Material','Sell Price','State','Raw','Refined','Fine','Masterwork','Rare'))
+print('-'*113)
 for key, value in multiplier_prices.items():
     if key in unrefined_to_refined:
-        print('{:<24} : {:>10}   {:<10}   {:>5}   {:>10}'.format(key,value, decision[key],unrefined_prices[key][1],refined_prices[unrefined_to_refined[key]][1]))
+        print('{:<24} : {:>10}   {:<10}   {:>5}   {:>10}   {:>10}   {:>10}   {:>10}'.format(key,value, decision[key],unrefined_prices[key][1],refined_prices[unrefined_to_refined[key]][1],unidFine_SalvageValue[key],unidMasterwork_salvageValue[key],unidRare_salvageValue[key]))
     else:
-        print('{:<24} : {:>10}   {:<10}'.format(key,value, decision[key]))
+        print('{:<24} : {:>10}   {:<10}   {:>5}   {:>10}   {:>10}   {:>10}   {:>10}'.format(key,value, decision[key],'-','-',unidFine_SalvageValue[key],unidMasterwork_salvageValue[key],unidRare_salvageValue[key]))
 
 print('\nResult function: Sell')
-unidFine_SalvageValue, unidFine_sum = compute_result(unidFine_droprate,multiplier_prices,unidFine_salvageCost,'Fine',)
-unidMasterwork_salvageValue, unidMasterwork_sum = compute_result(unidMasterwork_droprate,multiplier_prices,unidMasterwork_salvageCost,'Masterwork',unid_prices['Masterwork'][0])
-unidRare_salvageValue, unidRare_sum = compute_result(unidRare_droprate,multiplier_prices,unidRare_salvageCost,'Rare',unid_prices['Rare'][0])
 
-unidPrint(droprate_dict,multiplier_dict,salvageCost_val,'Fine',unid_prices['Fine'][0],unidFine_sum)
-unidPrint(droprate_dict,multiplier_dict,salvageCost_val,unid_name,unid_price,sum_val)
-unidPrint(droprate_dict,multiplier_dict,salvageCost_val,unid_name,unid_price,sum_val)
+unidPrint(unidFine_droprate,unidFine_salvageCost,'Fine',unid_prices['Fine'][0],unidFine_sum)
+unidPrint(unidMasterwork_droprate,unidMasterwork_salvageCost,'Masterwork',unid_prices['Masterwork'][0],unidMasterwork_sum)
+unidPrint(unidRare_droprate,unidRare_salvageCost,'Rare',unid_prices['Rare'][0],unidRare_sum)
 
 print('\nBuy testing')
-buymultiplier,buydecisions = generate_multiplier(unrefined_prices,refined_prices,refined_scaler,unrefined_to_refined,1)
-compute_result(unidFine_droprate,multiplier_prices,unidFine_salvageCost,'Fine',unid_prices['Fine'][0])
+#buymultiplier,buydecisions = generate_multiplier(unrefined_prices,refined_prices,refined_scaler,unrefined_to_refined,1)
+#compute_result(unidFine_droprate,multiplier_prices,unidFine_salvageCost,'Fine',unid_prices['Fine'][0])
 
 print("The end")
