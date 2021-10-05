@@ -459,12 +459,56 @@ def printReport():
 
 END VERY NICE TO HAVE SECTION"""
 
+#Organize API entries
+def sort_allAPI(allAPI):
+    salvageLeather = {}
+    unrefined_prices = {}
+    refined_prices = {}
+
+    for entryAPI in allAPI:
+        if(entryAPI['id']==79213):
+            salvageLeather['Unstable Hide'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==80681):
+            salvageLeather['BloodstoneWarpedHide'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==21689):
+            salvageLeather['HardLeatherStrap'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19719):
+            unrefined_prices['Rawhide Leather Section'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19728):
+            unrefined_prices['Thin Leather Section'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19730):
+            unrefined_prices['Coarse Leather Section'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19731):
+            unrefined_prices['Rugged Leather Section'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19729):
+            unrefined_prices['Thick Leather Section'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19732):
+            unrefined_prices['Hardened Leather Section'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19738):
+            refined_prices['Stretched Rawhide Leather Square'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19733):
+            refined_prices['Cured Thin Leather Square'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19734):
+            refined_prices['Cured Coarse Leather Square'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19736):
+            refined_prices['Cured Rugged Leather Square'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19735):
+            refined_prices['Cured Thick Leather Square'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19737):
+            refined_prices['Cured Hardened Leather Square'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        else:
+            print("Unexpected API return")
+            print(entryAPI)
+
+    return salvageLeather, unrefined_prices, refined_prices
+
 """
 Main Program
 """
 
-# Requires the Python GW2 API wrapper library
-
+#Import new common helper file
+#from calc_helpers import *
+#Python GW2 API wrapper library
 from gw2api import GuildWars2Client
 gw2_client = GuildWars2Client()
 
@@ -503,7 +547,11 @@ droprateRare_HardLeatherStrap = {'Thick Leather Section':1.232,'Hardened Leather
 Drop rates: Cloth
 """
 
-#Drop rate for the one wood
+
+"""
+Drop rates: Wood
+"""
+#Yes, there's only 1
 
 
 #Salvage options
@@ -512,9 +560,7 @@ salvageCost = {'Mystic':10.5, 'Copper':5 , 'Runecrafter':30, 'Silver':60}
 #Containers
 unrefined_to_refined = {'Hardened Leather Section':'Cured Hardened Leather Square','Thick Leather Section':'Cured Thick Leather Square','Rugged Leather Section':'Cured Rugged Leather Square','Coarse Leather Section':'Cured Coarse Leather Square','Thin Leather Section':'Cured Thin Leather Square','Rawhide Leather Section':'Stretched Rawhide Leather Square'}
 
-salvageLeather = {}
-unrefined_prices = {}
-refined_prices = {}
+
 decision = {}
 multiplier_prices = {}
 
@@ -550,42 +596,7 @@ allIDs =    [79213,80681,21689,#Leather salvage
 
 allAPI=gw2_client.commerceprices.get(ids=allIDs)
 
-
-#Organize API entries
-for entryAPI in allAPI:
-    if(entryAPI['id']==79213):
-        salvageLeather['Unstable Hide'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-    elif(entryAPI['id']==80681):
-        salvageLeather['BloodstoneWarpedHide'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-    elif(entryAPI['id']==21689):
-        salvageLeather['HardLeatherStrap'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-    elif(entryAPI['id']==19719):
-        unrefined_prices['Rawhide Leather Section'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-    elif(entryAPI['id']==19728):
-        unrefined_prices['Thin Leather Section'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-    elif(entryAPI['id']==19730):
-        unrefined_prices['Coarse Leather Section'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-    elif(entryAPI['id']==19731):
-        unrefined_prices['Rugged Leather Section'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-    elif(entryAPI['id']==19729):
-        unrefined_prices['Thick Leather Section'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-    elif(entryAPI['id']==19732):
-        unrefined_prices['Hardened Leather Section'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-    elif(entryAPI['id']==19738):
-        refined_prices['Stretched Rawhide Leather Square'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-    elif(entryAPI['id']==19733):
-        refined_prices['Cured Thin Leather Square'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-    elif(entryAPI['id']==19734):
-        refined_prices['Cured Coarse Leather Square'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-    elif(entryAPI['id']==19736):
-        refined_prices['Cured Rugged Leather Square'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-    elif(entryAPI['id']==19735):
-        refined_prices['Cured Thick Leather Square'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-    elif(entryAPI['id']==19737):
-        refined_prices['Cured Hardened Leather Square'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-    else:
-        print("Unexpected API return")
-        print(entryAPI)
+salvageLeather, unrefined_prices, refined_prices = sort_allAPI(allAPI)
 
 #Multiplier creation
 #Yes, big if-else
