@@ -15,22 +15,23 @@ def generate_multiplier(unrefined_dct,refined_dct,refined_scaler,refined_lookup,
 
     #value per RAW MATERIAL goes into the multiplier dict, decision of raw/refined goes into decision dict
     #Compare and finalize values of material
-    decision = {}
-    multiplier_prices = {}
+    decision_dct = {}
+    multiplier_dct = {}
 
     for material_key in unrefined_dct:
         if material_key in refined_scaler:
-            if unrefined_dct[material_key][buysell] >= refined_dct[refined_lookup[material_key]][buysell]/refined_scaler[material_key]:
-                decision[material_key] = 'raw'
-                multiplier_prices[material_key] = round(unrefined_dct[material_key][buysell],4)
+            if material_key == 'Copper Ore':
+            elif unrefined_dct[material_key][buysell] >= refined_dct[refined_lookup[material_key]][buysell]/refined_scaler[material_key]:
+                decision_dct[material_key] = 'raw'
+                multiplier_dct[material_key] = round(unrefined_dct[material_key][buysell],4)
             else:
-                decision[material_key] = 'refined'
-                multiplier_prices[material_key] = round(refined_dct[refined_lookup[material_key]][buysell]/refined_scaler[material_key],4)
+                decision_dct[material_key] = 'refined'
+                multiplier_dct[material_key] = round(refined_dct[refined_lookup[material_key]][buysell]/refined_scaler[material_key],4)
         else:#This assumes that this was part of the "other materials" dict ie charm, symbol, ecto
-            decision[material_key]='none'
-            multiplier_prices[material_key]=unrefined_dct[material_key][buysell]
+            decision_dct[material_key]='none'
+            multiplier_dct[material_key]=unrefined_dct[material_key][buysell]
 
-    return multiplier_prices,decision
+    return multiplier_dct,decision_dct
 #end of generate_multiplier
 
 

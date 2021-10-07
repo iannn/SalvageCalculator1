@@ -553,16 +553,19 @@ Drop rates: Wood
 """
 #Yes, there's only 1
 
-
+"""
+Helper stuff
+"""
 #Salvage options
 salvageCost = {'Mystic':10.5, 'Copper':5 , 'Runecrafter':30, 'Silver':60}
 
 #Containers
-unrefined_to_refined = {'Hardened Leather Section':'Cured Hardened Leather Square','Thick Leather Section':'Cured Thick Leather Square','Rugged Leather Section':'Cured Rugged Leather Square','Coarse Leather Section':'Cured Coarse Leather Square','Thin Leather Section':'Cured Thin Leather Square','Rawhide Leather Section':'Stretched Rawhide Leather Square'}
+unrefined_to_refined = {'Hardened Leather Section':'Cured Hardened Leather Square','Thick Leather Section':'Cured Thick Leather Square','Rugged Leather Section':'Cured Rugged Leather Square','Coarse Leather Section':'Cured Coarse Leather Square','Thin Leather Section':'Cured Thin Leather Square','Rawhide Leather Section':'Stretched Rawhide Leather Square',
+                        'Copper Ore':'Copper Ingot',''}
 
 
+multiplier_prices ={}
 decision = {}
-multiplier_prices = {}
 
 #Salvage Value containers
 valueCopper_UnstableHide = {}
@@ -599,6 +602,10 @@ allAPI=gw2_client.commerceprices.get(ids=allIDs)
 salvageLeather, unrefined_prices, refined_prices = sort_allAPI(allAPI)
 
 #Multiplier creation
+
+#multiplier_prices,decision = generate_multiplier(unrefined_prices,refined_prices,refined_scaler,refined_lookup,buysell)
+
+
 #Yes, big if-else
 #Leather
 if(unrefined_prices['Hardened Leather Section'][1] > refined_prices['Cured Hardened Leather Square'][1]/3):
