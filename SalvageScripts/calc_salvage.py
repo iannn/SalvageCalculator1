@@ -480,21 +480,21 @@ Drop rates: Leathers
 """
 ##Unstable Hide
 #My data
-droprateCopper_UnstableHide = {'Rawhide Leather Section':0.1622,'Thin Leather Section':0.5075,'Coarse Leather Section':0.4647,'Rugged Leather Section':0.5114,'Thick Leather Section':0.1542,'Hardened Leather Section':0.2766}
+droprateCopper_UnstableHide = {'Rawhide Leather Section':0.1621,'Thin Leather Section':0.5152,'Coarse Leather Section':0.4758,'Rugged Leather Section':0.4798,'Thick Leather Section':0.1516,'Hardened Leather Section':0.2813}
 droprateRunecrafter_UnstableHide = {'Rawhide Leather Section':0.1730,'Thin Leather Section':0.4786,'Coarse Leather Section':0.4877,'Rugged Leather Section':0.4779,'Thick Leather Section':0.1680,'Hardened Leather Section':0.3152}
 #pure peu
 droprateRare_UnstableHide = {'Rawhide Leather Section':0.196,'Thin Leather Section':0.424,'Coarse Leather Section':0.412,'Rugged Leather Section':0.444,'Thick Leather Section':0.236,'Hardened Leather Section':0.372}
 
 ##Bloodstone-Warped Hide
 #wiki
-droprateCopper_BloodstoneWarpedHide = {'Rawhide Leather Section':0.0443,'Thin Leather Section':0.0471,'Coarse Leather Section':0.0393,'Rugged Leather Section':0.0385,'Thick Leather Section':0.4453,'Hardened Leather Section':0.5020}
+droprateCopper_BloodstoneWarpedHide = {'Rawhide Leather Section':0.0470,'Thin Leather Section':0.0530,'Coarse Leather Section':0.0439,'Rugged Leather Section':0.0515,'Thick Leather Section':0.4583,'Hardened Leather Section':0.4606}
 #my data only
-droprateRunecrafter_BloodstoneWarpedHide = {'Rawhide Leather Section':0.0423,'Thin Leather Section':0.0472,'Coarse Leather Section':0.0498,'Rugged Leather Section':0.0462,'Thick Leather Section':0.5007,'Hardened Leather Section':0.5215}
+droprateRunecrafter_BloodstoneWarpedHide = {'Rawhide Leather Section':0.0421,'Thin Leather Section':0.0469,'Coarse Leather Section':0.0491,'Rugged Leather Section':0.0459,'Thick Leather Section':0.5034,'Hardened Leather Section':0.5184}
 #wiki
 droprateRare_BloodstoneWarpedHide = {'Rawhide Leather Section':0.0557,'Thin Leather Section':.0581,'Coarse Leather Section':0.0521,'Rugged Leather Section':0.0508,'Thick Leather Section':0.4758,'Hardened Leather Section':0.5541}
 
 #Hard Leather Strap
-droprateCopper_HardLeatherStrap = {'Thick Leather Section':1.2851,'Hardened Leather Section':0.0786}
+droprateCopper_HardLeatherStrap = {'Thick Leather Section':1.2865,'Hardened Leather Section':0.0770}
 droprateRunecrafter_HardLeatherStrap = {'Thick Leather Section':1.352,'Hardened Leather Section':0.092}
 droprateRare_HardLeatherStrap = {'Thick Leather Section':1.232,'Hardened Leather Section':0.112}
 
