@@ -243,7 +243,7 @@ unidRare_salvageCost = salvageCost['Silver']*1
 #lookup unrefined to get refined
 unrefined_to_refined = {'Orichalcum Ore':'Orichalcum Ingot','Ancient Wood Log':'Ancient Wood Plank','Gossamer Scrap':'Bolt of Gossamer','Hardened Leather Section':'Cured Hardened Leather Square','Mithril Ore':'Mithril Ingot','Elder Wood Log':'Elder Wood Plank','Silk Scrap':'Bolt of Silk','Thick Leather Square':'Cured Thick Leather Square','Lucent Mote':'Pile of Lucent Crystal'}
 #Everything is based off of the raw material so use raw material as lookup.
-refined_scaler = {'Orichalcum Ore':2,'Ancient Wood Log':3,'Gossamer Scrap':2,'Hardened Leather Section':3,'Mithril Ore':2,'Elder Wood Log':3,'Silk Scrap':3,'Thick Leather Square':4,'Lucent Mote':10}
+refined_scaler = {'Orichalcum Ingot':2,'Ancient Wood Plank':3,'Bolt of Gossamer':2,'Cured Hardened Leather Square':3,'Mithril Ingot':2,'Elder Wood Plank':3,'Bolt of Silk':3,'Cured Thick Leather Square':4,'Pile of Lucent Crystal':10}
 
 
 allIDs = [85016,84731,83008,#unidentified gear
