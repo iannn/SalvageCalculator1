@@ -560,8 +560,17 @@ Helper stuff
 salvageCost = {'Mystic':10.5, 'Copper':5 , 'Runecrafter':30, 'Silver':60}
 
 #Containers
+#defaulting to main ingots for refined to avoid problems. generate_multiplier will change as needed
 unrefined_to_refined = {'Hardened Leather Section':'Cured Hardened Leather Square','Thick Leather Section':'Cured Thick Leather Square','Rugged Leather Section':'Cured Rugged Leather Square','Coarse Leather Section':'Cured Coarse Leather Square','Thin Leather Section':'Cured Thin Leather Square','Rawhide Leather Section':'Stretched Rawhide Leather Square',
-                        'Copper Ore':'Copper Ingot',''}
+                        'Copper Ore':'Copper Ingot','Silver Ore':'Silver Ingot','Iron Ore':'Iron Ingot','Gold Ore':'Gold Ingot','Platinum Ore':'Platinum Ingot','Mithril Ore':'Mithril Ingot','Orichalcum Ore':'Orichalcum Ingot',
+                        'Jute Scrap':'Bolt of Jute','Wool Scrap':'Bolt of Wool','Cotton Scrap':'Bolt of Cotton','Linen Scrap':'Bolt of Linen','Silk Scrap':'Bolt of Silk','Gossamer Scrap':'Bolt of Gossamer',
+                        'Green Wood Log':'Green Wood Plank','Soft Wood Log':'Soft Wood Plank','Seasoned Wood Log':'Seasoned Wood Plank','Hard Wood Log':'Hard Wood Plank','Elder Wood Log':'Elder Wood Plank','Ancient Wood Log':'Ancient Wood Plank'}
+
+refined_scalar = {'Cured Thick Leather Square':4,'Cured Hardened Leather Square':3,
+                'Mithril Ingot':2,'Orichalcum Ingot':2,
+                'Elder Wood Plank':3,'Ancient Wood Plank':3,
+                'Bolt of Silk':3,'Bolt of Gossamer':2,
+                'Pile of Lucent Crystal':10}
 
 
 multiplier_prices ={}
@@ -603,10 +612,11 @@ salvageLeather, unrefined_prices, refined_prices = sort_allAPI(allAPI)
 
 #Multiplier creation
 
-#multiplier_prices,decision = generate_multiplier(unrefined_prices,refined_prices,refined_scaler,refined_lookup,buysell)
+#multiplier_prices,decision = generate_multiplier(unrefined_prices,refined_prices,refined_scalar,refined_lookup,buysell)
 
 
 #Yes, big if-else
+#replace this with generate multiplier
 #Leather
 if(unrefined_prices['Hardened Leather Section'][1] > refined_prices['Cured Hardened Leather Square'][1]/3):
     decision['Hardened Leather Section'] = 'raw'
