@@ -243,7 +243,7 @@ unidRare_salvageCost = salvageCost['Silver']*1
 #lookup unrefined to get refined
 unrefined_to_refined = {'Orichalcum Ore':'Orichalcum Ingot','Ancient Wood Log':'Ancient Wood Plank','Gossamer Scrap':'Bolt of Gossamer','Hardened Leather Section':'Cured Hardened Leather Square','Mithril Ore':'Mithril Ingot','Elder Wood Log':'Elder Wood Plank','Silk Scrap':'Bolt of Silk','Thick Leather Square':'Cured Thick Leather Square','Lucent Mote':'Pile of Lucent Crystal'}
 #Everything is based off of the raw material so use raw material as lookup.
-refined_scaler = {'Orichalcum Ingot':2,'Ancient Wood Plank':3,'Bolt of Gossamer':2,'Cured Hardened Leather Square':3,'Mithril Ingot':2,'Elder Wood Plank':3,'Bolt of Silk':3,'Cured Thick Leather Square':4,'Pile of Lucent Crystal':10}
+refined_scalar = {'Orichalcum Ingot':2,'Ancient Wood Plank':3,'Bolt of Gossamer':2,'Cured Hardened Leather Square':3,'Mithril Ingot':2,'Elder Wood Plank':3,'Bolt of Silk':3,'Cured Thick Leather Square':4,'Pile of Lucent Crystal':10}
 
 
 allIDs = [85016,84731,83008,#unidentified gear
@@ -264,7 +264,7 @@ unid_prices,unrefined_prices,refined_prices = sort_allAPI(allAPI)
 #Right now, only care about buy low and sell high
 #Determine if material is more profitable
 
-multiplier_prices,decision = generate_multiplier(unrefined_prices,refined_prices,refined_scaler,unrefined_to_refined,1)
+multiplier_prices,decision = generate_multiplier(unrefined_prices,refined_prices,refined_scalar,unrefined_to_refined,1)
 
 #Post
 unidFine_SalvageValue, unidFine_sum = compute_result(unidFine_droprate,multiplier_prices,True)
@@ -287,7 +287,7 @@ unidPrint(unidMasterwork_droprate,unidMasterwork_salvageCost,'Masterwork',unid_p
 unidPrint(unidRare_droprate,unidRare_salvageCost,'Rare',unid_prices['Rare'][0],unidRare_sum)
 
 print('\nBuy testing')
-#buymultiplier,buydecisions = generate_multiplier(unrefined_prices,refined_prices,refined_scaler,unrefined_to_refined,1)
+#buymultiplier,buydecisions = generate_multiplier(unrefined_prices,refined_prices,refined_scalar,unrefined_to_refined,1)
 #compute_result(unidFine_droprate,multiplier_prices,unidFine_salvageCost,'Fine',unid_prices['Fine'][0])
 
 print("The end")
