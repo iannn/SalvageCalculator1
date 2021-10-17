@@ -509,6 +509,7 @@ Main Program
 #Import new common helper file
 #from calc_helpers import *
 #Python GW2 API wrapper library
+from calc_helpers import *
 from gw2api import GuildWars2Client
 gw2_client = GuildWars2Client()
 
@@ -566,10 +567,10 @@ unrefined_to_refined = {'Hardened Leather Section':'Cured Hardened Leather Squar
                         'Jute Scrap':'Bolt of Jute','Wool Scrap':'Bolt of Wool','Cotton Scrap':'Bolt of Cotton','Linen Scrap':'Bolt of Linen','Silk Scrap':'Bolt of Silk','Gossamer Scrap':'Bolt of Gossamer',
                         'Green Wood Log':'Green Wood Plank','Soft Wood Log':'Soft Wood Plank','Seasoned Wood Log':'Seasoned Wood Plank','Hard Wood Log':'Hard Wood Plank','Elder Wood Log':'Elder Wood Plank','Ancient Wood Log':'Ancient Wood Plank'}
 
-refined_scalar = {'Cured Thick Leather Square':4,'Cured Hardened Leather Square':3,
-                'Mithril Ingot':2,'Orichalcum Ingot':2,
-                'Elder Wood Plank':3,'Ancient Wood Plank':3,
-                'Bolt of Silk':3,'Bolt of Gossamer':2,
+refined_scalar = {'Stretched Rawhide Leather Square':2,'Cured Thin Leather Square':2,'Cured Coarse Leather Square':2,'Cured Rugged Leather Square':2,'Cured Thick Leather Square':4,'Cured Hardened Leather Square':3,
+                'Copper Ingot':2,'Bronze Ingot':2,'Silver Ingot':2,'Iron Ingot':3,'Steel Ingot':3,'Gold Ingot':2,'Platinum Ingot':2,'Darksteel Ingot':2,'Mithril Ingot':2,'Orichalcum Ingot':2,
+                'Bolt of Jute':2,'Bolt of Wool':2,'Bolt of Cotton':2,'Bolt of Linen':2,'Bolt of Silk':3,'Bolt of Gossamer':2,
+                'Green Wood Plank':3,'Soft Wood Plank':2,'Seasoned Wood Plank':3,'Hard Wood Plank':3,'Elder Wood Plank':3,'Ancient Wood Plank':3,
                 'Pile of Lucent Crystal':10}
 
 
@@ -612,11 +613,11 @@ salvageLeather, unrefined_prices, refined_prices = sort_allAPI(allAPI)
 
 #Multiplier creation
 
-#multiplier_prices,decision = generate_multiplier(unrefined_prices,refined_prices,refined_scalar,refined_lookup,buysell)
 
-
+multiplier_prices,decision = generate_multiplier(unrefined_prices,refined_prices,refined_scalar,unrefined_to_refined,1)
 #Yes, big if-else
 #replace this with generate multiplier
+"""
 #Leather
 if(unrefined_prices['Hardened Leather Section'][1] > refined_prices['Cured Hardened Leather Square'][1]/3):
     decision['Hardened Leather Section'] = 'raw'
@@ -655,7 +656,7 @@ else:
     decision['Rawhide Leather Section'] = 'refined'
     multiplier_prices['Rawhide Leather Section']=round(refined_prices['Stretched Rawhide Leather Square'][1]/2,4)
 #End multiplier and decision
-
+"""
 
 #Price Chart
 #The if is from the unid chart because there is no refinement on charm/symbol
@@ -667,6 +668,8 @@ for key, value in multiplier_prices.items():
     else:
         print('{:<24} : {:>10}'.format(key,value))
 
+
+print("These are the old loops")
 #Calculate salvaged values
 #Different salvage rates with different kits. Each thing needs 3x reports then
 for key in droprateCopper_UnstableHide:
