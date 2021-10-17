@@ -27,31 +27,48 @@ def generate_multiplier(unrefined_dct,refined_dct,refined_scalar,refined_lookup,
             if material_key == 'Copper Ore':
                 #copper ore is largest price
                 #5 bronze per lump of tin. Tin bought 10 for 80c
-                if (unrefined_dct['Copper Ore'][buysell] >= refined_dct['Copper Ingot'][buysell])/refined_scalar['Copper Ingot'] && (unrefined_dct['Copper Ore'][buysell] >= (refined_dct['Bronze Ingot'][buysell]-8/5)/refined_scalar['Bronze Ingot']):
+                if (unrefined_dct['Copper Ore'][buysell] >= refined_dct['Copper Ingot'][buysell])/refined_scalar['Copper Ingot'] and (unrefined_dct['Copper Ore'][buysell] >= (refined_dct['Bronze Ingot'][buysell]-8/5)/refined_scalar['Bronze Ingot']):
                     decision_dct['Copper Ore'] = 'raw'
                     multiplier_dct['Copper Ore'] = round(unrefined_dct['Copper Ore'][buysell],4)
-                #bronze > copper
-                elif (refined_dct['Bronze Ingot'][buysell]-8/5)/refined_scalar['Bronze Ingot'] > refined_dct[refined_lookup[material_key]][buysell]/refined_scalar[refined_lookup[material_key]]:
+                #Bronze > Copper Ingot
+                elif (refined_dct['Bronze Ingot'][buysell]-8/5)/refined_scalar['Bronze Ingot'] > refined_dct['Copper Ingot'][buysell]/refined_scalar['Copper Ingot']:
                     decision_dct['Copper Ore'] = 'B Ingot'
                     multiplier_dct['Copper Ore'] = round(refined_dct['Bronze Ingot'][buysell],4)
                     unrefined_to_refined['Copper Ore']='Bronze Ingot'#Passed by reference so update persists
+                #Regular copper ingot is therefore the best option
                 else:
                     decision_dct['Copper Ore'] = 'C Ingot'
                     multiplier_dct['Copper Ore'] = round(refined_dct['Copper Ingot'][buysell],4)
             elif material_key == 'Iron Ore':
-                #copper ore is largest price
-                #5 bronze per lump of tin. Tin bought 10 for 80c
-                if (unrefined_dct['Iron Ore'][buysell] >= refined_dct['Copper Ingot'][buysell])/refined_scalar['Copper Ingot'] && (unrefined_dct['Copper Ore'][buysell] >= (refined_dct['Bronze Ingot'][buysell]-8/5)/refined_scalar['Bronze Ingot']):
+                #Iron ore is largest price
+                #1 lump of coal per Steel Ingot. Coal bought 10 for 160c
+                if (unrefined_dct['Iron Ore'][buysell] >= refined_dct['Iron Ingot'][buysell])/refined_scalar['Iron Ingot'] and (unrefined_dct['Iron Ore'][buysell] >= (refined_dct['Steel Ingot'][buysell]-16)/refined_scalar['Steel Ingot']):
                     decision_dct['Iron Ore'] = 'raw'
-                    multiplier_dct['Iron Ore'] = round(unrefined_dct['Copper Ore'][buysell],4)
-                #bronze > copper
-                elif (refined_dct['Bronze Ingot'][buysell]-8/5)/refined_scalar['Bronze Ingot'] > refined_dct[refined_lookup[material_key]][buysell]/refined_scalar[refined_lookup[material_key]]:
-                    decision_dct['Copper Ore'] = 'B Ingot'
-                    multiplier_dct['Copper Ore'] = round(refined_dct['Bronze Ingot'][buysell],4)
-                    unrefined_to_refined['Copper Ore']='Bronze Ingot'#Passed by reference so update persists
+                    multiplier_dct['Iron Ore'] = round(unrefined_dct['Iron Ore'][buysell],4)
+                #Steel > Iron Ingot
+                elif (refined_dct['Steel Ingot'][buysell]-16)/refined_scalar['Steel Ingot'] > refined_dct['Iron Ingot'][buysell]/refined_scalar['Iron Ingot']:
+                    decision_dct['Iron Ore'] = 'S Ingot'
+                    multiplier_dct['Iron Ore'] = round(refined_dct['Steel Ingot'][buysell],4)
+                    unrefined_to_refined['Iron Ore']='Bronze Ingot'#Passed by reference so update persists
+                #Regular Iron Ingot is therefore the best option
                 else:
-                    decision_dct['Copper Ore'] = 'C Ingot'
-                    multiplier_dct['Copper Ore'] = round(refined_dct['Copper Ingot'][buysell],4)
+                    decision_dct['Iron Ore'] = 'I Ingot'
+                    multiplier_dct['Iron Ore'] = round(refined_dct['Iron Ingot'][buysell],4)
+            elif material_key == 'Platinum Ore':
+                #Platinum ore is largest price
+                #1 lump of Primordium per Darksteel Ingot. Primordium bought 10 for 480c
+                if (unrefined_dct['Platinum Ore'][buysell] >= refined_dct['Platinum Ingot'][buysell])/refined_scalar['Platinum Ingot'] and (unrefined_dct['Platinum Ore'][buysell] >= (refined_dct['Darksteel Ingot'][buysell]-48)/refined_scalar['Darksteel Ingot']):
+                    decision_dct['Platinum Ore'] = 'raw'
+                    multiplier_dct['Platinum Ore'] = round(unrefined_dct['Platinum Ore'][buysell],4)
+                #Darksteel > Platinum Ingot
+                elif (refined_dct['Darksteel Ingot'][buysell]-48)/refined_scalar['Darksteel Ingot'] > refined_dct['Platinum Ingot'][buysell]/refined_scalar['Platinum Ingot']:
+                    decision_dct['Platinum Ore'] = 'D Ingot'
+                    multiplier_dct['Platinum Ore'] = round(refined_dct['Darksteel Ingot'][buysell],4)
+                    unrefined_to_refined['Platinum Ore']='Darksteel Ingot'#Passed by reference so update persists
+                #Regular Platinum Ingot is therefore the best option
+                else:
+                    decision_dct['Platinum Ore'] = 'P Ingot'
+                    multiplier_dct['Platinum Ore'] = round(refined_dct['Platinum Ingot'][buysell],4)
             elif unrefined_dct[material_key][buysell] >= refined_dct[refined_lookup[material_key]][buysell]/refined_scalar[refined_lookup[material_key]]:
                 decision_dct[material_key] = 'raw'
                 multiplier_dct[material_key] = round(unrefined_dct[material_key][buysell],4)
