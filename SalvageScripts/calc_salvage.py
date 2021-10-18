@@ -526,24 +526,23 @@ Drop rates: Leathers
 ##Unstable Hide
 droprate_UnstableHide = {}
 #My data
-droprate_UnstableHide['Copper'] = {'Rawhide Leather Section':0.162189054726368,'Thin Leather Section':0.507462686567164,'Coarse Leather Section':0.464676616915423,'Rugged Leather Section':0.511442786069652,'Thick Leather Section':0.154228855721393,'Hardened Leather Section':0.276616915422886}
-droprate_UnstableHide['Runecrafter'] = {'Rawhide Leather Section':0.188764829030007,'Thin Leather Section':0.464061409630147,'Coarse Leather Section':0.469295184926727,'Rugged Leather Section':0.469644103279833,'Thick Leather Section':0.186322400558269,'Hardened Leather Section':0.321702721563154}
+droprate_UnstableHide['Copper'] = {'Rawhide Leather Section':0.1621,'Thin Leather Section':0.5152,'Coarse Leather Section':0.4758,'Rugged Leather Section':0.4798,'Thick Leather Section':0.1516,'Hardened Leather Section':0.2813}
+droprate_UnstableHide['Runecrafter'] = {'Rawhide Leather Section':0.1730,'Thin Leather Section':0.4786,'Coarse Leather Section':0.4877,'Rugged Leather Section':0.4779,'Thick Leather Section':0.1680,'Hardened Leather Section':0.3152}
 #pure peu
 droprate_UnstableHide['Rare'] = {'Rawhide Leather Section':0.196,'Thin Leather Section':0.424,'Coarse Leather Section':0.412,'Rugged Leather Section':0.444,'Thick Leather Section':0.236,'Hardened Leather Section':0.372}
 
 ##Bloodstone-Warped Hide
 droprate_BloodstoneWarpedHide={}
-#wiki
-droprate_BloodstoneWarpedHide['Copper'] = {'Rawhide Leather Section':0.0443,'Thin Leather Section':0.0471,'Coarse Leather Section':0.0393,'Rugged Leather Section':0.0385,'Thick Leather Section':0.4453,'Hardened Leather Section':0.5020}
 #my data only
-droprate_BloodstoneWarpedHide['Runecrafter'] = {'Rawhide Leather Section':0.0444758206847864,'Thin Leather Section':0.0476526650194141,'Coarse Leather Section':0.0501235439463466,'Rugged Leather Section':0.0458877515001765,'Thick Leather Section':0.502294387575009,'Hardened Leather Section':0.521708436286622}
+droprate_BloodstoneWarpedHide['Copper'] = {'Rawhide Leather Section':0.0462,'Thin Leather Section':0.0533,'Coarse Leather Section':0.0445,'Rugged Leather Section':0.0467,'Thick Leather Section':0.4533,'Hardened Leather Section':0.4714}
+droprate_BloodstoneWarpedHide['Runecrafter'] = {'Rawhide Leather Section':0.0451,'Thin Leather Section':0.0459,'Coarse Leather Section':0.0471,'Rugged Leather Section':0.0445,'Thick Leather Section':0.5016,'Hardened Leather Section':0.5249}
 #wiki
 droprate_BloodstoneWarpedHide['Rare'] = {'Rawhide Leather Section':0.0557,'Thin Leather Section':.0581,'Coarse Leather Section':0.0521,'Rugged Leather Section':0.0508,'Thick Leather Section':0.4758,'Hardened Leather Section':0.5541}
 
 #Hard Leather Strap
 droprate_HardLeatherStrap={}
 #Mine
-droprate_HardLeatherStrap['Copper'] = {'Thick Leather Section':1.32,'Hardened Leather Section':0.073}
+droprate_HardLeatherStrap['Copper'] = {'Thick Leather Section':1.2865,'Hardened Leather Section':0.0770}
 droprate_HardLeatherStrap['Runecrafter'] = {'Thick Leather Section':1.352,'Hardened Leather Section':0.092}
 droprate_HardLeatherStrap['Rare'] = {'Thick Leather Section':1.232,'Hardened Leather Section':0.112}
 
@@ -577,7 +576,7 @@ refined_scalar = {'Stretched Rawhide Leather Square':2,'Cured Thin Leather Squar
                 'Green Wood Plank':3,'Soft Wood Plank':2,'Seasoned Wood Plank':3,'Hard Wood Plank':3,'Elder Wood Plank':3,'Ancient Wood Plank':3,
                 'Pile of Lucent Crystal':10}
 
-
+"""
 # multiplier_prices ={}
 # decision = {}
 
@@ -602,7 +601,7 @@ valueRunecrafter_HardLeatherStrap = {}
 sumRunecrafter_HardLeatherStrap = 0
 valueRare_HardLeatherStrap = {}
 sumRare_HardLeatherStrap = 0
-
+"""
 #Raw to refined lookup
 
 #All relevant IDs
@@ -614,11 +613,16 @@ allIDs =    [79213,80681,21689,#Leather salvage
 allAPI=gw2_client.commerceprices.get(ids=allIDs)
 
 salvageLeather, unrefined_prices, refined_prices = sort_allAPI(allAPI)
-
+'''
+print('salvageLeather:\n',salvageLeather)
+print('unrefined_prices:\n',unrefined_prices)
+print('refined_prices:\n',refined_prices)
+'''
 #Multiplier creation
-
-
 multiplier_prices,decision = generate_multiplier(unrefined_prices,refined_prices,refined_scalar,unrefined_to_refined,1)
+'''
+print('multiplier_prices:\n',multiplier_prices)
+print('decision:\n',decision)'''
 #Yes, big if-else
 #replace this with generate multiplier
 """

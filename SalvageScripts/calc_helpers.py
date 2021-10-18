@@ -23,7 +23,7 @@ def generate_multiplier(unrefined_dct,refined_dct,refined_scalar,refined_lookup,
     multiplier_dct = {}
 
     for material_key in unrefined_dct:
-        if material_key in refined_scalar:
+        if material_key in refined_lookup:
             if material_key == 'Copper Ore':
                 #copper ore is largest price
                 #5 bronze per lump of tin. Tin bought 10 for 80c
