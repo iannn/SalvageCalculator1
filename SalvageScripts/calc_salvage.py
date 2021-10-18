@@ -524,24 +524,28 @@ Drop rates: Metals
 Drop rates: Leathers
 """
 ##Unstable Hide
+droprate_UnstableHide = {}
 #My data
-droprateCopper_UnstableHide = {'Rawhide Leather Section':0.162189054726368,'Thin Leather Section':0.507462686567164,'Coarse Leather Section':0.464676616915423,'Rugged Leather Section':0.511442786069652,'Thick Leather Section':0.154228855721393,'Hardened Leather Section':0.276616915422886}
-droprateRunecrafter_UnstableHide = {'Rawhide Leather Section':0.188764829030007,'Thin Leather Section':0.464061409630147,'Coarse Leather Section':0.469295184926727,'Rugged Leather Section':0.469644103279833,'Thick Leather Section':0.186322400558269,'Hardened Leather Section':0.321702721563154}
+droprate_UnstableHide['Copper'] = {'Rawhide Leather Section':0.162189054726368,'Thin Leather Section':0.507462686567164,'Coarse Leather Section':0.464676616915423,'Rugged Leather Section':0.511442786069652,'Thick Leather Section':0.154228855721393,'Hardened Leather Section':0.276616915422886}
+droprate_UnstableHide['Runecrafter'] = {'Rawhide Leather Section':0.188764829030007,'Thin Leather Section':0.464061409630147,'Coarse Leather Section':0.469295184926727,'Rugged Leather Section':0.469644103279833,'Thick Leather Section':0.186322400558269,'Hardened Leather Section':0.321702721563154}
 #pure peu
-droprateRare_UnstableHide = {'Rawhide Leather Section':0.196,'Thin Leather Section':0.424,'Coarse Leather Section':0.412,'Rugged Leather Section':0.444,'Thick Leather Section':0.236,'Hardened Leather Section':0.372}
+droprate_UnstableHide['Rare'] = {'Rawhide Leather Section':0.196,'Thin Leather Section':0.424,'Coarse Leather Section':0.412,'Rugged Leather Section':0.444,'Thick Leather Section':0.236,'Hardened Leather Section':0.372}
 
 ##Bloodstone-Warped Hide
+droprate_BloodstoneWarpedHide={}
 #wiki
-droprateCopper_BloodstoneWarpedHide = {'Rawhide Leather Section':0.0443,'Thin Leather Section':0.0471,'Coarse Leather Section':0.0393,'Rugged Leather Section':0.0385,'Thick Leather Section':0.4453,'Hardened Leather Section':0.5020}
+droprate_BloodstoneWarpedHide['Copper'] = {'Rawhide Leather Section':0.0443,'Thin Leather Section':0.0471,'Coarse Leather Section':0.0393,'Rugged Leather Section':0.0385,'Thick Leather Section':0.4453,'Hardened Leather Section':0.5020}
 #my data only
-droprateRunecrafter_BloodstoneWarpedHide = {'Rawhide Leather Section':0.0444758206847864,'Thin Leather Section':0.0476526650194141,'Coarse Leather Section':0.0501235439463466,'Rugged Leather Section':0.0458877515001765,'Thick Leather Section':0.502294387575009,'Hardened Leather Section':0.521708436286622}
+droprate_BloodstoneWarpedHide['Runecrafter'] = {'Rawhide Leather Section':0.0444758206847864,'Thin Leather Section':0.0476526650194141,'Coarse Leather Section':0.0501235439463466,'Rugged Leather Section':0.0458877515001765,'Thick Leather Section':0.502294387575009,'Hardened Leather Section':0.521708436286622}
 #wiki
-droprateRare_BloodstoneWarpedHide = {'Rawhide Leather Section':0.0557,'Thin Leather Section':.0581,'Coarse Leather Section':0.0521,'Rugged Leather Section':0.0508,'Thick Leather Section':0.4758,'Hardened Leather Section':0.5541}
+droprate_BloodstoneWarpedHide['Rare'] = {'Rawhide Leather Section':0.0557,'Thin Leather Section':.0581,'Coarse Leather Section':0.0521,'Rugged Leather Section':0.0508,'Thick Leather Section':0.4758,'Hardened Leather Section':0.5541}
 
 #Hard Leather Strap
-droprateCopper_HardLeatherStrap = {'Thick Leather Section':1.32,'Hardened Leather Section':0.073}
-droprateRunecrafter_HardLeatherStrap = {'Thick Leather Section':1.352,'Hardened Leather Section':0.092}
-droprateRare_HardLeatherStrap = {'Thick Leather Section':1.232,'Hardened Leather Section':0.112}
+droprate_HardLeatherStrap={}
+#Mine
+droprate_HardLeatherStrap['Copper'] = {'Thick Leather Section':1.32,'Hardened Leather Section':0.073}
+droprate_HardLeatherStrap['Runecrafter'] = {'Thick Leather Section':1.352,'Hardened Leather Section':0.092}
+droprate_HardLeatherStrap['Rare'] = {'Thick Leather Section':1.232,'Hardened Leather Section':0.112}
 
 
 """
@@ -558,8 +562,8 @@ Drop rates: Wood
 Helper stuff
 """
 #Salvage options
-salvageCost = {'Mystic':10.5, 'Copper':5 , 'Runecrafter':30, 'Silver':60}
-
+#salvageOptions 'Mystic':10.5, 'Copper':5 , 'Runecrafter':30, 'Silver':60
+salvageCost = {'Copper':5 , 'Runecrafter':30, 'Rare':10.5}
 #Containers
 #defaulting to main ingots for refined to avoid problems. generate_multiplier will change as needed
 unrefined_to_refined = {'Hardened Leather Section':'Cured Hardened Leather Square','Thick Leather Section':'Cured Thick Leather Square','Rugged Leather Section':'Cured Rugged Leather Square','Coarse Leather Section':'Cured Coarse Leather Square','Thin Leather Section':'Cured Thin Leather Square','Rawhide Leather Section':'Stretched Rawhide Leather Square',
@@ -574,8 +578,8 @@ refined_scalar = {'Stretched Rawhide Leather Square':2,'Cured Thin Leather Squar
                 'Pile of Lucent Crystal':10}
 
 
-multiplier_prices ={}
-decision = {}
+# multiplier_prices ={}
+# decision = {}
 
 #Salvage Value containers
 valueCopper_UnstableHide = {}
@@ -669,9 +673,11 @@ for key, value in multiplier_prices.items():
         print('{:<24} : {:>10}'.format(key,value))
 
 
+
 print("These are the old loops")
 #Calculate salvaged values
 #Different salvage rates with different kits. Each thing needs 3x reports then
+"""
 for key in droprateCopper_UnstableHide:
     valueCopper_UnstableHide[key] = round(0.85*droprateCopper_UnstableHide[key]*multiplier_prices[key],4)
     sumCopper_UnstableHide = sumCopper_UnstableHide + valueCopper_UnstableHide[key]
@@ -684,7 +690,6 @@ for key in droprateRare_UnstableHide:
     valueRare_UnstableHide[key] = round(0.85*droprateRare_UnstableHide[key]*multiplier_prices[key],4)
     sumRare_UnstableHide = sumRare_UnstableHide + valueRare_UnstableHide[key]
 
-print("unstable hide buy order: ",salvageLeather['Unstable Hide'][0])
 print("unstable hide Copper      : Average Salvage Value = {salvageValue}; Estimated {profit} profit per salvage".format(salvageValue=sumCopper_UnstableHide,profit=sumCopper_UnstableHide - salvageCost['Copper']-salvageLeather['Unstable Hide'][0]))
 print("unstable hide Runecrafter : Average Salvage Value = {salvageValue}; Estimated {profit} profit per salvage".format(salvageValue=sumRunecrafter_UnstableHide,profit=sumRunecrafter_UnstableHide - salvageCost['Runecrafter']-salvageLeather['Unstable Hide'][0]))
 print("unstable hide Rare        : Average Salvage Value = {salvageValue}; Estimated {profit} profit per salvage".format(salvageValue=sumRare_UnstableHide,profit=sumRare_UnstableHide - salvageCost['Silver']-salvageLeather['Unstable Hide'][0]))
@@ -702,7 +707,6 @@ for key in droprateRare_BloodstoneWarpedHide:
     valueRare_BloodstoneWarpedHide[key] = round(0.85*droprateRare_BloodstoneWarpedHide[key]*multiplier_prices[key],4)
     sumRare_BloodstoneWarpedHide = sumRare_BloodstoneWarpedHide + valueRare_BloodstoneWarpedHide[key]
 
-print("Bloodstone-Warped Hide buy order: ",salvageLeather['BloodstoneWarpedHide'][0])
 print("BloodstoneWarpedHide Copper      : Average Salvage Value = {salvageValue}; Estimated {profit} profit per salvage".format(salvageValue=sumCopper_BloodstoneWarpedHide,profit=sumCopper_BloodstoneWarpedHide - salvageCost['Copper']-salvageLeather['BloodstoneWarpedHide'][0]))
 print("BloodstoneWarpedHide Runecrafter : Average Salvage Value = {salvageValue}; Estimated {profit} profit per salvage".format(salvageValue=sumRunecrafter_BloodstoneWarpedHide,profit=sumRunecrafter_BloodstoneWarpedHide - salvageCost['Runecrafter']-salvageLeather['BloodstoneWarpedHide'][0]))
 print("BloodstoneWarpedHide Rare        : Average Salvage Value = {salvageValue}; Estimated {profit} profit per salvage".format(salvageValue=sumRare_BloodstoneWarpedHide,profit=sumRare_BloodstoneWarpedHide - salvageCost['Silver']-salvageLeather['BloodstoneWarpedHide'][0]))
@@ -719,7 +723,27 @@ for key in droprateRare_HardLeatherStrap:
     valueRare_HardLeatherStrap[key] = round(0.85*droprateRare_HardLeatherStrap[key]*multiplier_prices[key],4)
     sumRare_HardLeatherStrap = sumRare_HardLeatherStrap + valueRare_HardLeatherStrap[key]
 
-print("HardLeatherStrap buy order: ",salvageLeather['HardLeatherStrap'][0])
 print("HardLeatherStrap Copper      : Average Salvage Value = {salvageValue}; Estimated {profit} profit per salvage".format(salvageValue=sumCopper_HardLeatherStrap,profit=sumCopper_HardLeatherStrap - salvageCost['Copper']-salvageLeather['HardLeatherStrap'][0]))
 print("HardLeatherStrap Runecrafter : Average Salvage Value = {salvageValue}; Estimated {profit} profit per salvage".format(salvageValue=sumRunecrafter_HardLeatherStrap,profit=sumRunecrafter_HardLeatherStrap - salvageCost['Runecrafter']-salvageLeather['HardLeatherStrap'][0]))
 print("HardLeatherStrap Rare        : Average Salvage Value = {salvageValue}; Estimated {profit} profit per salvage".format(salvageValue=sumRare_HardLeatherStrap,profit=sumRare_HardLeatherStrap - salvageCost['Silver']-salvageLeather['HardLeatherStrap'][0]))
+"""
+
+
+print('Testing ')
+
+print("unstable hide buy order: ",salvageLeather['Unstable Hide'][0])
+for rarity,droprate_x in droprate_UnstableHide.items():
+    xvalue_UnstableHide,xsum_UnstableHide = compute_result(droprate_x,multiplier_prices,True)
+    print("{salvageName} {salvageMethod:<11} : Average Salvage Value = {salvageValue}; Estimated {profit} profit per salvage".format(salvageName='Unstable Hide',salvageMethod=rarity,salvageValue=xsum_UnstableHide,profit=xsum_UnstableHide - salvageCost[rarity]-salvageLeather['Unstable Hide'][0]))
+
+
+print("Bloodstone-Warped Hide buy order: ",salvageLeather['BloodstoneWarpedHide'][0])
+for rarity,droprate_x in droprate_BloodstoneWarpedHide.items():
+    xvalue_UnstableHide,xsum_UnstableHide = compute_result(droprate_x,multiplier_prices,True)
+    print("{salvageName} {salvageMethod:<11} : Average Salvage Value = {salvageValue}; Estimated {profit} profit per salvage".format(salvageName='Bloodstone Warped Hide',salvageMethod=rarity,salvageValue=xsum_UnstableHide,profit=xsum_UnstableHide - salvageCost[rarity]-salvageLeather['BloodstoneWarpedHide'][0]))
+
+
+print("HardLeatherStrap buy order: ",salvageLeather['HardLeatherStrap'][0])
+for rarity,droprate_x in droprate_HardLeatherStrap.items():
+    xvalue_UnstableHide,xsum_UnstableHide = compute_result(droprate_x,multiplier_prices,True)
+    print("{salvageName} {salvageMethod:<11} : Average Salvage Value = {salvageValue}; Estimated {profit} profit per salvage".format(salvageName='Unstable Hide',salvageMethod=rarity,salvageValue=xsum_UnstableHide,profit=xsum_UnstableHide - salvageCost[rarity]-salvageLeather['HardLeatherStrap'][0]))
