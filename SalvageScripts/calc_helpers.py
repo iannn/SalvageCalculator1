@@ -96,3 +96,4 @@ def compute_result(droprate_dict,multiplier_dict,TPCut):
         sum_val = sum_val + salvageValue_dct[key]
 
     return salvageValue_dct,sum_val
+#End of compute_result

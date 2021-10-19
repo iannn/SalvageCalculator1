@@ -208,9 +208,10 @@ def sort_allAPI(allAPI):
     return unid_prices,unrefined_prices,refined_prices
 #End of sort_allAPI
 
+#Formatted print function
 def unidPrint(droprate_dict,salvageCost_val,unid_name,unid_price,sum_val):
     print('{print_outname:<16}: Buy order = {print_cost}; Average salvage cost = {print_salvageCost}; Average salvage value = {print_salvageValue}; Estimated {print_profit} profit per salvage'.format(print_outname=unid_name,print_cost=unid_price, print_salvageValue=round(sum_val,4), print_profit=round(sum_val-unid_price-salvageCost_val,4), print_salvageCost=salvageCost_val))
-
+#End of unidPrint
 
 """
 Main Program start
@@ -223,10 +224,10 @@ from gw2api import GuildWars2Client
 gw2_client = GuildWars2Client()
 
 #charm and symbol values I have are low data so using wiki values
-unidFine_droprate = {'Orichalcum Ore':0.0396,'Ancient Wood Log':0.0324,'Gossamer Scrap':0.0141,'Hardened Leather Section':0.0161,'Mithril Ore':0.4351,'Elder Wood Log':0.3879,'Silk Scrap':0.2964,'Thick Leather Square':0.2464,'Ectoplasm':0.0063,'Lucent Mote':0.1038,'Symbol of Control':0.0006,'Symbol of Enhancement':0.0001,'Symbol of Pain':0.0006,'Charm of Brilliance':0.0003,'Charm of Potence':0.0005,'Charm of Skill':0.0003}
+unidFine_droprate = {'Orichalcum Ore':0.0399,'Ancient Wood Log':0.0339,'Gossamer Scrap':0.0155,'Hardened Leather Section':0.0152,'Mithril Ore':0.4281,'Elder Wood Log':0.3869,'Silk Scrap':0.3013,'Thick Leather Square':0.2473,'Ectoplasm':0.0076,'Lucent Mote':0.1058,'Symbol of Control':0.0003,'Symbol of Enhancement':0.0002,'Symbol of Pain':0.0004,'Charm of Brilliance':0.0002,'Charm of Potence':0.0003,'Charm of Skill':0.0003}
 
 #My data 19500
-unidMasterwork_droprate = {'Orichalcum Ore':0.0388,'Ancient Wood Log':0.0280,'Gossamer Scrap':0.0184,'Hardened Leather Section':0.0179,'Mithril Ore':0.4416,'Elder Wood Log':0.3651,'Silk Scrap':0.3483,'Thick Leather Square':0.2824,'Ectoplasm':0.0293,'Lucent Mote':1.0643,'Symbol of Control':0.0013,'Symbol of Enhancement':0.0048,'Symbol of Pain':0.0036,'Charm of Brilliance':0.0048,'Charm of Potence':0.0024,'Charm of Skill':0.0032}
+unidMasterwork_droprate = {'Orichalcum Ore':0.0390,'Ancient Wood Log':0.0280,'Gossamer Scrap':0.0185,'Hardened Leather Section':0.0180,'Mithril Ore':0.4434,'Elder Wood Log':0.3636,'Silk Scrap':0.3493,'Thick Leather Square':0.2782,'Ectoplasm':0.0287,'Lucent Mote':1.0483,'Symbol of Control':0.0015,'Symbol of Enhancement':0.0047,'Symbol of Pain':0.0035,'Charm of Brilliance':0.0049,'Charm of Potence':0.0027,'Charm of Skill':0.0031}
 
 #pure wiki
 unidRare_droprate = {'Orichalcum Ore':0.0407,'Ancient Wood Log':0.0295,'Gossamer Scrap':0.0165,'Hardened Leather Section':0.0153,'Mithril Ore':0.4611,'Elder Wood Log':0.3837,'Silk Scrap':0.3239,'Thick Leather Square':0.2556,'Ectoplasm':0.8751,'Lucent Mote':1.3881,'Symbol of Control':0.0035,'Symbol of Enhancement':0.0065,'Symbol of Pain':0.0029,'Charm of Brilliance':0.0056,'Charm of Potence':0.0033,'Charm of Skill':0.0034}
@@ -235,9 +236,9 @@ unidRare_droprate = {'Orichalcum Ore':0.0407,'Ancient Wood Log':0.0295,'Gossamer
 #Never salvage with just one kit becuase better gear will come out
 #Exotics are so rare that they will generate far more than the salvage + I may use BLKit
 salvageCost = {'Mystic':10.5, 'Copper':5 , 'Runecrafter':30, 'Silver':60}
-unidFine_salvageCost = salvageCost['Mystic']*0.0102 + salvageCost['Runecrafter']*0.0938 + salvageCost['Copper']*0.8951
-unidMasterwork_salvageCost = salvageCost['Mystic']*0.0343 + salvageCost['Runecrafter']*0.9628
-unidRare_salvageCost = salvageCost['Silver']*1
+unidFine_salvageCost = salvageCost['Mystic']*0.0100 + salvageCost['Runecrafter']*0.0940 + salvageCost['Copper']*0.8950
+unidMasterwork_salvageCost = salvageCost['Mystic']*0.0336 + salvageCost['Runecrafter']*0.9638
+unidRare_salvageCost = salvageCost['Silver']*0.9840
 
 #Helper dictionaries
 #lookup unrefined to get refined
@@ -261,12 +262,11 @@ allAPI=gw2_client.commerceprices.get(ids=allIDs)
 
 unid_prices,unrefined_prices,refined_prices = sort_allAPI(allAPI)
 
-#Right now, only care about buy low and sell high
-#Determine if material is more profitable
-
+#sell value prices and decisions. No TP cut yet
 multiplier_prices,decision = generate_multiplier(unrefined_prices,refined_prices,refined_scalar,unrefined_to_refined,1)
 
 #Post
+#TP cut included here
 unidFine_SalvageValue, unidFine_sum = compute_result(unidFine_droprate,multiplier_prices,True)
 unidMasterwork_salvageValue, unidMasterwork_sum = compute_result(unidMasterwork_droprate,multiplier_prices,True)
 unidRare_salvageValue, unidRare_sum = compute_result(unidRare_droprate,multiplier_prices,True)
@@ -282,11 +282,12 @@ for key, value in multiplier_prices.items():
 
 print('\nResult function: Sell')
 
+
 unidPrint(unidFine_droprate,unidFine_salvageCost,'Fine',unid_prices['Fine'][0],unidFine_sum)
 unidPrint(unidMasterwork_droprate,unidMasterwork_salvageCost,'Masterwork',unid_prices['Masterwork'][0],unidMasterwork_sum)
 unidPrint(unidRare_droprate,unidRare_salvageCost,'Rare',unid_prices['Rare'][0],unidRare_sum)
 
-print('\nBuy testing')
+#print('\nBuy testing')
 #buymultiplier,buydecisions = generate_multiplier(unrefined_prices,refined_prices,refined_scalar,unrefined_to_refined,1)
 #compute_result(unidFine_droprate,multiplier_prices,unidFine_salvageCost,'Fine',unid_prices['Fine'][0])
 
