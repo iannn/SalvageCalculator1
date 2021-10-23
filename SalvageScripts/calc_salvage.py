@@ -404,6 +404,44 @@ def sort_allAPI(allAPI):
             unrefined_prices['Thick Leather Section'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
         elif(entryAPI['id']==19732):
             unrefined_prices['Hardened Leather Section'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19697):
+            unrefined_prices['Copper Ore'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19703):
+            unrefined_prices['Silver Ore'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19699):
+            unrefined_prices['Iron Ore'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19698):
+            unrefined_prices['Gold Ore'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19702):
+            unrefined_prices['Platinum Ore'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19700):
+            unrefined_prices['Mithril Ore'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19701):
+            unrefined_prices['Orichalcum Ore'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19718):
+            unrefined_prices['Jute Scrap'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19739):
+            unrefined_prices['Wool Scrap'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19741):
+            unrefined_prices['Cotton Scrap'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19743):
+            unrefined_prices['Linen Scrap'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19748):
+            unrefined_prices['Silk Scrap'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19745):
+            unrefined_prices['Gossamer Scrap'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19723):
+            unrefined_prices['Green Wood Log'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19726):
+            unrefined_prices['Soft Wood Log'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19727):
+            unrefined_prices['Seasoned Wood Log'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19724):
+            unrefined_prices['Hard Wood Log'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19722):
+            unrefined_prices['Elder Wood Log'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19725):
+            unrefined_prices['Ancient Wood Log'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
         elif(entryAPI['id']==19738):
             refined_prices['Stretched Rawhide Leather Square'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
         elif(entryAPI['id']==19733):
@@ -416,6 +454,51 @@ def sort_allAPI(allAPI):
             refined_prices['Cured Thick Leather Square'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
         elif(entryAPI['id']==19737):
             refined_prices['Cured Hardened Leather Square'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19680):
+            refined_prices['Copper Ingot'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19679):
+            refined_prices['Bronze Ingot'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19687):
+            refined_prices['Silver Ingot'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19683):
+            refined_prices['Iron Ingot'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19688):
+            refined_prices['Steel Ingot'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19682):
+            refined_prices['Gold Ingot'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19686):
+            refined_prices['Platinum Ingot'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19681):
+            refined_prices['Darksteel Ingot'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19684):
+            refined_prices['Mithril Ingot'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19685):
+            refined_prices['Orichalcum Ingot'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19720):
+            refined_prices['Bolt of Jute'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19740):
+            refined_prices['Bolt of Wool'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19742):
+            refined_prices['Bolt of Cotton'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19744):
+            refined_prices['Bolt of Linen'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19747):
+            refined_prices['Bolt of Silk'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19746):
+            refined_prices['Bolt of Gossamer'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19710):
+            refined_prices['Green Wood Plank'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19713):
+            refined_prices['Soft Wood Plank'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19714):
+            refined_prices['Seasoned Wood Plank'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19711):
+            refined_prices['Hard Wood Plank'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19709):
+            refined_prices['Elder Wood Plank'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==19712):
+            refined_prices['Ancient Wood Plank'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+
         else:
             print("Unexpected API return")
             print(entryAPI)
