@@ -397,6 +397,8 @@ def sort_allAPI(allAPI):
             salvageLeather['Bloodstone-Warped Hide'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
         elif(entryAPI['id']==21689):
             salvageLeather['Hard Leather Strap'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==21668):
+            salvageLeather['Frayed Hide'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
         elif(entryAPI['id']==19719):
             unrefined_prices['Rawhide Leather Section'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
         elif(entryAPI['id']==19728):
@@ -571,6 +573,12 @@ droprate_HardLeatherStrap['Copper'] = {'Thick Leather Section':1.2865,'Hardened 
 droprate_HardLeatherStrap['Runecrafter'] = {'Thick Leather Section':1.352,'Hardened Leather Section':0.092}
 droprate_HardLeatherStrap['Rare'] = {'Thick Leather Section':1.232,'Hardened Leather Section':0.112}
 
+#Frayed Hide
+droprate_FrayedHide={}
+#Peu
+droprate_FrayedHide['Copper']={'Coarse Leather Section':0.57,'Rugged Leather Section':1.16}
+droprate_FrayedHide['Runecrafter']={'Coarse Leather Section':0.32,'Rugged Leather Section':1.53}
+droprate_FrayedHide['Rare']={'Coarse Leather Section':0.43,'Rugged Leather Section':1.38}
 
 """
 Drop rates: Cloth
@@ -612,7 +620,7 @@ refined_scalar = {'Stretched Rawhide Leather Square':2,'Cured Thin Leather Squar
 #All relevant IDs
 #Once salvage item at a time
 allIDs =    [79423,#Wood salvage
-            79213,80681,21689,#Leather salvage
+            79213,80681,21689,21668,#Leather salvage
             19723,19726,19727,19724,19722,19725,#raw wood
             19710,19713,19714,19711,19709,19712,#refined wood
             19697,19703,19699,19698,19702,19700,19701,#raw metal
@@ -644,5 +652,6 @@ for key, value in multiplier_prices.items():
 salvagePrint('Unstable Hide',salvageLeather,multiplier_prices,droprate_UnstableHide,salvageCost,0)
 salvagePrint('Bloodstone-Warped Hide',salvageLeather,multiplier_prices,droprate_BloodstoneWarpedHide,salvageCost,0)
 salvagePrint('Hard Leather Strap',salvageLeather,multiplier_prices,droprate_HardLeatherStrap,salvageCost,0)
+salvagePrint('Frayed Hide',salvageLeather,multiplier_prices,droprate_FrayedHide,salvageCost,0)
 
 salvagePrint('Reclaimed Wood Chunk',salvageWood,multiplier_prices,droprate_ReclaimedWoodChunk,salvageCost,0)
