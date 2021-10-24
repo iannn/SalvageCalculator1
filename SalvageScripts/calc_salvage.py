@@ -47,17 +47,19 @@ Salvage items:
     Metal Salvage
         21690=Brittle Clump of Ore
         21678=Bit of Metal Scrap
-        21691=Weak Clump of Ore
 
+        21691=Weak Clump of Ore
         21679=Pile of Metal Scrap
+
         21692=Clump of Ore
         21680=Jagged Metal Scrap
 
         21693=Laden Clump of Ore
-        21681="Metal Scrap
-        21694=Loaded Clump of Ore
+        21681=Metal Scrap
 
+        21694=Loaded Clump of Ore
         21682=Salvageable Metal Scrap
+
         21695=Rich Clump of Ore
         21683=Valuable Metal Scrap
 
