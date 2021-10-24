@@ -34,7 +34,7 @@ def generate_multiplier(unrefined_dct,refined_dct,refined_scalar,refined_lookup,
                 elif (refined_dct['Bronze Ingot'][buysell]-8/5)/refined_scalar['Bronze Ingot'] > refined_dct['Copper Ingot'][buysell]/refined_scalar['Copper Ingot']:
                     decision_dct['Copper Ore'] = 'B Ingot'
                     multiplier_dct['Copper Ore'] = round(refined_dct['Bronze Ingot'][buysell],4)
-                    unrefined_to_refined['Copper Ore']='Bronze Ingot'#Passed by reference so update persists
+                    refined_lookup['Copper Ore']='Bronze Ingot'#Passed by reference so update persists
                 #Regular copper ingot is therefore the best option
                 else:
                     decision_dct['Copper Ore'] = 'C Ingot'
@@ -49,7 +49,7 @@ def generate_multiplier(unrefined_dct,refined_dct,refined_scalar,refined_lookup,
                 elif (refined_dct['Steel Ingot'][buysell]-16)/refined_scalar['Steel Ingot'] > refined_dct['Iron Ingot'][buysell]/refined_scalar['Iron Ingot']:
                     decision_dct['Iron Ore'] = 'S Ingot'
                     multiplier_dct['Iron Ore'] = round(refined_dct['Steel Ingot'][buysell],4)
-                    unrefined_to_refined['Iron Ore']='Bronze Ingot'#Passed by reference so update persists
+                    refined_lookup['Iron Ore']='Bronze Ingot'#Passed by reference so update persists
                 #Regular Iron Ingot is therefore the best option
                 else:
                     decision_dct['Iron Ore'] = 'I Ingot'
@@ -64,7 +64,7 @@ def generate_multiplier(unrefined_dct,refined_dct,refined_scalar,refined_lookup,
                 elif (refined_dct['Darksteel Ingot'][buysell]-48)/refined_scalar['Darksteel Ingot'] > refined_dct['Platinum Ingot'][buysell]/refined_scalar['Platinum Ingot']:
                     decision_dct['Platinum Ore'] = 'D Ingot'
                     multiplier_dct['Platinum Ore'] = round(refined_dct['Darksteel Ingot'][buysell],4)
-                    unrefined_to_refined['Platinum Ore']='Darksteel Ingot'#Passed by reference so update persists
+                    refined_lookup['Platinum Ore']='Darksteel Ingot'#Passed by reference so update persists
                 #Regular Platinum Ingot is therefore the best option
                 else:
                     decision_dct['Platinum Ore'] = 'P Ingot'
