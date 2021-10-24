@@ -382,11 +382,16 @@ Metal Salvage:
 #Organize API entries
 def sort_allAPI(allAPI):
     salvageLeather = {}
+    salvageWood = {}
     unrefined_prices = {}
     refined_prices = {}
 
     for entryAPI in allAPI:
-        if(entryAPI['id']==79213):
+        if(entryAPI['id']==79423):
+            salvageWood['Reclaimed Wood Chunk'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==80681):
+            salvageLeather['Bloodstone-Warped Hide'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==79213):
             salvageLeather['Unstable Hide'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
         elif(entryAPI['id']==80681):
             salvageLeather['Bloodstone-Warped Hide'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
@@ -498,19 +503,18 @@ def sort_allAPI(allAPI):
             refined_prices['Elder Wood Plank'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
         elif(entryAPI['id']==19712):
             refined_prices['Ancient Wood Plank'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-
         else:
             print("Unexpected API return")
             print(entryAPI)
 
-    return unrefined_prices, refined_prices, salvageLeather
+    return unrefined_prices, refined_prices, salvageLeather, salvageWood
 
 #General compute and print report
 def salvagePrint(itemName_str,itemCost_dct,multiplier_dct,droprate_dict,salvageCost_dct,buysell):
     print("\n{salvageName} buy order: {salvagePrice}".format(salvageName=itemName_str, salvagePrice=itemCost_dct[itemName_str][buysell]))
     for rarity,droprate_x in droprate_dict.items():
         itemValues_dct,itemSum_dct = compute_result(droprate_x,multiplier_dct,True)
-        print("{salvageName} {salvageMethod:<11} : Average Salvage Value = {salvageValue}; Estimated {profit} profit per salvage".format(salvageName=itemName_str,salvageMethod=rarity,salvageValue=itemSum_dct,profit=itemSum_dct - salvageCost_dct[rarity]-itemCost_dct[itemName_str][buysell]))
+        print("{salvageName} {salvageMethod:<11} : Average Salvage Value = {salvageValue}; Estimated {profit} profit per salvage".format(salvageName=itemName_str,salvageMethod=rarity,salvageValue=itemSum_dct,profit=round(itemSum_dct - salvageCost_dct[rarity]-itemCost_dct[itemName_str][buysell],4)))
 
 
 """
@@ -577,6 +581,12 @@ Drop rates: Cloth
 Drop rates: Wood
 """
 #Yes, there's only 1
+droprate_ReclaimedWoodChunk={}
+#Wiki
+droprate_ReclaimedWoodChunk['Copper']={'Green Wood Log':0.102,'Soft Wood Log':0.4703,'Seasoned Wood Log':0.504,'Hard Wood Log':0.5206,'Elder Wood Log':0.163,'Ancient Wood Log':0.277}
+#Peur
+droprate_ReclaimedWoodChunk['Runecrafter']={'Green Wood Log':0.109,'Soft Wood Log':0.523,'Seasoned Wood Log':0.546,'Hard Wood Log':0.436,'Elder Wood Log':0.178,'Ancient Wood Log':0.344}
+droprate_ReclaimedWoodChunk['Rare']={'Green Wood Log':0.12,'Soft Wood Log':0.459,'Seasoned Wood Log':0.511,'Hard Wood Log':0.469,'Elder Wood Log':0.149,'Ancient Wood Log':0.331}
 
 """
 Helper stuff
@@ -601,13 +611,20 @@ refined_scalar = {'Stretched Rawhide Leather Square':2,'Cured Thin Leather Squar
 
 #All relevant IDs
 #Once salvage item at a time
-allIDs =    [79213,80681,21689,#Leather salvage
+allIDs =    [79423,#Wood salvage
+            79213,80681,21689,#Leather salvage
+            19723,19726,19727,19724,19722,19725,#raw wood
+            19710,19713,19714,19711,19709,19712,#refined wood
+            19697,19703,19699,19698,19702,19700,19701,#raw metal
+            19680,19679,19687,19683,19688,19682,19686,19681,19684,19685,#refined metal
+            19718,19739,19741,19743,19748,19745,#raw cloth
+            19720,19740,19742,19744,19747,19746,#
             19719,19728,19730,19731,19729,19732,#raw leather
             19738,19733,19734,19736,19735,19737]#refined leather
 
 allAPI=gw2_client.commerceprices.get(ids=allIDs)
 
-unrefined_prices, refined_prices, salvageLeather = sort_allAPI(allAPI)
+unrefined_prices, refined_prices, salvageLeather, salvageWood = sort_allAPI(allAPI)
 
 #Multiplier creation
 #Multiplier and decision are based off of sell prices
@@ -627,3 +644,5 @@ for key, value in multiplier_prices.items():
 salvagePrint('Unstable Hide',salvageLeather,multiplier_prices,droprate_UnstableHide,salvageCost,0)
 salvagePrint('Bloodstone-Warped Hide',salvageLeather,multiplier_prices,droprate_BloodstoneWarpedHide,salvageCost,0)
 salvagePrint('Hard Leather Strap',salvageLeather,multiplier_prices,droprate_HardLeatherStrap,salvageCost,0)
+
+salvagePrint('Reclaimed Wood Chunk',salvageWood,multiplier_prices,droprate_ReclaimedWoodChunk,salvageCost,0)
