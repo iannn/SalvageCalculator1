@@ -385,12 +385,16 @@ Metal Salvage:
 def sort_allAPI(allAPI):
     salvageLeather = {}
     salvageWood = {}
+    salvageMetal = {}
+    salvageCloth = {}
     unrefined_prices = {}
     refined_prices = {}
 
     for entryAPI in allAPI:
         if(entryAPI['id']==79423):
             salvageWood['Reclaimed Wood Chunk'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==79079):
+            salvageMetal['Unstable Metal Chunk'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
         elif(entryAPI['id']==80681):
             salvageLeather['Bloodstone-Warped Hide'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
         elif(entryAPI['id']==79213):
@@ -511,7 +515,7 @@ def sort_allAPI(allAPI):
             print("Unexpected API return")
             print(entryAPI)
 
-    return unrefined_prices, refined_prices, salvageLeather, salvageWood
+    return unrefined_prices, refined_prices, salvageLeather, salvageWood, salvageMetal, salvageCloth
 
 #General compute and print report
 def salvagePrint(itemName_str,itemCost_dct,multiplier_dct,droprate_dict,salvageCost_dct,buysell):
@@ -547,6 +551,14 @@ gw2_client = GuildWars2Client()
 """
 Drop rates: Metals
 """
+droprate_BitofMetalScrap = {}
+
+#Unstable Metal Chunk
+droprate_UnstableMetalChunk = {}
+#Peu
+droprate_UnstableMetalChunk['Copper']={'Copper Ore':0.1613691932,'Iron Ore':0.9160554197,'Platinum Ore':0.4686226569,'Mithril Ore':0.1597392013,'Orichalcum Ore':0.3276283619}
+droprate_UnstableMetalChunk['Runecrafter']={'Copper Ore':0.184,'Iron Ore':0.911,'Platinum Ore':0.502,'Mithril Ore':0.186,'Orichalcum Ore':0.328}
+droprate_UnstableMetalChunk['Rare']={'Copper Ore':0.136,'Iron Ore':1.004,'Platinum Ore':0.523,'Mithril Ore':0.151,'Orichalcum Ore':0.31}
 
 
 """
@@ -622,19 +634,20 @@ refined_scalar = {'Stretched Rawhide Leather Square':2,'Cured Thin Leather Squar
 #All relevant IDs
 #Once salvage item at a time
 allIDs =    [79423,#Wood salvage
+            79079,#Metal salvage
             79213,80681,21689,21668,#Leather salvage
             19723,19726,19727,19724,19722,19725,#raw wood
             19710,19713,19714,19711,19709,19712,#refined wood
             19697,19703,19699,19698,19702,19700,19701,#raw metal
             19680,19679,19687,19683,19688,19682,19686,19681,19684,19685,#refined metal
             19718,19739,19741,19743,19748,19745,#raw cloth
-            19720,19740,19742,19744,19747,19746,#
+            19720,19740,19742,19744,19747,19746,#Refined cloth
             19719,19728,19730,19731,19729,19732,#raw leather
             19738,19733,19734,19736,19735,19737]#refined leather
 
 allAPI=gw2_client.commerceprices.get(ids=allIDs)
 
-unrefined_prices, refined_prices, salvageLeather, salvageWood = sort_allAPI(allAPI)
+unrefined_prices, refined_prices, salvageLeather, salvageWood, salvageMetal, salvageCloth = sort_allAPI(allAPI)
 
 #Multiplier creation
 #Multiplier and decision are based off of sell prices
@@ -655,5 +668,8 @@ salvagePrint('Unstable Hide',salvageLeather,multiplier_prices,droprate_UnstableH
 salvagePrint('Bloodstone-Warped Hide',salvageLeather,multiplier_prices,droprate_BloodstoneWarpedHide,salvageCost,0)
 salvagePrint('Hard Leather Strap',salvageLeather,multiplier_prices,droprate_HardLeatherStrap,salvageCost,0)
 salvagePrint('Frayed Hide',salvageLeather,multiplier_prices,droprate_FrayedHide,salvageCost,0)
+
+salvagePrint('Unstable Metal Chunk',salvageMetal,multiplier_prices,droprate_UnstableMetalChunk,salvageCost,0)
+
 
 salvagePrint('Reclaimed Wood Chunk',salvageWood,multiplier_prices,droprate_ReclaimedWoodChunk,salvageCost,0)
