@@ -49,7 +49,7 @@ def generate_multiplier(unrefined_dct,refined_dct,refined_scalar,refined_lookup,
                 elif (refined_dct['Steel Ingot'][buysell]-16)/refined_scalar['Steel Ingot'] > refined_dct['Iron Ingot'][buysell]/refined_scalar['Iron Ingot']:
                     decision_dct['Iron Ore'] = 'S Ingot'
                     multiplier_dct['Iron Ore'] = round((refined_dct['Steel Ingot'][buysell]-16)/refined_scalar['Steel Ingot'],4)
-                    refined_lookup['Iron Ore']='Bronze Ingot'#Passed by reference so update persists
+                    refined_lookup['Iron Ore']='Steel Ingot'#Passed by reference so update persists
                 #Regular Iron Ingot is therefore the best option
                 else:
                     decision_dct['Iron Ore'] = 'I Ingot'
