@@ -395,6 +395,12 @@ def sort_allAPI(allAPI):
             salvageWood['Reclaimed Wood Chunk'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
         elif(entryAPI['id']==79079):
             salvageMetal['Unstable Metal Chunk'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==79138):
+            salvageCloth['Unstable Rag'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==21671):
+            salvageCloth['Worn Garment'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==21660):
+            salvageCloth['Worn Rag'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
         elif(entryAPI['id']==80681):
             salvageLeather['Bloodstone-Warped Hide'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
         elif(entryAPI['id']==79213):
@@ -520,10 +526,9 @@ def sort_allAPI(allAPI):
 #General compute and print report
 def salvagePrint(itemName_str,itemCost_dct,multiplier_dct,droprate_dict,salvageCost_dct,buysell):
     print("\n{salvageName} buy order: {salvagePrice}".format(salvageName=itemName_str, salvagePrice=itemCost_dct[itemName_str][buysell]))
-    for rarity,droprate_x in droprate_dict.items():
+    for salvage_rarity,droprate_x in droprate_dict.items():
         itemValues_dct,itemSum_dct = compute_result(droprate_x,multiplier_dct,True)
-        print("{salvageName} {salvageMethod:<11} : Average Salvage Value = {salvageValue}; Estimated {profit} profit per salvage".format(salvageName=itemName_str,salvageMethod=rarity,salvageValue=itemSum_dct,profit=round(itemSum_dct - salvageCost_dct[rarity]-itemCost_dct[itemName_str][buysell],4)))
-
+        print("{salvageName} {salvageMethod:<11} : Average Salvage Value = {salvageValue}; Estimated {profit} profit per salvage".format(salvageName=itemName_str,salvageMethod=salvage_rarity,salvageValue=itemSum_dct,profit=round(itemSum_dct - salvageCost_dct[salvage_rarity]-itemCost_dct[itemName_str][buysell],4)))
 
 """
 Main Program
@@ -597,7 +602,26 @@ droprate_FrayedHide['Rare']={'Coarse Leather Section':0.43,'Rugged Leather Secti
 """
 Drop rates: Cloth
 """
+#Unstable Cloth
+droprate_UnstableRag = {}
+#Peu
+droprate_UnstableRag['Copper']={'Jute Scrap':0.1516626115,'Wool Scrap':0.5587996756,'Cotton Scrap':0.5052716951,'Linen Scrap':0.502027575,'Silk Scrap':0.1549067315,'Gossamer Scrap':0.1662611517}
+droprate_UnstableRag['Runecrafter']={'Jute Scrap':0.164,'Wool Scrap':0.527,'Cotton Scrap':0.491,'Linen Scrap':0.568,'Silk Scrap':0.22,'Gossamer Scrap':0.2513}
+droprate_UnstableRag['Rare']={'Jute Scrap':0.158,'Wool Scrap':0.471,'Cotton Scrap':0.585,'Linen Scrap':0.544,'Silk Scrap':0.21,'Gossamer Scrap':0.165}
 
+#Worn Garment
+droprate_WornGarment = {}
+#Peu
+droprate_WornGarment['Copper']={'Jute Scrap':0.57,'Wool Scrap':1.24}
+droprate_WornGarment['Runecrafter']={'Jute Scrap':0.41,'Wool Scrap':1.44}
+droprate_WornGarment['Rare']={'Jute Scrap':0.29,'Wool Scrap':1.54}
+
+#Worn Rag
+droprate_WornRag = {}
+#Peu
+droprate_WornRag['Copper']={'Jute Scrap':0.56,'Wool Scrap':1.35}
+droprate_WornRag['Runecrafter']={'Jute Scrap':0.29,'Wool Scrap':1.58}
+droprate_WornRag['Rare']={'Jute Scrap':0.29,'Wool Scrap':1.67}
 
 """
 Drop rates: Wood
@@ -606,7 +630,7 @@ Drop rates: Wood
 droprate_ReclaimedWoodChunk={}
 #Wiki
 droprate_ReclaimedWoodChunk['Copper']={'Green Wood Log':0.102,'Soft Wood Log':0.4703,'Seasoned Wood Log':0.504,'Hard Wood Log':0.5206,'Elder Wood Log':0.163,'Ancient Wood Log':0.277}
-#Peur
+#Peu
 droprate_ReclaimedWoodChunk['Runecrafter']={'Green Wood Log':0.109,'Soft Wood Log':0.523,'Seasoned Wood Log':0.546,'Hard Wood Log':0.436,'Elder Wood Log':0.178,'Ancient Wood Log':0.344}
 droprate_ReclaimedWoodChunk['Rare']={'Green Wood Log':0.12,'Soft Wood Log':0.459,'Seasoned Wood Log':0.511,'Hard Wood Log':0.469,'Elder Wood Log':0.149,'Ancient Wood Log':0.331}
 
@@ -635,13 +659,14 @@ refined_scalar = {'Stretched Rawhide Leather Square':2,'Cured Thin Leather Squar
 #Once salvage item at a time
 allIDs =    [79423,#Wood salvage
             79079,#Metal salvage
+            79138,21671,21660,#Cloth salvage
             79213,80681,21689,21668,#Leather salvage
             19723,19726,19727,19724,19722,19725,#raw wood
             19710,19713,19714,19711,19709,19712,#refined wood
             19697,19703,19699,19698,19702,19700,19701,#raw metal
             19680,19679,19687,19683,19688,19682,19686,19681,19684,19685,#refined metal
             19718,19739,19741,19743,19748,19745,#raw cloth
-            19720,19740,19742,19744,19747,19746,#Refined cloth
+            19720,19740,19742,19744,19747,19746,#refined cloth
             19719,19728,19730,19731,19729,19732,#raw leather
             19738,19733,19734,19736,19735,19737]#refined leather
 
@@ -664,12 +689,22 @@ for key, value in multiplier_prices.items():
         print('{:<24} : {:>10}'.format(key,value))
 
 #Calculate salvaged values
+print('\n','-'*10,"Leather",'-'*10)
 salvagePrint('Unstable Hide',salvageLeather,multiplier_prices,droprate_UnstableHide,salvageCost,0)
 salvagePrint('Bloodstone-Warped Hide',salvageLeather,multiplier_prices,droprate_BloodstoneWarpedHide,salvageCost,0)
 salvagePrint('Hard Leather Strap',salvageLeather,multiplier_prices,droprate_HardLeatherStrap,salvageCost,0)
 salvagePrint('Frayed Hide',salvageLeather,multiplier_prices,droprate_FrayedHide,salvageCost,0)
 
+print('\n','-'*10,"Leather / / / Metal",'-'*10)
+
 salvagePrint('Unstable Metal Chunk',salvageMetal,multiplier_prices,droprate_UnstableMetalChunk,salvageCost,0)
 
+print('\n','-'*10,"Metal / / / Cloth",'-'*10)
+
+salvagePrint('Unstable Rag',salvageCloth,multiplier_prices,droprate_UnstableRag,salvageCost,0)
+salvagePrint('Worn Garment',salvageCloth,multiplier_prices,droprate_WornGarment,salvageCost,0)
+salvagePrint('Worn Rag',salvageCloth,multiplier_prices,droprate_WornRag,salvageCost,0)
+
+print('\n','-'*10,"Cloth / / / Wood",'-'*10)
 
 salvagePrint('Reclaimed Wood Chunk',salvageWood,multiplier_prices,droprate_ReclaimedWoodChunk,salvageCost,0)
