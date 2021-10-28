@@ -236,9 +236,9 @@ unidRare_droprate = {'Orichalcum Ore':0.0407,'Ancient Wood Log':0.0295,'Gossamer
 #Never salvage with just one kit becuase better gear will come out
 #Exotics are so rare that they will generate far more than the salvage + I may use BLKit
 salvageCost = {'Mystic':10.5, 'Copper':5 , 'Runecrafter':30, 'Silver':60}
-unidFine_salvageCost = salvageCost['Mystic']*0.0100 + salvageCost['Runecrafter']*0.0940 + salvageCost['Copper']*0.8950
-unidMasterwork_salvageCost = salvageCost['Mystic']*0.0336 + salvageCost['Runecrafter']*0.9638
-unidRare_salvageCost = salvageCost['Silver']*0.9840
+unidFine_salvageCost = round(salvageCost['Mystic']*0.0100 + salvageCost['Runecrafter']*0.0940 + salvageCost['Copper']*0.8950,4)
+unidMasterwork_salvageCost = round(salvageCost['Mystic']*0.0336 + salvageCost['Runecrafter']*0.9638,4)
+unidRare_salvageCost = round(salvageCost['Silver']*0.9840,4)
 
 #Helper dictionaries
 #lookup unrefined to get refined
