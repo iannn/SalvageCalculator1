@@ -525,11 +525,33 @@ def sort_allAPI(allAPI):
 
 #General compute and print report
 def salvagePrint(itemName_str,itemCost_dct,multiplier_dct,droprate_dict,salvageCost_dct,buysell):
-    print("\n{salvageName} buy order: {salvagePrice}".format(salvageName=itemName_str, salvagePrice=itemCost_dct[itemName_str][buysell]))
+    """This is the goal
+
+    Hard Leather Strap  : {cost}
+    Salvage Kit             Profit  | Total Value   | item 1    item 2
+    --------------------------------------------------------------------------------------
+    Copper              : {profit}  | {sum right}   |
+    Runecrafters        : {profit}  | {sum right}   |
+    Rare                : {profit}  | {sum right}   |
+
+    return value is some kind of profit metric [salvage item, salvage method, profit]
+    [0-10) is meh
+    [10-25) is good
+    25 and above is BUYBUYBUY
+
+    print('{:<24} : {:>10}   {:<10}   {:<5}   {:>10}   {:>10}   {:>10}   {:>10}'.format('Material','Sell Price','State','Raw','Refined','Fine','Masterwork','Rare'))
+    """
+    worthit_list = []
+
+    formatprint =
+
+    print("\n{salvageName} : {salvagePrice}".format(salvageName=itemName_str, salvagePrice=itemCost_dct[itemName_str][buysell]))
     for salvage_rarity,droprate_x in droprate_dict.items():
         itemValues_dct,itemSum_dct = compute_result(droprate_x,multiplier_dct,True)
-        print("{salvageName} {salvageMethod:<11} : Average Salvage Value = {salvageValue}; Estimated {profit} profit per salvage".format(salvageName=itemName_str,salvageMethod=salvage_rarity,salvageValue=itemSum_dct,profit=round(itemSum_dct - salvageCost_dct[salvage_rarity]-itemCost_dct[itemName_str][buysell],4)))
+        methodprofit=round(itemSum_dct - salvageCost_dct[salvage_rarity]-itemCost_dct[itemName_str][buysell],4)
+        print("{salvageName} {salvageMethod:<11} : Average Salvage Value = {salvageValue}; Estimated {profit} profit per salvage".format(salvageName=itemName_str,salvageMethod=salvage_rarity,salvageValue=itemSum_dct,profit=methodprofit))
 
+    return worthit_list
 """
 Main Program
 """
