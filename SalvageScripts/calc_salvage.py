@@ -573,31 +573,31 @@ Drop rates: Leathers
 droprate_UnstableHide = {}
 #My data
 droprate_UnstableHide['Copper'] = {'Rawhide Leather Section':0.1621,'Thin Leather Section':0.5152,'Coarse Leather Section':0.4758,'Rugged Leather Section':0.4798,'Thick Leather Section':0.1516,'Hardened Leather Section':0.2813}
-droprate_UnstableHide['Runecrafter'] = {'Rawhide Leather Section':0.1730,'Thin Leather Section':0.4786,'Coarse Leather Section':0.4877,'Rugged Leather Section':0.4779,'Thick Leather Section':0.1680,'Hardened Leather Section':0.3152}
-#pure peu
-droprate_UnstableHide['Rare'] = {'Rawhide Leather Section':0.196,'Thin Leather Section':0.424,'Coarse Leather Section':0.412,'Rugged Leather Section':0.444,'Thick Leather Section':0.236,'Hardened Leather Section':0.372}
+droprate_UnstableHide['Runecrafter'] = {'Rawhide Leather Section':0.1746,'Thin Leather Section':0.4780,'Coarse Leather Section':0.4793,'Rugged Leather Section':0.4920,'Thick Leather Section':0.1646,'Hardened Leather Section':0.3170}
+droprate_UnstableHide['Rare'] = {'Rawhide Leather Section':0.2177,'Thin Leather Section':0.4721,'Coarse Leather Section':0.5665,'Rugged Leather Section':0.4489,'Thick Leather Section':0.1310,'Hardened Leather Section':0.3314}
 
 ##Bloodstone-Warped Hide
 droprate_BloodstoneWarpedHide={}
 #my data only
 droprate_BloodstoneWarpedHide['Copper'] = {'Rawhide Leather Section':0.0462,'Thin Leather Section':0.0533,'Coarse Leather Section':0.0445,'Rugged Leather Section':0.0467,'Thick Leather Section':0.4533,'Hardened Leather Section':0.4714}
-droprate_BloodstoneWarpedHide['Runecrafter'] = {'Rawhide Leather Section':0.0451,'Thin Leather Section':0.0459,'Coarse Leather Section':0.0471,'Rugged Leather Section':0.0445,'Thick Leather Section':0.5016,'Hardened Leather Section':0.5249}
-#wiki
-droprate_BloodstoneWarpedHide['Rare'] = {'Rawhide Leather Section':0.0557,'Thin Leather Section':0.0581,'Coarse Leather Section':0.0521,'Rugged Leather Section':0.0508,'Thick Leather Section':0.4758,'Hardened Leather Section':0.5541}
+droprate_BloodstoneWarpedHide['Runecrafter'] = {'Rawhide Leather Section':0.0493,'Thin Leather Section':0.0457,'Coarse Leather Section':0.0468,'Rugged Leather Section':0.0473,'Thick Leather Section':0.4814,'Hardened Leather Section':0.5360}
+droprate_BloodstoneWarpedHide['Rare'] = {'Rawhide Leather Section':0.0469,'Thin Leather Section':0.0537,'Coarse Leather Section':0.0571,'Rugged Leather Section':0.0499,'Thick Leather Section':0.4866,'Hardened Leather Section':0.5841}
 
 #Hard Leather Strap
 droprate_HardLeatherStrap={}
 #Mine
-droprate_HardLeatherStrap['Copper'] = {'Thick Leather Section':1.2865,'Hardened Leather Section':0.0770}
-droprate_HardLeatherStrap['Runecrafter'] = {'Thick Leather Section':1.352,'Hardened Leather Section':0.092}
-droprate_HardLeatherStrap['Rare'] = {'Thick Leather Section':1.1973,'Hardened Leather Section':0.1067}
+droprate_HardLeatherStrap['Copper'] = {'Thick Leather Section':1.2853,'Hardened Leather Section':0.0783}
+droprate_HardLeatherStrap['Runecrafter'] = {'Thick Leather Section':1.3120,'Hardened Leather Section':0.0770}
+droprate_HardLeatherStrap['Rare'] = {'Thick Leather Section':1.2588,'Hardened Leather Section':0.0975}
 
 #Frayed Hide
 droprate_FrayedHide={}
 #Peu
 droprate_FrayedHide['Copper']={'Coarse Leather Section':0.57,'Rugged Leather Section':1.16}
-droprate_FrayedHide['Runecrafter']={'Coarse Leather Section':0.32,'Rugged Leather Section':1.53}
-droprate_FrayedHide['Rare']={'Coarse Leather Section':0.43,'Rugged Leather Section':1.38}
+#mine
+droprate_FrayedHide['Runecrafter']={'Coarse Leather Section':0.4264,'Rugged Leather Section':1.4070}
+#mine beta3
+droprate_FrayedHide['Rare']={'Coarse Leather Section':0.3414,'Rugged Leather Section':1.592}
 
 """
 Drop rates: Cloth
@@ -607,21 +607,24 @@ droprate_UnstableRag = {}
 #Peu
 droprate_UnstableRag['Copper']={'Jute Scrap':0.1516626115,'Wool Scrap':0.5587996756,'Cotton Scrap':0.5052716951,'Linen Scrap':0.502027575,'Silk Scrap':0.1549067315,'Gossamer Scrap':0.1662611517}
 droprate_UnstableRag['Runecrafter']={'Jute Scrap':0.164,'Wool Scrap':0.527,'Cotton Scrap':0.491,'Linen Scrap':0.568,'Silk Scrap':0.22,'Gossamer Scrap':0.2513}
-droprate_UnstableRag['Rare']={'Jute Scrap':0.158,'Wool Scrap':0.471,'Cotton Scrap':0.585,'Linen Scrap':0.544,'Silk Scrap':0.21,'Gossamer Scrap':0.165}
+#me beta3
+droprate_UnstableRag['Rare']={'Jute Scrap':0.1605,'Wool Scrap':0.4649,'Cotton Scrap':0.5535,'Linen Scrap':0.5424,'Silk Scrap':0.2011,'Gossamer Scrap':0.1661}
 
 #Worn Garment
 droprate_WornGarment = {}
 #Peu
 droprate_WornGarment['Copper']={'Jute Scrap':0.57,'Wool Scrap':1.24}
 droprate_WornGarment['Runecrafter']={'Jute Scrap':0.41,'Wool Scrap':1.44}
-droprate_WornGarment['Rare']={'Jute Scrap':0.29,'Wool Scrap':1.54}
+#me beta3
+droprate_WornGarment['Rare']={'Jute Scrap':0.4060,'Wool Scrap':1.4521}
 
 #Worn Rag
 droprate_WornRag = {}
 #Peu
 droprate_WornRag['Copper']={'Jute Scrap':0.56,'Wool Scrap':1.35}
 droprate_WornRag['Runecrafter']={'Jute Scrap':0.29,'Wool Scrap':1.58}
-droprate_WornRag['Rare']={'Jute Scrap':0.29,'Wool Scrap':1.67}
+#me beta3
+droprate_WornRag['Rare']={'Jute Scrap':0.3285,'Wool Scrap':1.6039}
 
 """
 Drop rates: Wood
