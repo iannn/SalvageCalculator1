@@ -543,7 +543,14 @@ def salvagePrint(itemName_str,itemCost_dct,multiplier_dct,droprate_dict,salvageC
     """
     worthit_list = []
 
-    formatprint =
+    #These really short columns are throwing me off so try and make them custom length
+    formatline = "{:<14} : {:>10} | {:>12} | " + '  '.join(["{:>24}"]*len(droprate_dict['Copper'].keys()))
+    orderedkeys = list(droprate_dict['Copper'].keys())
+    print(formatline.format(*["Salvage Kit", "Profit","Total Value"]+orderedkeys))
+    for salvage_rarity,droprate_x in droprate_dict.items():
+        itemValues_dct,itemSum_dct = compute_result(droprate_x,multiplier_dct,True)
+        methodprofit=round(itemSum_dct - salvageCost_dct[salvage_rarity]-itemCost_dct[itemName_str][buysell],4)
+        print(formatline.format(*[salvage_rarity,round(methodprofit,4),round(itemSum_dct,4)]+[itemValues_dct[x] for x in orderedkeys]))
 
     print("\n{salvageName} : {salvagePrice}".format(salvageName=itemName_str, salvagePrice=itemCost_dct[itemName_str][buysell]))
     for salvage_rarity,droprate_x in droprate_dict.items():
