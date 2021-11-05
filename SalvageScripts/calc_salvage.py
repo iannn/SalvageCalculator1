@@ -555,14 +555,28 @@ def salvagePrint(itemName_str,itemCost_dct,multiplier_dct,droprate_dict,salvageC
         itemValues_dct,itemSum_val = compute_result(droprate_x,multiplier_dct,True)
         methodprofit=round(itemSum_val - salvageCost_dct[salvage_rarity]-itemCost_dct[itemName_str][buysell],4)
         print(formatline.format(*[salvage_rarity,round(methodprofit,4),round(itemSum_val,4)]+[itemValues_dct[x] for x in orderedkeys]))
-        if itemSum_val >= 25:
-            worthit_list.append([itemName_str, salvage_rarity, "BUYBUYBUY"])
-        elif itemSum_val >= 15:
-            worthit_list.append([itemName_str, salvage_rarity, "Good"])
-        elif itemSum_val >= 5:
-            worthit_list.append([itemName_str, salvage_rarity, "consider"])
+
+        if (methodprofit >= 50):
+            worthit_list = [itemName_str, salvage_rarity, "MEGA BUY"]
+        elif (methodprofit >=25) and ("MEGA BUY" not in worthit_list):
+            worthit_list = [itemName_str, salvage_rarity, "BUYBUYBUY"]
+        elif (methodprofit >=15) and ((("MEGA BUY" or "BUYBUYBUY") not in worthit_list)):
+            worthit_list = [itemName_str, salvage_rarity, "Good"]
+        elif (methodprofit >=5) and (("MEGA BUY" or "BUYBUYBUY" or "Good") not in worthit_list):
+            worthit_list = [itemName_str, salvage_rarity, "Consider"]
+#             #no op
+# Returning all this stuff is too much information without additional parsing
+#         if itemSum_val >= 25:
+#             worthit_list = [itemName_str, salvage_rarity, "BUYBUYBUY"])
+#         elif itemSum_val >= 15 :
+#             worthit_list.append([itemName_str, salvage_rarity, "Good"])
+#         elif itemSum_val >= 5:
+#             worthit_list.append([itemName_str, salvage_rarity, "consider"])
+
+
 
     return worthit_list
+#End of salvagePrint function
 """
 Main Program
 """
@@ -725,22 +739,22 @@ for key, value in multiplier_prices.items():
 worthbuyinglist=[]
 print('\n','#'*10,"Leather",'#'*10)
 worthbuyinglist.append(salvagePrint('Unstable Hide',salvageLeather,multiplier_prices,droprate_UnstableHide,salvageCost,0))
-salvagePrint('Bloodstone-Warped Hide',salvageLeather,multiplier_prices,droprate_BloodstoneWarpedHide,salvageCost,0)
-salvagePrint('Hard Leather Strap',salvageLeather,multiplier_prices,droprate_HardLeatherStrap,salvageCost,0)
-salvagePrint('Frayed Hide',salvageLeather,multiplier_prices,droprate_FrayedHide,salvageCost,0)
+worthbuyinglist.append(salvagePrint('Bloodstone-Warped Hide',salvageLeather,multiplier_prices,droprate_BloodstoneWarpedHide,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Hard Leather Strap',salvageLeather,multiplier_prices,droprate_HardLeatherStrap,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Frayed Hide',salvageLeather,multiplier_prices,droprate_FrayedHide,salvageCost,0))
 
 print('\n','#'*10,"Leather / / / Metal",'#'*10)
 
-salvagePrint('Unstable Metal Chunk',salvageMetal,multiplier_prices,droprate_UnstableMetalChunk,salvageCost,0)
+worthbuyinglist.append(salvagePrint('Unstable Metal Chunk',salvageMetal,multiplier_prices,droprate_UnstableMetalChunk,salvageCost,0))
 
 print('\n','#'*10,"Metal / / / Cloth",'#'*10)
 
-salvagePrint('Unstable Rag',salvageCloth,multiplier_prices,droprate_UnstableRag,salvageCost,0)
-salvagePrint('Worn Garment',salvageCloth,multiplier_prices,droprate_WornGarment,salvageCost,0)
-salvagePrint('Worn Rag',salvageCloth,multiplier_prices,droprate_WornRag,salvageCost,0)
+worthbuyinglist.append(salvagePrint('Unstable Rag',salvageCloth,multiplier_prices,droprate_UnstableRag,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Worn Garment',salvageCloth,multiplier_prices,droprate_WornGarment,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Worn Rag',salvageCloth,multiplier_prices,droprate_WornRag,salvageCost,0))
 
 print('\n','#'*10,"Cloth / / / Wood",'#'*10)
 
-salvagePrint('Reclaimed Wood Chunk',salvageWood,multiplier_prices,droprate_ReclaimedWoodChunk,salvageCost,0)
+worthbuyinglist.append(salvagePrint('Reclaimed Wood Chunk',salvageWood,multiplier_prices,droprate_ReclaimedWoodChunk,salvageCost,0))
 
-#[print(x) for x in worthbuyinglist]
+[print(x) for x in worthbuyinglist if x != []]
