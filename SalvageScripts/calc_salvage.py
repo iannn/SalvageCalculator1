@@ -525,11 +525,58 @@ def sort_allAPI(allAPI):
 
 #General compute and print report
 def salvagePrint(itemName_str,itemCost_dct,multiplier_dct,droprate_dict,salvageCost_dct,buysell):
-    print("\n{salvageName} buy order: {salvagePrice}".format(salvageName=itemName_str, salvagePrice=itemCost_dct[itemName_str][buysell]))
-    for salvage_rarity,droprate_x in droprate_dict.items():
-        itemValues_dct,itemSum_dct = compute_result(droprate_x,multiplier_dct,True)
-        print("{salvageName} {salvageMethod:<11} : Average Salvage Value = {salvageValue}; Estimated {profit} profit per salvage".format(salvageName=itemName_str,salvageMethod=salvage_rarity,salvageValue=itemSum_dct,profit=round(itemSum_dct - salvageCost_dct[salvage_rarity]-itemCost_dct[itemName_str][buysell],4)))
+    """This is the goal
 
+    Hard Leather Strap  : {cost}
+    Salvage Kit             Profit  | Total Value   | item 1    item 2
+    --------------------------------------------------------------------------------------
+    Copper              : {profit}  | {sum right}   |
+    Runecrafters        : {profit}  | {sum right}   |
+    Rare                : {profit}  | {sum right}   |
+
+    return value is some kind of profit metric [salvage item, salvage method, profit]
+    [5-15) is meh
+    [15-25) is good
+    25 and above is BUYBUYBUY
+
+    print('{:<24} : {:>10}   {:<10}   {:<5}   {:>10}   {:>10}   {:>10}   {:>10}'.format('Material','Sell Price','State','Raw','Refined','Fine','Masterwork','Rare'))
+    """
+    worthit_list = []
+
+
+    orderedkeys = list(droprate_dict['Copper'].keys())
+    #the "%" operator here is actually used as the indicator for "%d" to format strings, like with C
+    formatline = "{:<14} : {:>10} | {:>12} | " + '  '.join(["{:>%d}" % len(l) for l in orderedkeys])
+    print("\n{salvageName} : {salvagePrice}".format(salvageName=itemName_str, salvagePrice=itemCost_dct[itemName_str][buysell]))
+    print("-"*(len(itemName_str)+8))
+    print(formatline.format(*["Salvage Kit", "Profit","Total Value"]+orderedkeys))
+    #print("-"*len(formatline)) maybe ad this in later. I don't really care to have the labels separated from the data
+    for salvage_rarity,droprate_x in droprate_dict.items():
+        itemValues_dct,itemSum_val = compute_result(droprate_x,multiplier_dct,True)
+        methodprofit=round(itemSum_val - salvageCost_dct[salvage_rarity]-itemCost_dct[itemName_str][buysell],4)
+        print(formatline.format(*[salvage_rarity,round(methodprofit,4),round(itemSum_val,4)]+[itemValues_dct[x] for x in orderedkeys]))
+
+        if (methodprofit >= 50):
+            worthit_list = [itemName_str, salvage_rarity, "MEGA BUY"]
+        elif (methodprofit >=25) and ("MEGA BUY" not in worthit_list):
+            worthit_list = [itemName_str, salvage_rarity, "BUYBUYBUY"]
+        elif (methodprofit >=15) and ((("MEGA BUY" or "BUYBUYBUY") not in worthit_list)):
+            worthit_list = [itemName_str, salvage_rarity, "Good"]
+        elif (methodprofit >=5) and (("MEGA BUY" or "BUYBUYBUY" or "Good") not in worthit_list):
+            worthit_list = [itemName_str, salvage_rarity, "Consider"]
+#             #no op
+# Returning all this stuff is too much information without additional parsing
+#         if itemSum_val >= 25:
+#             worthit_list = [itemName_str, salvage_rarity, "BUYBUYBUY"])
+#         elif itemSum_val >= 15 :
+#             worthit_list.append([itemName_str, salvage_rarity, "Good"])
+#         elif itemSum_val >= 5:
+#             worthit_list.append([itemName_str, salvage_rarity, "consider"])
+
+
+
+    return worthit_list
+#End of salvagePrint function
 """
 Main Program
 """
@@ -692,22 +739,25 @@ for key, value in multiplier_prices.items():
         print('{:<24} : {:>10}'.format(key,value))
 
 #Calculate salvaged values
-print('\n','-'*10,"Leather",'-'*10)
-salvagePrint('Unstable Hide',salvageLeather,multiplier_prices,droprate_UnstableHide,salvageCost,0)
-salvagePrint('Bloodstone-Warped Hide',salvageLeather,multiplier_prices,droprate_BloodstoneWarpedHide,salvageCost,0)
-salvagePrint('Hard Leather Strap',salvageLeather,multiplier_prices,droprate_HardLeatherStrap,salvageCost,0)
-salvagePrint('Frayed Hide',salvageLeather,multiplier_prices,droprate_FrayedHide,salvageCost,0)
+worthbuyinglist=[]
+print('\n','#'*10,"Leather",'#'*10)
+worthbuyinglist.append(salvagePrint('Unstable Hide',salvageLeather,multiplier_prices,droprate_UnstableHide,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Bloodstone-Warped Hide',salvageLeather,multiplier_prices,droprate_BloodstoneWarpedHide,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Hard Leather Strap',salvageLeather,multiplier_prices,droprate_HardLeatherStrap,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Frayed Hide',salvageLeather,multiplier_prices,droprate_FrayedHide,salvageCost,0))
 
-print('\n','-'*10,"Leather / / / Metal",'-'*10)
+print('\n','#'*10,"Leather / / / Metal",'#'*10)
 
-salvagePrint('Unstable Metal Chunk',salvageMetal,multiplier_prices,droprate_UnstableMetalChunk,salvageCost,0)
+worthbuyinglist.append(salvagePrint('Unstable Metal Chunk',salvageMetal,multiplier_prices,droprate_UnstableMetalChunk,salvageCost,0))
 
-print('\n','-'*10,"Metal / / / Cloth",'-'*10)
+print('\n','#'*10,"Metal / / / Cloth",'#'*10)
 
-salvagePrint('Unstable Rag',salvageCloth,multiplier_prices,droprate_UnstableRag,salvageCost,0)
-salvagePrint('Worn Garment',salvageCloth,multiplier_prices,droprate_WornGarment,salvageCost,0)
-salvagePrint('Worn Rag',salvageCloth,multiplier_prices,droprate_WornRag,salvageCost,0)
+worthbuyinglist.append(salvagePrint('Unstable Rag',salvageCloth,multiplier_prices,droprate_UnstableRag,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Worn Garment',salvageCloth,multiplier_prices,droprate_WornGarment,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Worn Rag',salvageCloth,multiplier_prices,droprate_WornRag,salvageCost,0))
 
-print('\n','-'*10,"Cloth / / / Wood",'-'*10)
+print('\n','#'*10,"Cloth / / / Wood",'#'*10)
 
-salvagePrint('Reclaimed Wood Chunk',salvageWood,multiplier_prices,droprate_ReclaimedWoodChunk,salvageCost,0)
+worthbuyinglist.append(salvagePrint('Reclaimed Wood Chunk',salvageWood,multiplier_prices,droprate_ReclaimedWoodChunk,salvageCost,0))
+
+[print(x) for x in worthbuyinglist if x != []]
