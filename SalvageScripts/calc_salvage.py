@@ -395,6 +395,10 @@ def sort_allAPI(allAPI):
             salvageWood['Reclaimed Wood Chunk'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
         elif(entryAPI['id']==79079):
             salvageMetal['Unstable Metal Chunk'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==21690):
+            salvageMetal['Brittle Clump of Ore'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==21678):
+            salvageMetal['Bit of Metal Scrap'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
         elif(entryAPI['id']==79138):
             salvageCloth['Unstable Rag'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
         elif(entryAPI['id']==21671):
@@ -556,11 +560,11 @@ def salvagePrint(itemName_str,itemCost_dct,multiplier_dct,droprate_dict,salvageC
         methodprofit=round(itemSum_val - salvageCost_dct[salvage_rarity]-itemCost_dct[itemName_str][buysell],4)
         print(formatline.format(*[salvage_rarity,round(methodprofit,4),round(itemSum_val,4)]+[itemValues_dct[x] for x in orderedkeys]))
 
-        if (methodprofit >= 50):
+        if (methodprofit >= 100):
             worthit_list = [itemName_str, salvage_rarity, "MEGA BUY"]
-        elif (methodprofit >=25) and ("MEGA BUY" not in worthit_list):
+        elif (methodprofit >=50) and ("MEGA BUY" not in worthit_list):
             worthit_list = [itemName_str, salvage_rarity, "BUYBUYBUY"]
-        elif (methodprofit >=15) and ((("MEGA BUY" or "BUYBUYBUY") not in worthit_list)):
+        elif (methodprofit >=20) and ((("MEGA BUY" or "BUYBUYBUY") not in worthit_list)):
             worthit_list = [itemName_str, salvage_rarity, "Good"]
         elif (methodprofit >=5) and (("MEGA BUY" or "BUYBUYBUY" or "Good") not in worthit_list):
             worthit_list = [itemName_str, salvage_rarity, "Consider"]
@@ -612,6 +616,19 @@ droprate_UnstableMetalChunk['Copper']={'Copper Ore':0.1613691932,'Iron Ore':0.91
 droprate_UnstableMetalChunk['Runecrafter']={'Copper Ore':0.184,'Iron Ore':0.911,'Platinum Ore':0.502,'Mithril Ore':0.186,'Orichalcum Ore':0.328}
 droprate_UnstableMetalChunk['Rare']={'Copper Ore':0.136,'Iron Ore':1.004,'Platinum Ore':0.523,'Mithril Ore':0.151,'Orichalcum Ore':0.31}
 
+#Bit of Metal Scrap
+droprate_BitofMetalScrap = {}
+#All Peureki
+droprate_BitofMetalScrap['Copper']={'Copper Ore':1.796}
+droprate_BitofMetalScrap['Runecrafter']={'Copper Ore':1.884}
+droprate_BitofMetalScrap['Rare']={'Copper Ore':1.856}
+
+#Brittle Clump of Ore
+droprate_BrittleClumpofOre={}
+#All Peureki
+droprate_BrittleClumpofOre['Copper']={'Copper Ore':1.896}
+droprate_BrittleClumpofOre['Runecrafter']={'Copper Ore':1.86}
+droprate_BrittleClumpofOre['Rare']={'Copper Ore':1.888}
 
 """
 Drop rates: Leathers
@@ -708,7 +725,7 @@ refined_scalar = {'Stretched Rawhide Leather Square':2,'Cured Thin Leather Squar
 #All relevant IDs
 #Once salvage item at a time
 allIDs =    [79423,#Wood salvage
-            79079,#Metal salvage
+            79079,21678,21690,#Metal salvage
             79138,21671,21660,#Cloth salvage
             79213,80681,21689,21668,#Leather salvage
             19723,19726,19727,19724,19722,19725,#raw wood
@@ -740,17 +757,21 @@ for key, value in multiplier_prices.items():
 
 #Calculate salvaged values
 worthbuyinglist=[]
-print('\n','#'*10,"Leather",'#'*10)
+print('\n','#'*10,"Metal",'#'*10)
+
+worthbuyinglist.append(salvagePrint('Unstable Metal Chunk',salvageMetal,multiplier_prices,droprate_UnstableMetalChunk,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Bit of Metal Scrap',salvageMetal,multiplier_prices,droprate_BitofMetalScrap,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Brittle Clump of Ore',salvageMetal,multiplier_prices,droprate_BrittleClumpofOre,salvageCost,0))
+
+
+print('\n','#'*10,"Metal / / / Leather",'#'*10)
+
 worthbuyinglist.append(salvagePrint('Unstable Hide',salvageLeather,multiplier_prices,droprate_UnstableHide,salvageCost,0))
 worthbuyinglist.append(salvagePrint('Bloodstone-Warped Hide',salvageLeather,multiplier_prices,droprate_BloodstoneWarpedHide,salvageCost,0))
 worthbuyinglist.append(salvagePrint('Hard Leather Strap',salvageLeather,multiplier_prices,droprate_HardLeatherStrap,salvageCost,0))
 worthbuyinglist.append(salvagePrint('Frayed Hide',salvageLeather,multiplier_prices,droprate_FrayedHide,salvageCost,0))
 
-print('\n','#'*10,"Leather / / / Metal",'#'*10)
-
-worthbuyinglist.append(salvagePrint('Unstable Metal Chunk',salvageMetal,multiplier_prices,droprate_UnstableMetalChunk,salvageCost,0))
-
-print('\n','#'*10,"Metal / / / Cloth",'#'*10)
+print('\n','#'*10,"Leather / / / Cloth",'#'*10)
 
 worthbuyinglist.append(salvagePrint('Unstable Rag',salvageCloth,multiplier_prices,droprate_UnstableRag,salvageCost,0))
 worthbuyinglist.append(salvagePrint('Worn Garment',salvageCloth,multiplier_prices,droprate_WornGarment,salvageCost,0))
@@ -760,4 +781,4 @@ print('\n','#'*10,"Cloth / / / Wood",'#'*10)
 
 worthbuyinglist.append(salvagePrint('Reclaimed Wood Chunk',salvageWood,multiplier_prices,droprate_ReclaimedWoodChunk,salvageCost,0))
 
-[print(x) for x in worthbuyinglist if x != []]
+[print(x) for x in worthbuyinglist if x != []]#Can change this to select which ones I want printed when
