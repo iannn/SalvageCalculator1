@@ -401,6 +401,8 @@ def sort_allAPI(allAPI):
             salvageMetal['Bit of Metal Scrap'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
         elif(entryAPI['id']==79138):
             salvageCloth['Unstable Rag'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif(entryAPI['id']==21669):
+            salvageCloth['Shredded Garment'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
         elif(entryAPI['id']==21671):
             salvageCloth['Worn Garment'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
         elif(entryAPI['id']==21660):
@@ -602,19 +604,33 @@ from calc_helpers import *
 from gw2api import GuildWars2Client
 gw2_client = GuildWars2Client()
 
+#All relevant IDs
+#Once salvage item at a time
+allIDs =    [79423,#Wood salvage
+            79079,21678,21690,#Metal salvage
+            79138,21671,21660,21669,#Cloth salvage
+            79213,80681,21689,21668,#Leather salvage
+            19723,19726,19727,19724,19722,19725,#raw wood
+            19710,19713,19714,19711,19709,19712,#refined wood
+            19697,19703,19699,19698,19702,19700,19701,#raw metal
+            19680,19679,19687,19683,19688,19682,19686,19681,19684,19685,#refined metal
+            19718,19739,19741,19743,19748,19745,#raw cloth
+            19720,19740,19742,19744,19747,19746,#refined cloth
+            19719,19728,19730,19731,19729,19732,#raw leather
+            19738,19733,19734,19736,19735,19737]#refined leather
+
+
 """Drop rates"""
 
 """
 Drop rates: Metals
 """
-droprate_BitofMetalScrap = {}
-
-#Unstable Metal Chunk
-droprate_UnstableMetalChunk = {}
-#Peu
-droprate_UnstableMetalChunk['Copper']={'Copper Ore':0.1613691932,'Iron Ore':0.9160554197,'Platinum Ore':0.4686226569,'Mithril Ore':0.1597392013,'Orichalcum Ore':0.3276283619}
-droprate_UnstableMetalChunk['Runecrafter']={'Copper Ore':0.184,'Iron Ore':0.911,'Platinum Ore':0.502,'Mithril Ore':0.186,'Orichalcum Ore':0.328}
-droprate_UnstableMetalChunk['Rare']={'Copper Ore':0.136,'Iron Ore':1.004,'Platinum Ore':0.523,'Mithril Ore':0.151,'Orichalcum Ore':0.31}
+#Brittle Clump of Ore
+droprate_BrittleClumpofOre={}
+#All Peureki
+droprate_BrittleClumpofOre['Copper']={'Copper Ore':1.896}
+droprate_BrittleClumpofOre['Runecrafter']={'Copper Ore':1.86}
+droprate_BrittleClumpofOre['Rare']={'Copper Ore':1.888}
 
 #Bit of Metal Scrap
 droprate_BitofMetalScrap = {}
@@ -623,12 +639,12 @@ droprate_BitofMetalScrap['Copper']={'Copper Ore':1.796}
 droprate_BitofMetalScrap['Runecrafter']={'Copper Ore':1.884}
 droprate_BitofMetalScrap['Rare']={'Copper Ore':1.856}
 
-#Brittle Clump of Ore
-droprate_BrittleClumpofOre={}
-#All Peureki
-droprate_BrittleClumpofOre['Copper']={'Copper Ore':1.896}
-droprate_BrittleClumpofOre['Runecrafter']={'Copper Ore':1.86}
-droprate_BrittleClumpofOre['Rare']={'Copper Ore':1.888}
+#Unstable Metal Chunk
+droprate_UnstableMetalChunk = {}
+#Peu
+droprate_UnstableMetalChunk['Copper']={'Copper Ore':0.1613691932,'Iron Ore':0.9160554197,'Platinum Ore':0.4686226569,'Mithril Ore':0.1597392013,'Orichalcum Ore':0.3276283619}
+droprate_UnstableMetalChunk['Runecrafter']={'Copper Ore':0.184,'Iron Ore':0.911,'Platinum Ore':0.502,'Mithril Ore':0.186,'Orichalcum Ore':0.328}
+droprate_UnstableMetalChunk['Rare']={'Copper Ore':0.136,'Iron Ore':1.004,'Platinum Ore':0.523,'Mithril Ore':0.151,'Orichalcum Ore':0.31}
 
 """
 Drop rates: Leathers
@@ -638,14 +654,14 @@ droprate_UnstableHide = {}
 #My data
 droprate_UnstableHide['Copper'] = {'Rawhide Leather Section':0.1621,'Thin Leather Section':0.5152,'Coarse Leather Section':0.4758,'Rugged Leather Section':0.4798,'Thick Leather Section':0.1516,'Hardened Leather Section':0.2813}
 droprate_UnstableHide['Runecrafter'] = {'Rawhide Leather Section':0.1746,'Thin Leather Section':0.4780,'Coarse Leather Section':0.4793,'Rugged Leather Section':0.4920,'Thick Leather Section':0.1646,'Hardened Leather Section':0.3170}
-droprate_UnstableHide['Rare'] = {'Rawhide Leather Section':0.1965,'Thin Leather Section':0.4788,'Coarse Leather Section':0.5250,'Rugged Leather Section':0.4971,'Thick Leather Section':0.1339,'Hardened Leather Section':0.3353}
+droprate_UnstableHide['Rare'] = {'Rawhide Leather Section':0.1814,'Thin Leather Section':0.4623,'Coarse Leather Section':0.4854,'Rugged Leather Section':0.5153,'Thick Leather Section':0.1558,'Hardened Leather Section':0.3462}
 
 ##Bloodstone-Warped Hide
 droprate_BloodstoneWarpedHide={}
 #my data only
 droprate_BloodstoneWarpedHide['Copper'] = {'Rawhide Leather Section':0.0462,'Thin Leather Section':0.0533,'Coarse Leather Section':0.0445,'Rugged Leather Section':0.0467,'Thick Leather Section':0.4533,'Hardened Leather Section':0.4714}
 droprate_BloodstoneWarpedHide['Runecrafter'] = {'Rawhide Leather Section':0.0483,'Thin Leather Section':0.0463,'Coarse Leather Section':0.0461,'Rugged Leather Section':0.0468,'Thick Leather Section':0.4820,'Hardened Leather Section':0.5337}
-droprate_BloodstoneWarpedHide['Rare'] = {'Rawhide Leather Section':0.0469,'Thin Leather Section':0.0537,'Coarse Leather Section':0.0571,'Rugged Leather Section':0.0499,'Thick Leather Section':0.4866,'Hardened Leather Section':0.5841}
+droprate_BloodstoneWarpedHide['Rare'] = {'Rawhide Leather Section':0.0534,'Thin Leather Section':0.0647,'Coarse Leather Section':0.0605,'Rugged Leather Section':0.0578,'Thick Leather Section':0.4863,'Hardened Leather Section':0.5581}
 
 #Hard Leather Strap
 droprate_HardLeatherStrap={}
@@ -666,6 +682,13 @@ droprate_FrayedHide['Rare']={'Coarse Leather Section':0.3414,'Rugged Leather Sec
 """
 Drop rates: Cloth
 """
+#Shredded Garment
+droprate_ShreddedGarment = {}
+#Peureki
+droprate_ShreddedGarment['Copper']={'Jute Scrap':1.884}
+droprate_ShreddedGarment['Runecrafter']={'Jute Scrap':1.836}
+droprate_ShreddedGarment['Rare']={'Jute Scrap':2.016}
+
 #Unstable Cloth
 droprate_UnstableRag = {}
 #Peu
@@ -684,9 +707,9 @@ droprate_WornGarment['Rare']={'Jute Scrap':0.4060,'Wool Scrap':1.4521}
 
 #Worn Rag
 droprate_WornRag = {}
-#Peu
-droprate_WornRag['Copper']={'Jute Scrap':0.56,'Wool Scrap':1.35}
-droprate_WornRag['Runecrafter']={'Jute Scrap':0.29,'Wool Scrap':1.58}
+#Me
+droprate_WornRag['Copper']={'Jute Scrap':0.4772,'Wool Scrap':1.3423}
+droprate_WornRag['Runecrafter']={'Jute Scrap':0.4283,'Wool Scrap':1.3811}
 #me beta3
 droprate_WornRag['Rare']={'Jute Scrap':0.3285,'Wool Scrap':1.6039}
 
@@ -706,7 +729,7 @@ Helper stuff
 """
 #Salvage options
 #salvageOptions 'Mystic':10.5, 'Copper':5 , 'Runecrafter':30, 'Silver':60
-salvageCost = {'Copper':5 , 'Runecrafter':30, 'Rare':10.5}
+salvageCost = {'Copper':5 , 'Runecrafter':30, 'Rare':60}
 #Containers
 #defaulting to main ingots for refined to avoid problems. generate_multiplier will change as needed
 unrefined_to_refined = {'Hardened Leather Section':'Cured Hardened Leather Square','Thick Leather Section':'Cured Thick Leather Square','Rugged Leather Section':'Cured Rugged Leather Square','Coarse Leather Section':'Cured Coarse Leather Square','Thin Leather Section':'Cured Thin Leather Square','Rawhide Leather Section':'Stretched Rawhide Leather Square',
@@ -722,20 +745,7 @@ refined_scalar = {'Stretched Rawhide Leather Square':2,'Cured Thin Leather Squar
 
 #Raw to refined lookup
 
-#All relevant IDs
-#Once salvage item at a time
-allIDs =    [79423,#Wood salvage
-            79079,21678,21690,#Metal salvage
-            79138,21671,21660,#Cloth salvage
-            79213,80681,21689,21668,#Leather salvage
-            19723,19726,19727,19724,19722,19725,#raw wood
-            19710,19713,19714,19711,19709,19712,#refined wood
-            19697,19703,19699,19698,19702,19700,19701,#raw metal
-            19680,19679,19687,19683,19688,19682,19686,19681,19684,19685,#refined metal
-            19718,19739,19741,19743,19748,19745,#raw cloth
-            19720,19740,19742,19744,19747,19746,#refined cloth
-            19719,19728,19730,19731,19729,19732,#raw leather
-            19738,19733,19734,19736,19735,19737]#refined leather
+
 
 allAPI=gw2_client.commerceprices.get(ids=allIDs)
 
@@ -759,10 +769,11 @@ for key, value in multiplier_prices.items():
 worthbuyinglist=[]
 print('\n','#'*10,"Metal",'#'*10)
 
-worthbuyinglist.append(salvagePrint('Unstable Metal Chunk',salvageMetal,multiplier_prices,droprate_UnstableMetalChunk,salvageCost,0))
 worthbuyinglist.append(salvagePrint('Bit of Metal Scrap',salvageMetal,multiplier_prices,droprate_BitofMetalScrap,salvageCost,0))
 worthbuyinglist.append(salvagePrint('Brittle Clump of Ore',salvageMetal,multiplier_prices,droprate_BrittleClumpofOre,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Unstable Metal Chunk',salvageMetal,multiplier_prices,droprate_UnstableMetalChunk,salvageCost,0))
 
+droprate_BitofMetalScrap
 
 print('\n','#'*10,"Metal / / / Leather",'#'*10)
 
@@ -773,9 +784,10 @@ worthbuyinglist.append(salvagePrint('Frayed Hide',salvageLeather,multiplier_pric
 
 print('\n','#'*10,"Leather / / / Cloth",'#'*10)
 
-worthbuyinglist.append(salvagePrint('Unstable Rag',salvageCloth,multiplier_prices,droprate_UnstableRag,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Shredded Garment',salvageCloth,multiplier_prices,droprate_ShreddedGarment,salvageCost,0))
 worthbuyinglist.append(salvagePrint('Worn Garment',salvageCloth,multiplier_prices,droprate_WornGarment,salvageCost,0))
 worthbuyinglist.append(salvagePrint('Worn Rag',salvageCloth,multiplier_prices,droprate_WornRag,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Unstable Rag',salvageCloth,multiplier_prices,droprate_UnstableRag,salvageCost,0))
 
 print('\n','#'*10,"Cloth / / / Wood",'#'*10)
 
