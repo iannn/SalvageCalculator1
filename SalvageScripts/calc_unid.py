@@ -51,9 +51,9 @@ Salvage Materials:
     19732=Hardened Leather Section
 
     19700=Mithril Ore
-    19722=Elder Wood
+    19722=Elder Wood Log
     19748=Silk Scrap
-    19729=Thick Leather Section
+    19729=Thick Leather Square
 
     19721=Ectoplasm
     89140=Lucent Mote
@@ -109,102 +109,38 @@ https://wiki.guildwars2.com/wiki/Silver-Fed_Salvage-o-Matic
 
 #Main gw2 API call return list of dics that may not always be in the same order so filter and arrange data for unids here
 def sort_allAPI(allAPI):
-    #Fill with api values
+
+    """Design Note:
+    A dictionary with the key:value pair id:name  is needed for this to work because these are sorting commerceprices data from the API, and only returns the following:
+    {'id': 79423, 'whitelisted': False, 'buys': {'quantity': 13684, 'unit_price': 114}, 'sells': {'quantity': 22649, 'unit_price': 119}}
+    """
+    api_unid_prices = {85016:'Fine',84731:'Masterwork',83008:'Rare'}
+    api_unrefined_prices = {19701:'Orichalcum Ore',19725:'Ancient Wood Log',19745:'Gossamer Scrap',19732:'Hardened Leather Section',
+                            19700:'Mithril Ore',19722:'Elder Wood Log',19748:'Silk Scrap',19729:'Thick Leather Square',
+                            19721:'Ectoplasm',
+                            89140:'Lucent Mote',
+                            89098:'Symbol of Control',89141:'Symbol of Enhancement',89182:'Symbol of Pain',
+                            89103:'Charm of Brilliance',89258:'Charm of Potence',89216:'Charm of Skill'}
+    api_refined_prices = {19685:'Orichalcum Ingot',19712:'Ancient Wood Plank',19746:'Bolt of Gossamer',19737:'Cured Hardened Leather Square',
+                        19684:'Mithril Ingot',19709:'Elder Wood Plank',19747:'Bolt of Silk',19735:'Cured Thick Leather Square',
+                        89271:'Pile of Lucent Crystal'}
+
+    #Return dictionaries with 'item':[buy sell] key:value pairs
     unid_prices= {}
     unrefined_prices = {}
     refined_prices = {}
 
-    #assemble the dictionaries
     for entryAPI in allAPI:
-        if(entryAPI['id']==85016):
-            unid_prices['Fine'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-
-        elif(entryAPI['id']==84731):
-            unid_prices['Masterwork'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-
-        elif(entryAPI['id']==83008):
-            unid_prices['Rare'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-
-        elif(entryAPI['id']==19701):
-            unrefined_prices['Orichalcum Ore'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-
-        elif(entryAPI['id']==19725):
-            unrefined_prices['Ancient Wood Log'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-
-        elif(entryAPI['id']==19745):
-            unrefined_prices['Gossamer Scrap'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-
-        elif(entryAPI['id']==19732):
-            unrefined_prices['Hardened Leather Section'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-
-        elif(entryAPI['id']==19700):
-            unrefined_prices['Mithril Ore'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-
-        elif(entryAPI['id']==19722):
-            unrefined_prices['Elder Wood Log'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-
-        elif(entryAPI['id']==19748):
-            unrefined_prices['Silk Scrap'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-
-        elif(entryAPI['id']==19729):
-            unrefined_prices['Thick Leather Square'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-
-        elif(entryAPI['id']==89140):
-            unrefined_prices['Lucent Mote'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-
-        elif(entryAPI['id']==19721):
-            unrefined_prices['Ectoplasm'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-
-        elif(entryAPI['id']==89098):
-            unrefined_prices['Symbol of Control'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-
-        elif(entryAPI['id']==89141):
-            unrefined_prices['Symbol of Enhancement'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-
-        elif(entryAPI['id']==89182):
-            unrefined_prices['Symbol of Pain'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-
-        elif(entryAPI['id']==89103):
-            unrefined_prices['Charm of Brilliance'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-
-        elif(entryAPI['id']==89258):
-            unrefined_prices['Charm of Potence'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-
-        elif(entryAPI['id']==89216):
-            unrefined_prices['Charm of Skill'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-
-        elif(entryAPI['id']==19685):
-            refined_prices['Orichalcum Ingot'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-
-        elif(entryAPI['id']==19712):
-            refined_prices['Ancient Wood Plank'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-
-        elif(entryAPI['id']==19746):
-            refined_prices['Bolt of Gossamer'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-
-        elif(entryAPI['id']==19737):
-            refined_prices['Cured Hardened Leather Square'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-
-        elif(entryAPI['id']==19684):
-            refined_prices['Mithril Ingot'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-
-        elif(entryAPI['id']==19709):
-            refined_prices['Elder Wood Plank'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-
-        elif(entryAPI['id']==19747):
-            refined_prices['Bolt of Silk'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-
-        elif(entryAPI['id']==19735):
-            refined_prices['Cured Thick Leather Square'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-
-        elif(entryAPI['id']==89271):
-            refined_prices['Pile of Lucent Crystal'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
-
+        if entryAPI['id'] in api_unid_prices:#special case because there's only 1
+            unid_prices[api_unid_prices[entryAPI['id']]] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif entryAPI['id'] in api_unrefined_prices:
+            unrefined_prices[api_unrefined_prices[entryAPI['id']]] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif entryAPI['id'] in api_refined_prices:
+            refined_prices[api_refined_prices[entryAPI['id']]] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
         else:
             print("Unexpected API return")
             print(entryAPI)
-
-        #Decision all finished
+    
     return unid_prices,unrefined_prices,refined_prices
 #End of sort_allAPI
 

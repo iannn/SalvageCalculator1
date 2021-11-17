@@ -389,7 +389,8 @@ def sort_allAPI(allAPI):
     {'id': 79423, 'whitelisted': False, 'buys': {'quantity': 13684, 'unit_price': 114}, 'sells': {'quantity': 22649, 'unit_price': 119}}
     """
 
-    #there is only 1 wood salvage item so it just needs a single case
+    #there is only 1 wood salvage item so it just needs a single case in the sorting loop
+    
     api_salvageMetal = {21690:'Brittle Clump of Ore',21678:'Bit of Metal Scrap',#T1
                         21691:'Weak Clump of Ore',21679:'Pile of Metal Scrap',#T2
                         21692:'Clump of Ore',21680:'Jagged Metal Scrap',
@@ -419,7 +420,7 @@ def sort_allAPI(allAPI):
                         19720:'Bolt of Jute',19740:'Bolt of Wool',19742:'Bolt of Cotton',19744:'Bolt of Linen',19747:'Bolt of Silk',19746:'Bolt of Gossamer',
                         19710:'Green Wood Plank',19713:'Soft Wood Plank',19714:'Seasoned Wood Plank',19711:'Hard Wood Plank',19709:'Elder Wood Plank',19712:'Ancient Wood Plank'}
 
-    #Declare all dictionaries to return
+    #Return dictionaries with 'item':[buy sell] key:value pairs
     salvageWood = {}#Yes it has one entry but dict is the required data type
     salvageMetal = {}
     salvageLeather = {}
