@@ -383,13 +383,47 @@ Metal Salvage:
 
 #Organize API entries
 def sort_allAPI(allAPI):
-    salvageLeather = {}
-    salvageWood = {}
+
+    """Design Note:
+    A dictionary with the key:value pair id:name  is needed for this to work because these are sorting commerceprices data from the API, and only returns the following:
+    {'id': 79423, 'whitelisted': False, 'buys': {'quantity': 13684, 'unit_price': 114}, 'sells': {'quantity': 22649, 'unit_price': 119}}
+    """
+
+    #there is only 1 wood salvage item so it just needs a single case
+    api_salvageLeather = {}
+    api_salvageWood = {}
+    api_salvageMetal = {}
+    api_salvageCloth = {}
+    api_unrefined_prices = {}
+    api_refined_prices = {}
+
+    #Declare all dictionaries to return
+    salvageWood = {}#Yes it has one entry but dict is the required data type
     salvageMetal = {}
+    salvageLeather = {}
     salvageCloth = {}
     unrefined_prices = {}
     refined_prices = {}
 
+    #If the id exists in a specific api_{dict} then it is added into it's corresponding return dict. This replaces repetitive elif statements
+    for entryAPI in allAPI:
+        if(entryAPI['id']==79423):#special case because there's only 1
+            salvageWood['Reclaimed Wood Chunk'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif entryAPI['id'] in api_salvageMetal:
+            salvageMetal[api_salvageMetal[entryAPI['id']]] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif entryAPI['id'] in api_salvageLeather:
+            salvageLeather[api_salvageLeather[entryAPI['id']]] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif entryAPI['id'] in api_salvageCloth:
+            salvageCloth[api_salvageCloth[entryAPI['id']]] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif entryAPI['id'] in api_unrefined_prices:
+            unrefined_prices[api_unrefined_prices[entryAPI['id']]] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        elif entryAPI['id'] in api_refined_prices:
+            refined_prices[api_unrefined_prices[entryAPI['id']]] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
+        else:
+            print("Unexpected API return")
+            print(entryAPI)
+
+#Old
     for entryAPI in allAPI:
         if(entryAPI['id']==79423):
             salvageWood['Reclaimed Wood Chunk'] = [entryAPI['buys']['unit_price'], entryAPI['sells']['unit_price']]
@@ -744,8 +778,11 @@ refined_scalar = {'Stretched Rawhide Leather Square':2,'Cured Thin Leather Squar
                 'Pile of Lucent Crystal':10}
 
 #Raw to refined lookup
+#I don't think I need this
 
-
+"""
+Prep work done. Main execution
+"""
 
 allAPI=gw2_client.commerceprices.get(ids=allIDs)
 
