@@ -390,7 +390,7 @@ def sort_allAPI(allAPI):
     """
 
     #there is only 1 wood salvage item so it just needs a single case in the sorting loop
-    
+
     api_salvageMetal = {21690:'Brittle Clump of Ore',21678:'Bit of Metal Scrap',#T1
                         21691:'Weak Clump of Ore',21679:'Pile of Metal Scrap',#T2
                         21692:'Clump of Ore',21680:'Jagged Metal Scrap',
@@ -482,13 +482,13 @@ def salvagePrint(itemName_str,itemCost_dct,multiplier_dct,droprate_dict,salvageC
         print(formatline.format(*[salvage_rarity,round(methodprofit,4),round(itemSum_val,4)]+[itemValues_dct[x] for x in orderedkeys]))
 
         if (methodprofit >= 100):
-            worthit_list = [itemName_str, salvage_rarity, "MEGA BUY"]
+            worthit_list = [itemName_str, salvage_rarity, methodprofit, "MEGA BUY"]
         elif (methodprofit >=50) and ("MEGA BUY" not in worthit_list):
-            worthit_list = [itemName_str, salvage_rarity, "BUYBUYBUY"]
+            worthit_list = [itemName_str, salvage_rarity, methodprofit, "BUYBUYBUY"]
         elif (methodprofit >=20) and ((("MEGA BUY" or "BUYBUYBUY") not in worthit_list)):
-            worthit_list = [itemName_str, salvage_rarity, "Good"]
-        elif (methodprofit >=5) and (("MEGA BUY" or "BUYBUYBUY" or "Good") not in worthit_list):
-            worthit_list = [itemName_str, salvage_rarity, "Consider"]
+            worthit_list = [itemName_str, salvage_rarity, methodprofit, "Good"]
+        elif (methodprofit >=7) and (("MEGA BUY" or "BUYBUYBUY" or "Good") not in worthit_list):
+            worthit_list = [itemName_str, salvage_rarity, methodprofit, "Consider"]
 #             #no op
 # Returning all this stuff is too much information without additional parsing
 #         if itemSum_val >= 25:
@@ -526,9 +526,9 @@ gw2_client = GuildWars2Client()
 #All relevant IDs
 #Once salvage item at a time
 allIDs =    [79423,#Wood salvage
-            79079,21678,21690,#Metal salvage
+            21690,21678,21691,21679,21692,21680,21693,21681,21694,21682,21695,21683,79079,#Metal salvage
+            21661,21684,21653,21664,21685,21654,21667,21686,21655,21668,21687,21656,21670,21688,21657,22331,21689,21658,79213,80681,#Leather salvage
             79138,21671,21660,21669,#Cloth salvage
-            79213,80681,21689,21668,#Leather salvage
             19723,19726,19727,19724,19722,19725,#raw wood
             19710,19713,19714,19711,19709,19712,#refined wood
             19697,19703,19699,19698,19702,19700,19701,#raw metal
@@ -538,6 +538,9 @@ allIDs =    [79423,#Wood salvage
             19719,19728,19730,19731,19729,19732,#raw leather
             19738,19733,19734,19736,19735,19737]#refined leather
 
+"""
+
+"""
 
 """Drop rates"""
 
