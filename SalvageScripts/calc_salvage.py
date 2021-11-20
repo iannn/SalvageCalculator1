@@ -485,25 +485,15 @@ def salvagePrint(itemName_str,itemCost_dct,multiplier_dct,droprate_dict,salvageC
         itemValues_dct,itemSum_val = compute_result(droprate_x,multiplier_dct,True)
         methodprofit=round(itemSum_val - salvageCost_dct[salvage_rarity]-itemCost_dct[itemName_str][buysell],4)
         print(formatline.format(*[salvage_rarity,round(methodprofit,4),round(itemSum_val,4)]+[itemValues_dct[x] for x in orderedkeys]))
-
+        "%d%%"%(100*(methodprofit/(salvageCost_dct[salvage_rarity]+itemCost_dct[itemName_str][buysell])))
         if (methodprofit >= 100):
-            worthit_list = [itemName_str, salvage_rarity, methodprofit, "MEGA BUY"]
+            worthit_list = [itemName_str, salvage_rarity, methodprofit, "%d%%"%(100*(methodprofit/(salvageCost_dct[salvage_rarity]+itemCost_dct[itemName_str][buysell]))), "MEGA BUY"]
         elif (methodprofit >=50) and ("MEGA BUY" not in worthit_list):
-            worthit_list = [itemName_str, salvage_rarity, methodprofit, "BUYBUYBUY"]
+            worthit_list = [itemName_str, salvage_rarity, methodprofit, "%d%%"%(100*(methodprofit/(salvageCost_dct[salvage_rarity]+itemCost_dct[itemName_str][buysell]))), "BUYBUYBUY"]
         elif (methodprofit >=20) and ((("MEGA BUY" or "BUYBUYBUY") not in worthit_list)):
-            worthit_list = [itemName_str, salvage_rarity, methodprofit, "Good"]
+            worthit_list = [itemName_str, salvage_rarity, methodprofit, "%d%%"%(100*(methodprofit/(salvageCost_dct[salvage_rarity]+itemCost_dct[itemName_str][buysell]))), "Good"]
         elif (methodprofit >=7) and (("MEGA BUY" or "BUYBUYBUY" or "Good") not in worthit_list):
-            worthit_list = [itemName_str, salvage_rarity, methodprofit, "Consider"]
-#             #no op
-# Returning all this stuff is too much information without additional parsing
-#         if itemSum_val >= 25:
-#             worthit_list = [itemName_str, salvage_rarity, "BUYBUYBUY"])
-#         elif itemSum_val >= 15 :
-#             worthit_list.append([itemName_str, salvage_rarity, "Good"])
-#         elif itemSum_val >= 5:
-#             worthit_list.append([itemName_str, salvage_rarity, "consider"])
-
-
+            worthit_list = [itemName_str, salvage_rarity, methodprofit, "%d%%"%(100*(methodprofit/(salvageCost_dct[salvage_rarity]+itemCost_dct[itemName_str][buysell]))), "Consider"]
 
     return worthit_list
 #End of salvagePrint function
