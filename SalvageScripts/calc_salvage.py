@@ -116,6 +116,10 @@ Salvage items:
         22329=Half-Digested Mass
         21665=Torn Rag
 
+        21675=Discarded Garment
+        22330=Regurgitated Mass
+        21666=Rag
+
         79138=Unstable Rag
 
 
@@ -410,6 +414,7 @@ def sort_allAPI(allAPI):
                         21672:'Ragged Garment',22327:'Fetid Mass',21662:'Soiled Rag',
                         21673:'Frayed Garment',22328:'Malodorous Mass',21663:'Frayed Rag',
                         21674:'Torn Garment',22329:'Half-Digested Mass',21665:'Torn Rag',
+                        21675:'Discarded Garment',22330:'Regurgitated Mass',21666:'Rag',
                         79138:'Unstable Rag'}
     api_unrefined_prices = {19697:'Copper Ore',19703:'Silver Ore',19699:'Iron Ore',19698:'Gold Ore',19702:'Platinum Ore',19700:'Mithril Ore',19701:'Orichalcum Ore',
                             19719:'Rawhide Leather Section',19728:'Thin Leather Section',19730:'Coarse Leather Section',19731:'Rugged Leather Section',19729:'Thick Leather Section',19732:'Hardened Leather Section',
@@ -528,7 +533,7 @@ gw2_client = GuildWars2Client()
 allIDs =    [79423,#Wood salvage
             21690,21678,21691,21679,21692,21680,21693,21681,21694,21682,21695,21683,79079,#Metal salvage
             21661,21684,21653,21664,21685,21654,21667,21686,21655,21668,21687,21656,21670,21688,21657,22331,21689,21658,79213,80681,#Leather salvage
-            79138,21671,21660,21669,#Cloth salvage
+            21669,22325,21659,21671,22326,21660,21672,22327,21662,21673,22328,21663,21674,22329,21665,21675,22330,21666,79138,#Cloth salvage
             19723,19726,19727,19724,19722,19725,#raw wood
             19710,19713,19714,19711,19709,19712,#refined wood
             19697,19703,19699,19698,19702,19700,19701,#raw metal
