@@ -556,6 +556,13 @@ droprate_BitofMetalScrap['Copper']={'Copper Ore':1.796}
 droprate_BitofMetalScrap['Runecrafter']={'Copper Ore':1.884}
 droprate_BitofMetalScrap['Rare']={'Copper Ore':1.856}
 
+#Weak Clump of Ore
+droprate_WeakClumpofOre = {}
+#Peu
+droprate_WeakClumpofOre['Copper']={'Copper Ore':0.37,'Silver Ore':0.65,'Iron Ore':0.81}
+droprate_WeakClumpofOre['Runecrafter']={'Copper Ore':0.25,'Silver Ore':0.78,'Iron Ore':0.75}
+droprate_WeakClumpofOre['Rare']={'Copper Ore':0.43,'Silver Ore':0.81,'Iron Ore':0.77}
+
 #Unstable Metal Chunk
 droprate_UnstableMetalChunk = {}
 #Peu
@@ -692,6 +699,7 @@ print('\n','#'*10,"Metal",'#'*10)
 worthbuyinglist.append(salvagePrint('Bit of Metal Scrap',salvageMetal,multiplier_prices,droprate_BitofMetalScrap,salvageCost,0))
 worthbuyinglist.append(salvagePrint('Brittle Clump of Ore',salvageMetal,multiplier_prices,droprate_BrittleClumpofOre,salvageCost,0))
 worthbuyinglist.append(salvagePrint('Unstable Metal Chunk',salvageMetal,multiplier_prices,droprate_UnstableMetalChunk,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Weak Clump of Ore',salvageMetal,multiplier_prices,droprate_WeakClumpofOre,salvageCost,0))
 
 droprate_BitofMetalScrap
 
