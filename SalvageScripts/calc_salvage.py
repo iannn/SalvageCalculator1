@@ -542,6 +542,8 @@ allIDs =    [79423,#Wood salvage
 """
 Drop rates: Metals
 """
+
+""" T1 """
 #Brittle Clump of Ore
 droprate_BrittleClumpofOre={}
 #All Peureki
@@ -556,24 +558,88 @@ droprate_BitofMetalScrap['Copper']={'Copper Ore':1.796}
 droprate_BitofMetalScrap['Runecrafter']={'Copper Ore':1.884}
 droprate_BitofMetalScrap['Rare']={'Copper Ore':1.856}
 
+""" T2 """
 #Weak Clump of Ore
 droprate_WeakClumpofOre = {}
 #Peu
-<<<<<<< HEAD
 droprate_WeakClumpofOre['Copper']={'Copper Ore':0.37,'Silver Ore':0.65,'Iron Ore':0.81}
 droprate_WeakClumpofOre['Runecrafter']={'Copper Ore':0.25,'Silver Ore':0.78,'Iron Ore':0.75}
 droprate_WeakClumpofOre['Rare']={'Copper Ore':0.43,'Silver Ore':0.81,'Iron Ore':0.77}
-=======
-droprate_WeakClumpofOre['Copper']={'Copper Ore':0.37,'Platinum Ore':0.81,'Iron Ore':0.65}
-droprate_WeakClumpofOre['Runecrafter']={'Copper Ore':0.25,'Platinum Ore':0.75,'Iron Ore':0.78}
-droprate_WeakClumpofOre['Rare']={'Copper Ore':0.43,'Platinum Ore':0.77,'Iron Ore':0.81}
->>>>>>> 6a84f5ed56d728c134cf4e0e61b5f033a2a7af29
 
+#Pile of Metal Scrap
+droprate_PileofMetalScrap = {}
+#Peu
+droprate_PileofMetalScrap['Copper']={'Copper Ore':0.608,'Silver Ore':0.748,'Iron Ore':0.504}
+droprate_PileofMetalScrap['Runecrafter']={'Copper Ore':0.484,'Silver Ore':0.712,'Iron Ore':0.66}
+droprate_PileofMetalScrap['Rare']={'Copper Ore':0.408,'Silver Ore':0.632,'Iron Ore':0.812}
+
+""" T3 """
+#Pile of Clump of Ore
+droprate_ClumpofOre = {}
+#Peu
+droprate_ClumpofOre['Copper']={'Silver Ore':0.24,'Iron Ore':0.916,'Gold Ore':0.604}
+droprate_ClumpofOre['Runecrafter']={'Silver Ore':0.148,'Iron Ore':1.008,'Gold Ore':0.728}
+droprate_ClumpofOre['Rare']={'Silver Ore':0.2,'Iron Ore':0.924,'Gold Ore':0.792}
+
+#Jagged Metal Scrap
+droprate_JaggedMetalScrap = {}
+#Peu
+droprate_JaggedMetalScrap['Copper']={'Silver Ore':0.228,'Iron Ore':0.836,'Gold Ore':0.752}
+droprate_JaggedMetalScrap['Runecrafter']={'Silver Ore':0.176,'Iron Ore':0.924,'Gold Ore':0.752}
+droprate_JaggedMetalScrap['Rare']={'Silver Ore':0.212,'Iron Ore':1.012,'Gold Ore':0.704}
+
+""" T4 """
+#Laden Clump of Ore
+droprate_LadenClumpofOre = {}
+#Peu
+droprate_LadenClumpofOre['Copper']={'Iron Ore':0.224,'Gold Ore':0.176,'Platinum Ore':1.484}
+droprate_LadenClumpofOre['Runecrafter']={'Iron Ore':0.204,'Gold Ore':0.212,'Platinum Ore':1.436}
+droprate_LadenClumpofOre['Rare']={'Iron Ore':0.22,'Gold Ore':0.16,'Platinum Ore':1.424}
+
+#Metal Scrap
+droprate_MetalScrap = {}
+#Peu
+droprate_MetalScrap['Copper']={'Iron Ore':0.212,'Gold Ore':0.276,'Platinum Ore':1.3}
+droprate_MetalScrap['Runecrafter']={'Iron Ore':0.176,'Gold Ore':0.164,'Platinum Ore':1.476}
+droprate_MetalScrap['Rare']={'Iron Ore':0.184,'Gold Ore':0.136,'Platinum Ore':1.488}
+
+""" T5 """
+#Loaded Clump of Ore
+droprate_LoadedClumpofOre = {}
+#Peu
+droprate_LoadedClumpofOre['Copper']={'Platinum Ore':0.524,'Mithril Ore':1.088}
+droprate_LoadedClumpofOre['Runecrafter']={'Platinum Ore':0.456,'Mithril Ore':1.312}
+droprate_LoadedClumpofOre['Rare']={'Platinum Ore':0.392,'Mithril Ore':1.32}
+
+#Salvageable Metal Scrap
+droprate_SalvageableMetalScrap = {}
+#Peu
+droprate_SalvageableMetalScrap['Copper']={'Platinum Ore':0.53,'Mithril Ore':1.07}
+droprate_SalvageableMetalScrap['Runecrafter']={'Platinum Ore':0.51,'Mithril Ore':1.1}
+droprate_SalvageableMetalScrap['Rare']={'Platinum Ore':0.39,'Mithril Ore':1.32}
+
+""" T6 """
+#Rich Clump of Ore
+droprate_RichClumpofOre = {}
+#Peu
+droprate_RichClumpofOre['Copper']={'Mithril Ore':1.172,'Orichalcum Ore':0.244}
+droprate_RichClumpofOre['Runecrafter']={'Mithril Ore':1.472,'Orichalcum Ore':0.192}
+droprate_RichClumpofOre['Rare']={'Mithril Ore':1.24,'Orichalcum Ore':0.212}
+
+#Valuable Metal Scrap
+droprate_ValuableMetalScrap = {}
+#Peu
+droprate_ValuableMetalScrap['Copper']={'Mithril Ore':1.216,'Orichalcum Ore':0.196}
+droprate_ValuableMetalScrap['Runecrafter']={'Mithril Ore':1.276,'Orichalcum Ore':0.2}
+droprate_ValuableMetalScrap['Rare']={'Mithril Ore':1.468,'Orichalcum Ore':0.204}
+
+""" All Tiers """
 #Unstable Metal Chunk
 droprate_UnstableMetalChunk = {}
+#Me
+droprate_UnstableMetalChunk['Copper']={'Copper Ore':0.2035,'Iron Ore':0.9506,'Platinum Ore':0.5039,'Mithril Ore':0.1453,'Orichalcum Ore':0.2946}
+droprate_UnstableMetalChunk['Runecrafter']={'Copper Ore':0.1531,'Iron Ore':0.911,'Platinum Ore':0.9593,'Mithril Ore':0.1966,'Orichalcum Ore':0.3427}
 #Peu
-droprate_UnstableMetalChunk['Copper']={'Copper Ore':0.1613691932,'Iron Ore':0.9160554197,'Platinum Ore':0.4686226569,'Mithril Ore':0.1597392013,'Orichalcum Ore':0.3276283619}
-droprate_UnstableMetalChunk['Runecrafter']={'Copper Ore':0.184,'Iron Ore':0.911,'Platinum Ore':0.502,'Mithril Ore':0.186,'Orichalcum Ore':0.328}
 droprate_UnstableMetalChunk['Rare']={'Copper Ore':0.136,'Iron Ore':1.004,'Platinum Ore':0.523,'Mithril Ore':0.151,'Orichalcum Ore':0.31}
 
 """
@@ -702,12 +768,27 @@ for key, value in multiplier_prices.items():
 worthbuyinglist=[]
 print('\n','#'*10,"Metal",'#'*10)
 
+#T1
 worthbuyinglist.append(salvagePrint('Bit of Metal Scrap',salvageMetal,multiplier_prices,droprate_BitofMetalScrap,salvageCost,0))
 worthbuyinglist.append(salvagePrint('Brittle Clump of Ore',salvageMetal,multiplier_prices,droprate_BrittleClumpofOre,salvageCost,0))
-worthbuyinglist.append(salvagePrint('Unstable Metal Chunk',salvageMetal,multiplier_prices,droprate_UnstableMetalChunk,salvageCost,0))
+#T2
 worthbuyinglist.append(salvagePrint('Weak Clump of Ore',salvageMetal,multiplier_prices,droprate_WeakClumpofOre,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Pile of Metal Scrap',salvageMetal,multiplier_prices,droprate_PileofMetalScrap,salvageCost,0))
+#T3
+worthbuyinglist.append(salvagePrint('Clump of Ore',salvageMetal,multiplier_prices,droprate_ClumpofOre,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Jagged Metal Scrap',salvageMetal,multiplier_prices,droprate_JaggedMetalScrap,salvageCost,0))
+#T4
+worthbuyinglist.append(salvagePrint('Laden Clump of Ore',salvageMetal,multiplier_prices,droprate_LadenClumpofOre,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Metal Scrap',salvageMetal,multiplier_prices,droprate_MetalScrap,salvageCost,0))
+#T5
+worthbuyinglist.append(salvagePrint('Loaded Clump of Ore',salvageMetal,multiplier_prices,droprate_LoadedClumpofOre,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Salvageable Metal Scrap',salvageMetal,multiplier_prices,droprate_SalvageableMetalScrap,salvageCost,0))
+#T6
+worthbuyinglist.append(salvagePrint('Rich Clump of Ore',salvageMetal,multiplier_prices,droprate_RichClumpofOre,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Valuable Metal Scrap',salvageMetal,multiplier_prices,droprate_ValuableMetalScrap,salvageCost,0))
+#All
+worthbuyinglist.append(salvagePrint('Unstable Metal Chunk',salvageMetal,multiplier_prices,droprate_UnstableMetalChunk,salvageCost,0))
 
-droprate_BitofMetalScrap
 
 print('\n','#'*10,"Metal / / / Leather",'#'*10)
 
@@ -727,4 +808,8 @@ print('\n','#'*10,"Cloth / / / Wood",'#'*10)
 
 worthbuyinglist.append(salvagePrint('Reclaimed Wood Chunk',salvageWood,multiplier_prices,droprate_ReclaimedWoodChunk,salvageCost,0))
 
-[print(x) for x in worthbuyinglist if x != []]#Can change this to select which ones I want printed when
+print('\n','#'*10,"Wood / / / Summary ",'#'*10)
+[print(x) for x in worthbuyinglist if 'MEGA BUY' in x ]
+[print(x) for x in worthbuyinglist if 'BUYBUYBUY' in x ]
+[print(x) for x in worthbuyinglist if 'Good' in x ]
+[print(x) for x in worthbuyinglist if 'Consider' in x ]
