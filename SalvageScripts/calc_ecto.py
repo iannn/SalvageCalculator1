@@ -34,7 +34,7 @@ https://wiki.guildwars2.com/wiki/Silver-Fed_Salvage-o-Matic
 from gw2api import GuildWars2Client
 gw2_client = GuildWars2Client()
 
-salvageCost = 10.5
+salvageCost = 60
 
 apivalues=gw2_client.commerceprices.get(ids=[19721,24277])#this is very dangerous because if I change the order, this messes up. Should switch to some kind if for x in apivalues: if ... else if ...
 
