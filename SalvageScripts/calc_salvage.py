@@ -737,56 +737,56 @@ droprate_FrayedPelt['Runecrafter'] = {'Coarse Leather Section':0.36,'Rugged Leat
 droprate_FrayedPelt['Rare'] = {'Coarse Leather Section':0.3,'Rugged Leather Section':1.62}
 
 """ T5 """
-#Unstable Hide
-droprate_ = {}
+#Filthy Hide
+droprate_FilthyHIde = {}
 #Peureki
-droprate_['Copper'] = {'Rawhide Leather Section':0.00,'Thin Leather Section':0.00,'Coarse Leather Section':0.00,'Rugged Leather Section':0.00,'Thick Leather Section':0.00,'Hardened Leather Section':0.00}
-droprate_['Runecrafter'] = {'Rawhide Leather Section':0.00,'Thin Leather Section':0.00,'Coarse Leather Section':0.00,'Rugged Leather Section':0.00,'Thick Leather Section':0.00,'Hardened Leather Section':0.00}
-droprate_['Rare'] = {'Rawhide Leather Section':0.00,'Thin Leather Section':0.00,'Coarse Leather Section':0.00,'Rugged Leather Section':0.00,'Thick Leather Section':0.00,'Hardened Leather Section':0.00}
+droprate_FilthyHIde['Copper'] = {'Rugged Leather Section':1.36,'Thick Leather Section':0.4}
+droprate_FilthyHIde['Runecrafter'] = {'Rugged Leather Section':0.7,'Thick Leather Section':0.96}
+droprate_FilthyHIde['Rare'] = {'Rugged Leather Section':0.78,'Thick Leather Section':1.08}
 
-#Unstable Hide
-droprate_ = {}
+#Rugged Leather Strap
+droprate_RuggedLeatherStrap = {}
 #Peureki
-droprate_['Copper'] = {'Rawhide Leather Section':0.00,'Thin Leather Section':0.00,'Coarse Leather Section':0.00,'Rugged Leather Section':0.00,'Thick Leather Section':0.00,'Hardened Leather Section':0.00}
-droprate_['Runecrafter'] = {'Rawhide Leather Section':0.00,'Thin Leather Section':0.00,'Coarse Leather Section':0.00,'Rugged Leather Section':0.00,'Thick Leather Section':0.00,'Hardened Leather Section':0.00}
-droprate_['Rare'] = {'Rawhide Leather Section':0.00,'Thin Leather Section':0.00,'Coarse Leather Section':0.00,'Rugged Leather Section':0.00,'Thick Leather Section':0.00,'Hardened Leather Section':0.00}
+droprate_RuggedLeatherStrap['Copper'] = {'Rugged Leather Section':1.12,'Thick Leather Section':0.62}
+droprate_RuggedLeatherStrap['Runecrafter'] = {'Rugged Leather Section':1.02,'Thick Leather Section':0.77}
+droprate_RuggedLeatherStrap['Rare'] = {'Rugged Leather Section':0.83,'Thick Leather Section':0.9}
 
-#Unstable Hide
-droprate_ = {}
+#Filthy Pelt
+droprate_FilthyPelt = {}
 #Peureki
-droprate_['Copper'] = {'Rawhide Leather Section':0.00,'Thin Leather Section':0.00,'Coarse Leather Section':0.00,'Rugged Leather Section':0.00,'Thick Leather Section':0.00,'Hardened Leather Section':0.00}
-droprate_['Runecrafter'] = {'Rawhide Leather Section':0.00,'Thin Leather Section':0.00,'Coarse Leather Section':0.00,'Rugged Leather Section':0.00,'Thick Leather Section':0.00,'Hardened Leather Section':0.00}
-droprate_['Rare'] = {'Rawhide Leather Section':0.00,'Thin Leather Section':0.00,'Coarse Leather Section':0.00,'Rugged Leather Section':0.00,'Thick Leather Section':0.00,'Hardened Leather Section':0.00}
+droprate_FilthyPelt['Copper'] = {'Rugged Leather Section':1.28,'Thick Leather Section':0.48}
+droprate_FilthyPelt['Runecrafter'] = {'Rugged Leather Section':1.24,'Thick Leather Section':0.58}
+droprate_FilthyPelt['Rare'] = {'Rugged Leather Section':0.98,'Thick Leather Section':0.84}
 
 """ T6 """
 #Salvageable Hide
-droprate_UnstableHide = {}
+droprate_SalvageableHide = {}
 #Peureki
-droprate_['Copper'] = {'Rawhide Leather Section':0.00,'Thin Leather Section':0.00,'Coarse Leather Section':0.00,'Rugged Leather Section':0.00,'Thick Leather Section':0.00,'Hardened Leather Section':0.00}
-droprate_['Runecrafter'] = {'Rawhide Leather Section':0.00,'Thin Leather Section':0.00,'Coarse Leather Section':0.00,'Rugged Leather Section':0.00,'Thick Leather Section':0.00,'Hardened Leather Section':0.00}
-droprate_['Rare'] = {'Rawhide Leather Section':0.00,'Thin Leather Section':0.00,'Coarse Leather Section':0.00,'Rugged Leather Section':0.00,'Thick Leather Section':0.00,'Hardened Leather Section':0.00}
+droprate_SalvageableHide['Copper'] = {'Thick Leather Section':1.316,'Hardened Leather Section':0.064}
+droprate_SalvageableHide['Runecrafter'] = {'Thick Leather Section':1.3,'Hardened Leather Section':0.076}
+droprate_SalvageableHide['Rare'] = {'Thick Leather Section':1.236,'Hardened Leather Section':0.1}
 
 #Hard Leather Strap
 droprate_HardLeatherStrap={}
 #Mine
-droprate_HardLeatherStrap['Copper'] = {'Thick Leather Section':1.2853,'Hardened Leather Section':0.0783}
-droprate_HardLeatherStrap['Runecrafter'] = {'Thick Leather Section':1.3120,'Hardened Leather Section':0.0770}
+droprate_HardLeatherStrap['Copper'] = {'Thick Leather Section':1.2844,'Hardened Leather Section':0.0791}
+droprate_HardLeatherStrap['Runecrafter'] = {'Thick Leather Section':1.3045,'Hardened Leather Section':0.0813}
 droprate_HardLeatherStrap['Rare'] = {'Thick Leather Section':1.2588,'Hardened Leather Section':0.0975}
 
-#Unstable Hide
-droprate_UnstableHide = {}
+#Salvageable Pelt
+droprate_SalvageablePelt = {}
 #Peureki
-droprate_['Copper'] = {'Rawhide Leather Section':0.00,'Thin Leather Section':0.00,'Coarse Leather Section':0.00,'Rugged Leather Section':0.00,'Thick Leather Section':0.00,'Hardened Leather Section':0.00}
-droprate_['Runecrafter'] = {'Rawhide Leather Section':0.00,'Thin Leather Section':0.00,'Coarse Leather Section':0.00,'Rugged Leather Section':0.00,'Thick Leather Section':0.00,'Hardened Leather Section':0.00}
-droprate_['Rare'] = {'Rawhide Leather Section':0.00,'Thin Leather Section':0.00,'Coarse Leather Section':0.00,'Rugged Leather Section':0.00,'Thick Leather Section':0.00,'Hardened Leather Section':0.00}
+droprate_SalvageablePelt['Copper'] = {'Thick Leather Section':1.24,'Hardened Leather Section':0.100}
+droprate_SalvageablePelt['Runecrafter'] = {'Thick Leather Section':1.21,'Hardened Leather Section':0.11}
+droprate_SalvageablePelt['Rare'] = {'Thick Leather Section':1.22,'Hardened Leather Section':0.11}
 
 """ All Tiers """
 #Unstable Hide
 droprate_UnstableHide = {}
 #My data
-droprate_UnstableHide['Copper'] = {'Rawhide Leather Section':0.1621,'Thin Leather Section':0.5152,'Coarse Leather Section':0.4758,'Rugged Leather Section':0.4798,'Thick Leather Section':0.1516,'Hardened Leather Section':0.2813}
+droprate_UnstableHide['Copper'] = {'Rawhide Leather Section':0.1822,'Thin Leather Section':0.4846,'Coarse Leather Section':0.4884,'Rugged Leather Section':0.4612,'Thick Leather Section':0.1537,'Hardened Leather Section':0.3004}
 droprate_UnstableHide['Runecrafter'] = {'Rawhide Leather Section':0.1746,'Thin Leather Section':0.4780,'Coarse Leather Section':0.4793,'Rugged Leather Section':0.4920,'Thick Leather Section':0.1646,'Hardened Leather Section':0.3170}
-droprate_UnstableHide['Rare'] = {'Rawhide Leather Section':0.1814,'Thin Leather Section':0.4623,'Coarse Leather Section':0.4854,'Rugged Leather Section':0.5153,'Thick Leather Section':0.1558,'Hardened Leather Section':0.3462}
+droprate_UnstableHide['Rare'] = {'Rawhide Leather Section':0.1747,'Thin Leather Section':0.4603,'Coarse Leather Section':0.4833,'Rugged Leather Section':0.5240,'Thick Leather Section':0.1606,'Hardened Leather Section':0.3366}
 
 #Bloodstone-Warped Hide
 droprate_BloodstoneWarpedHide={}
@@ -934,8 +934,14 @@ worthbuyinglist.append(salvagePrint('Thick Leather Strap',salvageLeather,multipl
 worthbuyinglist.append(salvagePrint('Frayed Pelt',salvageLeather,multiplier_prices,droprate_FrayedPelt,salvageCost,0))
 
 #T5
+worthbuyinglist.append(salvagePrint('Filthy Hide',salvageLeather,multiplier_prices,droprate_FilthyHIde,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Rugged Leather Strap',salvageLeather,multiplier_prices,droprate_RuggedLeatherStrap,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Filthy Pelt',salvageLeather,multiplier_prices,droprate_FilthyPelt,salvageCost,0))
+
 #T6
+worthbuyinglist.append(salvagePrint('Salvageable Hide',salvageLeather,multiplier_prices,droprate_SalvageableHide,salvageCost,0))
 worthbuyinglist.append(salvagePrint('Hard Leather Strap',salvageLeather,multiplier_prices,droprate_HardLeatherStrap,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Salvageable Pelt',salvageLeather,multiplier_prices,droprate_SalvageablePelt,salvageCost,0))
 
 #All
 worthbuyinglist.append(salvagePrint('Unstable Hide',salvageLeather,multiplier_prices,droprate_UnstableHide,salvageCost,0))
