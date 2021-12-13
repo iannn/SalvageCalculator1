@@ -415,6 +415,7 @@ def sort_allAPI(allAPI):
                         21673:'Frayed Garment',22328:'Malodorous Mass',21663:'Frayed Rag',
                         21674:'Torn Garment',22329:'Half-Digested Mass',21665:'Torn Rag',
                         21675:'Discarded Garment',22330:'Regurgitated Mass',21666:'Rag',
+                        21676:'Garment_28',21677:'Garment_32',
                         79138:'Unstable Rag'}
     api_unrefined_prices = {19697:'Copper Ore',19703:'Silver Ore',19699:'Iron Ore',19698:'Gold Ore',19702:'Platinum Ore',19700:'Mithril Ore',19701:'Orichalcum Ore',
                             19719:'Rawhide Leather Section',19728:'Thin Leather Section',19730:'Coarse Leather Section',19731:'Rugged Leather Section',19729:'Thick Leather Section',19732:'Hardened Leather Section',
@@ -524,6 +525,7 @@ allIDs =    [79423,#Wood salvage
             21690,21678,21691,21679,21692,21680,21693,21681,21694,21682,21695,21683,79079,#Metal salvage
             21661,21684,21653,21664,21685,21654,21667,21686,21655,21668,21687,21656,21670,21688,21657,22331,21689,21658,79213,80681,#Leather salvage
             21669,22325,21659,21671,22326,21660,21672,22327,21662,21673,22328,21663,21674,22329,21665,21675,22330,21666,79138,#Cloth salvage
+            21676,21677,#The random other Rags
             19723,19726,19727,19724,19722,19725,#raw wood
             19710,19713,19714,19711,19709,19712,#refined wood
             19697,19703,19699,19698,19702,19700,19701,#raw metal
@@ -825,117 +827,137 @@ droprate_ShreddedRag['Rare']={'Jute Scrap':1.852}
 """ T2 """
 #Worn Garment
 droprate_WornGarment = {}
-#Peu
-droprate_WornGarment['Copper']={'Jute Scrap':0.57,'Wool Scrap':1.24}
-droprate_WornGarment['Runecrafter']={'Jute Scrap':0.41,'Wool Scrap':1.44}
-#me beta3
-droprate_WornGarment['Rare']={'Jute Scrap':0.4060,'Wool Scrap':1.4521}
+#me
+droprate_WornGarment['Copper']={'Jute Scrap':0.3560,'Wool Scrap':1.4320}
+droprate_WornGarment['Runecrafter']={'Jute Scrap':0.4232,'Wool Scrap':1.4232}
+droprate_WornGarment['Rare']={'Jute Scrap':0.3938,'Wool Scrap':1.4831}
+
+#Decaying
+droprate_DecayingMass = {}
+#Peureki
+droprate_DecayingMass['Copper']={'Jute Scrap':0.4,'Wool Scrap':1.42}
+droprate_WornGarment['Runecrafter']={'Jute Scrap':0.68,'Wool Scrap':1.24}
+droprate_WornGarment['Rare']={'Jute Scrap':0.38,'Wool Scrap':1.44}
 
 #Worn Rag
 droprate_WornRag = {}
 #Me
 droprate_WornRag['Copper']={'Jute Scrap':0.4772,'Wool Scrap':1.3423}
 droprate_WornRag['Runecrafter']={'Jute Scrap':0.4283,'Wool Scrap':1.3811}
-#me beta3
-droprate_WornRag['Rare']={'Jute Scrap':0.3285,'Wool Scrap':1.6039}
+droprate_WornRag['Rare']={'Jute Scrap':0.3742,'Wool Scrap':1.5470}
 
 """ T3 """
-#Garment Mass Rag
-droprate_ = {}
+#Ragged Garment
+droprate_RaggedGarment = {}
 #Peu
-droprate_['Copper']={'Jute Scrap':00.00,'Wool Scrap':00.00,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.00}
-droprate_['Runecrafter']={'Jute Scrap':0.00,'Wool Scrap':00.0,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.00}
-droprate_['Rare']={'Jute Scrap':00.00,'Wool Scrap':00.0,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.0}
+droprate_RaggedGarment['Copper']={'Wool Scrap':00.492,'Cotton Scrap':1.372}
+droprate_RaggedGarment['Runecrafter']={'Wool Scrap':00.416,'Cotton Scrap':1.424}
+droprate_RaggedGarment['Rare']={'Wool Scrap':00.34,'Cotton Scrap':1.522}
 
-#Garment Mass Rag
-droprate_ = {}
+#Fetid Mass
+droprate_FetidMass = {}
 #Peu
-droprate_['Copper']={'Jute Scrap':00.00,'Wool Scrap':00.00,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.00}
-droprate_['Runecrafter']={'Jute Scrap':0.00,'Wool Scrap':00.0,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.00}
-droprate_['Rare']={'Jute Scrap':00.00,'Wool Scrap':00.0,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.0}
+droprate_FetidMass['Copper']={'Wool Scrap':00.28,'Cotton Scrap':1.44}
+droprate_FetidMass['Runecrafter']={'Wool Scrap':00.46,'Cotton Scrap':1.4}
+droprate_FetidMass['Rare']={'Wool Scrap':00.26,'Cotton Scrap':1.54}
 
-#Garment Mass Rag
-droprate_ = {}
+#Soiled Rag
+droprate_SoiledRag = {}
 #Peu
-droprate_['Copper']={'Jute Scrap':00.00,'Wool Scrap':00.00,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.00}
-droprate_['Runecrafter']={'Jute Scrap':0.00,'Wool Scrap':00.0,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.00}
-droprate_['Rare']={'Jute Scrap':00.00,'Wool Scrap':00.0,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.0}
+droprate_SoiledRag['Copper']={'Wool Scrap':00.36,'Cotton Scrap':1.54}
+droprate_SoiledRag['Runecrafter']={'Wool Scrap':00.34,'Cotton Scrap':1.45}
+droprate_SoiledRag['Rare']={'Wool Scrap':00.34,'Cotton Scrap':1.38}
 
 """ T4 """
-#Garment Mass Rag
-droprate_ = {}
+#Frayed Garment
+droprate_FrayedGarment = {}
+#wiki
+droprate_FrayedGarment['Copper']={'Cotton Scrap':00.55,'Linen Scrap':1.25}
 #Peu
-droprate_['Copper']={'Jute Scrap':00.00,'Wool Scrap':00.00,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.00}
-droprate_['Runecrafter']={'Jute Scrap':0.00,'Wool Scrap':00.0,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.00}
-droprate_['Rare']={'Jute Scrap':00.00,'Wool Scrap':00.0,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.0}
+droprate_FrayedGarment['Runecrafter']={'Cotton Scrap':00.484,'Linen Scrap':1.4}
+droprate_FrayedGarment['Rare']={'Cotton Scrap':00.432,'Linen Scrap':0.976}
 
-#Garment Mass Rag
-droprate_ = {}
+#Malodorous Mass
+droprate_MalodorousMass = {}
 #Peu
-droprate_['Copper']={'Jute Scrap':00.00,'Wool Scrap':00.00,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.00}
-droprate_['Runecrafter']={'Jute Scrap':0.00,'Wool Scrap':00.0,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.00}
-droprate_['Rare']={'Jute Scrap':00.00,'Wool Scrap':00.0,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.0}
+droprate_MalodorousMass['Copper']={'Cotton Scrap':00.43,'Linen Scrap':1.36}
+droprate_MalodorousMass['Runecrafter']={'Cotton Scrap':00.45,'Linen Scrap':1.5}
+droprate_MalodorousMass['Rare']={'Cotton Scrap':00.37,'Linen Scrap':1.46}
 
-#Garment Mass Rag
-droprate_ = {}
+#Frayed Rag
+droprate_FrayedRag = {}
 #Peu
-droprate_['Copper']={'Jute Scrap':00.00,'Wool Scrap':00.00,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.00}
-droprate_['Runecrafter']={'Jute Scrap':0.00,'Wool Scrap':00.0,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.00}
-droprate_['Rare']={'Jute Scrap':00.00,'Wool Scrap':00.0,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.0}
+droprate_FrayedRag['Copper']={'Cotton Scrap':00.488,'Linen Scrap':1.308}
+droprate_FrayedRag['Runecrafter']={'Cotton Scrap':00.424,'Linen Scrap':1.484}
+droprate_FrayedRag['Rare']={'Cotton Scrap':00.324,'Linen Scrap':1.556}
 
 """ T5 """
-#Garment Mass Rag
-droprate_ = {}
+#Torn Garment
+droprate_TornGarment = {}
 #Peu
-droprate_['Copper']={'Jute Scrap':00.00,'Wool Scrap':00.00,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.00}
-droprate_['Runecrafter']={'Jute Scrap':0.00,'Wool Scrap':00.0,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.00}
-droprate_['Rare']={'Jute Scrap':00.00,'Wool Scrap':00.0,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.0}
+droprate_TornGarment['Copper']={'Linen Scrap':00.428,'Silk Scrap':1.4}
+droprate_TornGarment['Runecrafter']={'Linen Scrap':00.436,'Silk Scrap':1.356}
+droprate_TornGarment['Rare']={'Linen Scrap':00.448,'Silk Scrap':1.46}
 
-#Garment Mass Rag
-droprate_ = {}
+#Half-Digested Mass
+droprate_HalfDigestedMass = {}
 #Peu
-droprate_['Copper']={'Jute Scrap':00.00,'Wool Scrap':00.00,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.00}
-droprate_['Runecrafter']={'Jute Scrap':0.00,'Wool Scrap':00.0,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.00}
-droprate_['Rare']={'Jute Scrap':00.00,'Wool Scrap':00.0,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.0}
+droprate_HalfDigestedMass['Copper']={'Linen Scrap':00.32,'Silk Scrap':1.42}
+droprate_HalfDigestedMass['Runecrafter']={'Linen Scrap':00.53,'Silk Scrap':1.27}
+droprate_HalfDigestedMass['Rare']={'Linen Scrap':00.35,'Silk Scrap':1.51}
 
-#Garment Mass Rag
-droprate_ = {}
+#Torn Rag
+droprate_TornRag = {}
 #Peu
-droprate_['Copper']={'Jute Scrap':00.00,'Wool Scrap':00.00,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.00}
-droprate_['Runecrafter']={'Jute Scrap':0.00,'Wool Scrap':00.0,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.00}
-droprate_['Rare']={'Jute Scrap':00.00,'Wool Scrap':00.0,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.0}
+droprate_TornRag['Copper']={'Linen Scrap':00.35,'Silk Scrap':1.47}
+droprate_TornRag['Runecrafter']={'Linen Scrap':00.43,'Silk Scrap':1.36}
+#wiki
+droprate_TornRag['Rare']={'Linen Scrap':00.324,'Silk Scrap':1.596}
 
 """ T6 """
-#Garment Mass Rag
-droprate_ = {}
+#Discarded Garment
+droprate_DiscardedGarment = {}
 #Peu
-droprate_['Copper']={'Jute Scrap':00.00,'Wool Scrap':00.00,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.00}
-droprate_['Runecrafter']={'Jute Scrap':0.00,'Wool Scrap':00.0,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.00}
-droprate_['Rare']={'Jute Scrap':00.00,'Wool Scrap':00.0,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.0}
+droprate_DiscardedGarment['Copper']={'Silk Scrap':1.31,'Gossamer Scrap':00.098}
+droprate_DiscardedGarment['Runecrafter']={'Silk Scrap':1.366,'Gossamer Scrap':00.081}
+droprate_DiscardedGarment['Rare']={'Silk Scrap':1.296,'Gossamer Scrap':00.121}
 
-#Garment Mass Rag
-droprate_ = {}
+#Regurgitated Mass
+droprate_RegurgitatedMass = {}
 #Peu
-droprate_['Copper']={'Jute Scrap':00.00,'Wool Scrap':00.00,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.00}
-droprate_['Runecrafter']={'Jute Scrap':0.00,'Wool Scrap':00.0,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.00}
-droprate_['Rare']={'Jute Scrap':00.00,'Wool Scrap':00.0,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.0}
+droprate_RegurgitatedMass['Copper']={'Silk Scrap':1.61,'Gossamer Scrap':00.1}
+droprate_RegurgitatedMass['Runecrafter']={'Silk Scrap':1.5,'Gossamer Scrap':00.13}
+droprate_RegurgitatedMass['Rare']={'Silk Scrap':1.49,'Gossamer Scrap':00.08}
 
-#Garment Mass Rag
-droprate_ = {}
+#Rag
+droprate_Rag = {}
 #Peu
-droprate_['Copper']={'Jute Scrap':00.00,'Wool Scrap':00.00,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.00}
-droprate_['Runecrafter']={'Jute Scrap':0.00,'Wool Scrap':00.0,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.00}
-droprate_['Rare']={'Jute Scrap':00.00,'Wool Scrap':00.0,'Cotton Scrap':00.00,'Linen Scrap':00.00,'Silk Scrap':00.00,'Gossamer Scrap':00.00}
+droprate_Rag['Copper']={'Silk Scrap':1.596,'Gossamer Scrap':00.076}
+droprate_Rag['Runecrafter']={'Silk Scrap':1.53,'Gossamer Scrap':00.124}
+droprate_Rag['Rare']={'Silk Scrap':1.55,'Gossamer Scrap':00.104}
 
+""" Additional Garments """
+#Garment 28
+droprate_Garment28 = {}
+#No data anywhere. Placehoder for completeness
+droprate_Garment28['Copper']={'Linen Scrap':00.00,'Silk Scrap':00.00}
+droprate_Garment28['Runecrafter']={'Linen Scrap':00.00,'Silk Scrap':00.00}
+droprate_Garment28['Rare']={'Linen Scrap':00.00,'Silk Scrap':00.00}
+
+#Garment 32
+droprate_Garment32 = {}
+#No data anywhere. Placehoder for completeness
+droprate_Garment32['Copper']={'Linen Scrap':00.00,'Silk Scrap':00.00}
+droprate_Garment32['Runecrafter']={'Linen Scrap':00.00,'Silk Scrap':00.00}
+droprate_Garment32['Rare']={'Linen Scrap':00.00,'Silk Scrap':00.00}
 
 """ All Tiers """
 #Unstable Cloth
 droprate_UnstableRag = {}
 #Peu
-droprate_UnstableRag['Copper']={'Jute Scrap':0.1824,'Wool Scrap':0.5115,'Cotton Scrap':0.4877,'Linen Scrap':0.5147,'Silk Scrap':0.1887,'Gossamer Scrap':0.1943}
-droprate_UnstableRag['Runecrafter']={'Jute Scrap':0.164,'Wool Scrap':0.527,'Cotton Scrap':0.491,'Linen Scrap':0.568,'Silk Scrap':0.22,'Gossamer Scrap':0.2513}
-#me beta3
-droprate_UnstableRag['Rare']={'Jute Scrap':0.1605,'Wool Scrap':0.4649,'Cotton Scrap':0.5535,'Linen Scrap':0.5424,'Silk Scrap':0.2011,'Gossamer Scrap':0.1661}
+droprate_UnstableRag['Copper']={'Jute Scrap':0.1855,'Wool Scrap':0.5135,'Cotton Scrap':0.4850,'Linen Scrap':0.5166,'Silk Scrap':0.1855,'Gossamer Scrap':0.1917}
+droprate_UnstableRag['Runecrafter']={'Jute Scrap':0.1746,'Wool Scrap':0.5373,'Cotton Scrap':0.5317,'Linen Scrap':0.4857,'Silk Scrap':0.1833,'Gossamer Scrap':0.1825}
+droprate_UnstableRag['Rare']={'Jute Scrap':0.1604,'Wool Scrap':0.5076,'Cotton Scrap':0.5761,'Linen Scrap':0.4855,'Silk Scrap':0.2109,'Gossamer Scrap':0.1680}
 
 """
 Drop rates: Wood
@@ -1056,9 +1078,41 @@ worthbuyinglist.append(salvagePrint('Bloodstone-Warped Hide',salvageLeather,mult
 
 print('\n','#'*10,"Leather / / / Cloth",'#'*10)
 
+#T1
 worthbuyinglist.append(salvagePrint('Shredded Garment',salvageCloth,multiplier_prices,droprate_ShreddedGarment,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Half-Eaten Mass',salvageCloth,multiplier_prices,droprate_HalfEatenMass,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Shredded Rag',salvageCloth,multiplier_prices,droprate_ShreddedRag,salvageCost,0))
+
+#T2
 worthbuyinglist.append(salvagePrint('Worn Garment',salvageCloth,multiplier_prices,droprate_WornGarment,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Decaying Mass',salvageCloth,multiplier_prices,droprate_DecayingMass,salvageCost,0))
 worthbuyinglist.append(salvagePrint('Worn Rag',salvageCloth,multiplier_prices,droprate_WornRag,salvageCost,0))
+
+#T3
+worthbuyinglist.append(salvagePrint('Ragged Garment',salvageCloth,multiplier_prices,droprate_RaggedGarment,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Fetid Mass',salvageCloth,multiplier_prices,droprate_FetidMass,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Soiled Rag',salvageCloth,multiplier_prices,droprate_SoiledRag,salvageCost,0))
+
+#T4
+worthbuyinglist.append(salvagePrint('Frayed Garment',salvageCloth,multiplier_prices,droprate_FrayedGarment,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Malodorous Mass',salvageCloth,multiplier_prices,droprate_MalodorousMass,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Frayed Rag',salvageCloth,multiplier_prices,droprate_FrayedRag,salvageCost,0))
+
+#T5
+worthbuyinglist.append(salvagePrint('Torn Garment',salvageCloth,multiplier_prices,droprate_TornGarment,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Half-Digested Mass',salvageCloth,multiplier_prices,droprate_HalfDigestedMass,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Torn Rag',salvageCloth,multiplier_prices,droprate_TornRag,salvageCost,0))
+
+#T6
+worthbuyinglist.append(salvagePrint('Discarded Garment',salvageCloth,multiplier_prices,droprate_DiscardedGarment,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Regurgitated Mass',salvageCloth,multiplier_prices,droprate_RegurgitatedMass,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Rag',salvageCloth,multiplier_prices,droprate_Rag,salvageCost,0))
+
+#Extra Garments
+worthbuyinglist.append(salvagePrint('Garment_28',salvageCloth,multiplier_prices,droprate_Garment28,salvageCost,0))
+worthbuyinglist.append(salvagePrint('Garment_32',salvageCloth,multiplier_prices,droprate_Garment32,salvageCost,0))
+
+#All
 worthbuyinglist.append(salvagePrint('Unstable Rag',salvageCloth,multiplier_prices,droprate_UnstableRag,salvageCost,0))
 
 print('\n','#'*10,"Cloth / / / Wood",'#'*10)
