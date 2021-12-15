@@ -498,24 +498,14 @@ def salvagePrint(itemName_str,itemCost_dct,multiplier_dct,droprate_dict,salvageC
 
     return worthit_list
 #End of salvagePrint function
+
 """
 Main Program
 """
 
-"""New case needs the following information:
-    droprate dictionary
-    material IDs added to allAPI list
-    material IDs added to sort_allAPI function
-    variable to allAPI output if needed
-    salvagePrint function call
-"""
-
-
-
 #Import new common helper file
-#from calc_helpers import *
-#Python GW2 API wrapper library
 from calc_helpers import *
+#Python GW2 API wrapper library
 from gw2api import GuildWars2Client
 gw2_client = GuildWars2Client()
 
@@ -535,11 +525,17 @@ allIDs =    [79423,#Wood salvage
             19719,19728,19730,19731,19729,19732,#raw leather
             19738,19733,19734,19736,19735,19737]#refined leather
 
-"""
+"""************************************
+  ************ DROP RATES ************  
+************************************"""
 
+"""New case needs the following information:
+droprate dictionary
+material IDs added to allAPI list
+material IDs added to sort_allAPI function
+variable to allAPI output if needed
+salvagePrint function call
 """
-
-"""Drop rates"""
 
 """
 Drop rates: Metals
@@ -1120,7 +1116,17 @@ print('\n','#'*10,"Cloth / / / Wood",'#'*10)
 worthbuyinglist.append(salvagePrint('Reclaimed Wood Chunk',salvageWood,multiplier_prices,droprate_ReclaimedWoodChunk,salvageCost,0))
 
 print('\n','#'*10,"Wood / / / Summary ",'#'*10)
-[print(x) for x in worthbuyinglist if 'MEGA BUY' in x ]
-[print(x) for x in worthbuyinglist if 'BUYBUYBUY' in x ]
-[print(x) for x in worthbuyinglist if 'Good' in x ]
-[print(x) for x in worthbuyinglist if 'Consider' in x ]
+#Filter and sort the levels of "buy" using sorted and list comprehension. Don't care if swapping to a generator would be faster and more memory efficient
+#x[2] is called in key because I want to sort based on profit amount, not profit percent at this moment
+#Reverse gives me hightest first
+#list of lists prints on a single line and I want 1 list per line so this is asssembled in a for loop
+#This is Good candidate for refactoring into a function
+#I am fine with the list formatting rather than a table
+for x in sorted( [x for x in worthbuyinglist if 'MEGA BUY' in x ],key=lambda x:x[2], reverse=True):
+    print(x)
+for x in sorted( [x for x in worthbuyinglist if 'BUYBUYBUY' in x ],key=lambda x:x[2], reverse=True):
+    print(x)
+for x in sorted( [x for x in worthbuyinglist if 'Good' in x ],key=lambda x:x[2], reverse=True):
+    print(x)
+for x in sorted( [x for x in worthbuyinglist if 'Consider' in x ],key=lambda x:x[2], reverse=True):
+    print(x)
