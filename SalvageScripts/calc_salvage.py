@@ -385,6 +385,9 @@ Metal Salvage:
         Ectoplasm use cases deserve their own script since the drop rate is so well understood already
 """
 
+"""
+Function Declarations
+"""
 #Organize API entries
 def sort_allAPI(allAPI):
 
@@ -499,34 +502,8 @@ def salvagePrint(itemName_str,itemCost_dct,multiplier_dct,droprate_dict,salvageC
     return worthit_list
 #End of salvagePrint function
 
-"""
-Main Program
-"""
-
-#Import new common helper file
-from calc_helpers import *
-#Python GW2 API wrapper library
-from gw2api import GuildWars2Client
-gw2_client = GuildWars2Client()
-
-#All relevant IDs
-#Once salvage item at a time
-allIDs =    [79423,#Wood salvage
-            21690,21678,21691,21679,21692,21680,21693,21681,21694,21682,21695,21683,79079,#Metal salvage
-            21661,21684,21653,21664,21685,21654,21667,21686,21655,21668,21687,21656,21670,21688,21657,22331,21689,21658,79213,80681,#Leather salvage
-            21669,22325,21659,21671,22326,21660,21672,22327,21662,21673,22328,21663,21674,22329,21665,21675,22330,21666,79138,#Cloth salvage
-            21676,21677,#The random other Rags
-            19723,19726,19727,19724,19722,19725,#raw wood
-            19710,19713,19714,19711,19709,19712,#refined wood
-            19697,19703,19699,19698,19702,19700,19701,#raw metal
-            19680,19679,19687,19683,19688,19682,19686,19681,19684,19685,#refined metal
-            19718,19739,19741,19743,19748,19745,#raw cloth
-            19720,19740,19742,19744,19747,19746,#refined cloth
-            19719,19728,19730,19731,19729,19732,#raw leather
-            19738,19733,19734,19736,19735,19737]#refined leather
-
 """************************************
-  ************ DROP RATES ************  
+  ************ DROP RATES ************
 ************************************"""
 
 """New case needs the following information:
@@ -966,12 +943,30 @@ droprate_ReclaimedWoodChunk['Copper']={'Green Wood Log':0.102,'Soft Wood Log':0.
 droprate_ReclaimedWoodChunk['Runecrafter']={'Green Wood Log':0.109,'Soft Wood Log':0.523,'Seasoned Wood Log':0.546,'Hard Wood Log':0.436,'Elder Wood Log':0.178,'Ancient Wood Log':0.344}
 droprate_ReclaimedWoodChunk['Rare']={'Green Wood Log':0.12,'Soft Wood Log':0.459,'Seasoned Wood Log':0.511,'Hard Wood Log':0.469,'Elder Wood Log':0.149,'Ancient Wood Log':0.331}
 
+
 """
 Helper stuff
 """
+
+#All relevant IDs
+allIDs =    [79423,#Wood salvage
+            21690,21678,21691,21679,21692,21680,21693,21681,21694,21682,21695,21683,79079,#Metal salvage
+            21661,21684,21653,21664,21685,21654,21667,21686,21655,21668,21687,21656,21670,21688,21657,22331,21689,21658,79213,80681,#Leather salvage
+            21669,22325,21659,21671,22326,21660,21672,22327,21662,21673,22328,21663,21674,22329,21665,21675,22330,21666,79138,#Cloth salvage
+            21676,21677,#The random other Rags
+            19723,19726,19727,19724,19722,19725,#raw wood
+            19710,19713,19714,19711,19709,19712,#refined wood
+            19697,19703,19699,19698,19702,19700,19701,#raw metal
+            19680,19679,19687,19683,19688,19682,19686,19681,19684,19685,#refined metal
+            19718,19739,19741,19743,19748,19745,#raw cloth
+            19720,19740,19742,19744,19747,19746,#refined cloth
+            19719,19728,19730,19731,19729,19732,#raw leather
+            19738,19733,19734,19736,19735,19737]#refined leather
+
 #Salvage options
 #salvageOptions 'Mystic':10.5, 'Copper':5 , 'Runecrafter':30, 'Silver':60
 salvageCost = {'Copper':5 , 'Runecrafter':30, 'Rare':60}
+
 #Containers
 #defaulting to main ingots for refined to avoid problems. generate_multiplier will change as needed
 unrefined_to_refined = {'Hardened Leather Section':'Cured Hardened Leather Square','Thick Leather Section':'Cured Thick Leather Square','Rugged Leather Section':'Cured Rugged Leather Square','Coarse Leather Section':'Cured Coarse Leather Square','Thin Leather Section':'Cured Thin Leather Square','Rawhide Leather Section':'Stretched Rawhide Leather Square',
@@ -989,144 +984,150 @@ refined_scalar = {'Stretched Rawhide Leather Square':2,'Cured Thin Leather Squar
 #I don't think I need this
 
 """
-Prep work done. Main execution
+Main Program
 """
+if __name__ == '__main__':
+    #Import new common helper file
+    from calc_helpers import *
+    #Python GW2 API wrapper library
+    from gw2api import GuildWars2Client
+    gw2_client = GuildWars2Client()
 
-allAPI=gw2_client.commerceprices.get(ids=allIDs)
+    allAPI=gw2_client.commerceprices.get(ids=allIDs)
 
-unrefined_prices, refined_prices, salvageLeather, salvageWood, salvageMetal, salvageCloth = sort_allAPI(allAPI)
+    unrefined_prices, refined_prices, salvageLeather, salvageWood, salvageMetal, salvageCloth = sort_allAPI(allAPI)
 
-#Multiplier creation
-#Multiplier and decision are based off of sell prices
-multiplier_prices,decision = generate_multiplier(unrefined_prices,refined_prices,refined_scalar,unrefined_to_refined,1)
+    #Multiplier creation
+    #Multiplier and decision are based off of sell prices
+    multiplier_prices,decision = generate_multiplier(unrefined_prices,refined_prices,refined_scalar,unrefined_to_refined,1)
 
-#Price Chart
-#The if is from the unid chart because there is no refinement on charm/symbol
-print('{:<24} : {:>10}   {:<10}   {:<10}   {:<10}'.format('Material','Sell Price','State','Raw','Refined'))
-print('-'*74)
-for key, value in multiplier_prices.items():
-    if key in decision:
-        print('{:<24} : {:>10}   {:<10}   {:<10}   {:<10}'.format(key,value, decision[key],unrefined_prices[key][1],refined_prices[unrefined_to_refined[key]][1]))
-    else:
-        print('{:<24} : {:>10}'.format(key,value))
+    #Price Chart
+    #The if is from the unid chart because there is no refinement on charm/symbol
+    print('{:<24} : {:>10}   {:<10}   {:<10}   {:<10}'.format('Material','Sell Price','State','Raw','Refined'))
+    print('-'*74)
+    for key, value in multiplier_prices.items():
+        if key in decision:
+            print('{:<24} : {:>10}   {:<10}   {:<10}   {:<10}'.format(key,value, decision[key],unrefined_prices[key][1],refined_prices[unrefined_to_refined[key]][1]))
+        else:
+            print('{:<24} : {:>10}'.format(key,value))
 
-#Calculate salvaged values
-worthbuyinglist=[]
-print('\n','#'*10,"Metal",'#'*10)
+    #Calculate salvaged values
+    worthbuyinglist=[]
+    print('\n','#'*10,"Metal",'#'*10)
 
-#T1
-worthbuyinglist.append(salvagePrint('Bit of Metal Scrap',salvageMetal,multiplier_prices,droprate_BitofMetalScrap,salvageCost,0))
-worthbuyinglist.append(salvagePrint('Brittle Clump of Ore',salvageMetal,multiplier_prices,droprate_BrittleClumpofOre,salvageCost,0))
-#T2
-worthbuyinglist.append(salvagePrint('Weak Clump of Ore',salvageMetal,multiplier_prices,droprate_WeakClumpofOre,salvageCost,0))
-worthbuyinglist.append(salvagePrint('Pile of Metal Scrap',salvageMetal,multiplier_prices,droprate_PileofMetalScrap,salvageCost,0))
-#T3
-worthbuyinglist.append(salvagePrint('Clump of Ore',salvageMetal,multiplier_prices,droprate_ClumpofOre,salvageCost,0))
-worthbuyinglist.append(salvagePrint('Jagged Metal Scrap',salvageMetal,multiplier_prices,droprate_JaggedMetalScrap,salvageCost,0))
-#T4
-worthbuyinglist.append(salvagePrint('Laden Clump of Ore',salvageMetal,multiplier_prices,droprate_LadenClumpofOre,salvageCost,0))
-worthbuyinglist.append(salvagePrint('Metal Scrap',salvageMetal,multiplier_prices,droprate_MetalScrap,salvageCost,0))
-#T5
-worthbuyinglist.append(salvagePrint('Loaded Clump of Ore',salvageMetal,multiplier_prices,droprate_LoadedClumpofOre,salvageCost,0))
-worthbuyinglist.append(salvagePrint('Salvageable Metal Scrap',salvageMetal,multiplier_prices,droprate_SalvageableMetalScrap,salvageCost,0))
-#T6
-worthbuyinglist.append(salvagePrint('Rich Clump of Ore',salvageMetal,multiplier_prices,droprate_RichClumpofOre,salvageCost,0))
-worthbuyinglist.append(salvagePrint('Valuable Metal Scrap',salvageMetal,multiplier_prices,droprate_ValuableMetalScrap,salvageCost,0))
-#All
-worthbuyinglist.append(salvagePrint('Unstable Metal Chunk',salvageMetal,multiplier_prices,droprate_UnstableMetalChunk,salvageCost,0))
+    #T1
+    worthbuyinglist.append(salvagePrint('Bit of Metal Scrap',salvageMetal,multiplier_prices,droprate_BitofMetalScrap,salvageCost,0))
+    worthbuyinglist.append(salvagePrint('Brittle Clump of Ore',salvageMetal,multiplier_prices,droprate_BrittleClumpofOre,salvageCost,0))
+    #T2
+    worthbuyinglist.append(salvagePrint('Weak Clump of Ore',salvageMetal,multiplier_prices,droprate_WeakClumpofOre,salvageCost,0))
+    worthbuyinglist.append(salvagePrint('Pile of Metal Scrap',salvageMetal,multiplier_prices,droprate_PileofMetalScrap,salvageCost,0))
+    #T3
+    worthbuyinglist.append(salvagePrint('Clump of Ore',salvageMetal,multiplier_prices,droprate_ClumpofOre,salvageCost,0))
+    worthbuyinglist.append(salvagePrint('Jagged Metal Scrap',salvageMetal,multiplier_prices,droprate_JaggedMetalScrap,salvageCost,0))
+    #T4
+    worthbuyinglist.append(salvagePrint('Laden Clump of Ore',salvageMetal,multiplier_prices,droprate_LadenClumpofOre,salvageCost,0))
+    worthbuyinglist.append(salvagePrint('Metal Scrap',salvageMetal,multiplier_prices,droprate_MetalScrap,salvageCost,0))
+    #T5
+    worthbuyinglist.append(salvagePrint('Loaded Clump of Ore',salvageMetal,multiplier_prices,droprate_LoadedClumpofOre,salvageCost,0))
+    worthbuyinglist.append(salvagePrint('Salvageable Metal Scrap',salvageMetal,multiplier_prices,droprate_SalvageableMetalScrap,salvageCost,0))
+    #T6
+    worthbuyinglist.append(salvagePrint('Rich Clump of Ore',salvageMetal,multiplier_prices,droprate_RichClumpofOre,salvageCost,0))
+    worthbuyinglist.append(salvagePrint('Valuable Metal Scrap',salvageMetal,multiplier_prices,droprate_ValuableMetalScrap,salvageCost,0))
+    #All
+    worthbuyinglist.append(salvagePrint('Unstable Metal Chunk',salvageMetal,multiplier_prices,droprate_UnstableMetalChunk,salvageCost,0))
 
 
-print('\n','#'*10,"Metal / / / Leather",'#'*10)
+    print('\n','#'*10,"Metal / / / Leather",'#'*10)
 
-#T1
-worthbuyinglist.append(salvagePrint('Tattered Hide',salvageLeather,multiplier_prices,droprate_TatteredHide,salvageCost,0))
-worthbuyinglist.append(salvagePrint('Rawhide Leather Strap',salvageLeather,multiplier_prices,droprate_RawhideLeatherStrap,salvageCost,0))
-worthbuyinglist.append(salvagePrint('Tattered Pelt',salvageLeather,multiplier_prices,droprate_TatteredPelt,salvageCost,0))
+    #T1
+    worthbuyinglist.append(salvagePrint('Tattered Hide',salvageLeather,multiplier_prices,droprate_TatteredHide,salvageCost,0))
+    worthbuyinglist.append(salvagePrint('Rawhide Leather Strap',salvageLeather,multiplier_prices,droprate_RawhideLeatherStrap,salvageCost,0))
+    worthbuyinglist.append(salvagePrint('Tattered Pelt',salvageLeather,multiplier_prices,droprate_TatteredPelt,salvageCost,0))
 
-#T2
-worthbuyinglist.append(salvagePrint('Ripped Hide',salvageLeather,multiplier_prices,droprate_RippedHide,salvageCost,0))
-worthbuyinglist.append(salvagePrint('Thin Leather Strap',salvageLeather,multiplier_prices,droprate_ThinLeatherStrap,salvageCost,0))
-worthbuyinglist.append(salvagePrint('Ripped Pelt',salvageLeather,multiplier_prices,droprate_RippedPelt,salvageCost,0))
+    #T2
+    worthbuyinglist.append(salvagePrint('Ripped Hide',salvageLeather,multiplier_prices,droprate_RippedHide,salvageCost,0))
+    worthbuyinglist.append(salvagePrint('Thin Leather Strap',salvageLeather,multiplier_prices,droprate_ThinLeatherStrap,salvageCost,0))
+    worthbuyinglist.append(salvagePrint('Ripped Pelt',salvageLeather,multiplier_prices,droprate_RippedPelt,salvageCost,0))
 
-#T3
-worthbuyinglist.append(salvagePrint('Torn Hide',salvageLeather,multiplier_prices,droprate_TornHide,salvageCost,0))
-worthbuyinglist.append(salvagePrint('Coarse Leather Strap',salvageLeather,multiplier_prices,droprate_CoarseLeatherStrap,salvageCost,0))
-worthbuyinglist.append(salvagePrint('Torn Pelt',salvageLeather,multiplier_prices,droprate_TornPelt,salvageCost,0))
+    #T3
+    worthbuyinglist.append(salvagePrint('Torn Hide',salvageLeather,multiplier_prices,droprate_TornHide,salvageCost,0))
+    worthbuyinglist.append(salvagePrint('Coarse Leather Strap',salvageLeather,multiplier_prices,droprate_CoarseLeatherStrap,salvageCost,0))
+    worthbuyinglist.append(salvagePrint('Torn Pelt',salvageLeather,multiplier_prices,droprate_TornPelt,salvageCost,0))
 
-#T4
-worthbuyinglist.append(salvagePrint('Frayed Hide',salvageLeather,multiplier_prices,droprate_FrayedHide,salvageCost,0))
-worthbuyinglist.append(salvagePrint('Thick Leather Strap',salvageLeather,multiplier_prices,droprate_ThickLeatherStrap,salvageCost,0))
-worthbuyinglist.append(salvagePrint('Frayed Pelt',salvageLeather,multiplier_prices,droprate_FrayedPelt,salvageCost,0))
+    #T4
+    worthbuyinglist.append(salvagePrint('Frayed Hide',salvageLeather,multiplier_prices,droprate_FrayedHide,salvageCost,0))
+    worthbuyinglist.append(salvagePrint('Thick Leather Strap',salvageLeather,multiplier_prices,droprate_ThickLeatherStrap,salvageCost,0))
+    worthbuyinglist.append(salvagePrint('Frayed Pelt',salvageLeather,multiplier_prices,droprate_FrayedPelt,salvageCost,0))
 
-#T5
-worthbuyinglist.append(salvagePrint('Filthy Hide',salvageLeather,multiplier_prices,droprate_FilthyHIde,salvageCost,0))
-worthbuyinglist.append(salvagePrint('Rugged Leather Strap',salvageLeather,multiplier_prices,droprate_RuggedLeatherStrap,salvageCost,0))
-worthbuyinglist.append(salvagePrint('Filthy Pelt',salvageLeather,multiplier_prices,droprate_FilthyPelt,salvageCost,0))
+    #T5
+    worthbuyinglist.append(salvagePrint('Filthy Hide',salvageLeather,multiplier_prices,droprate_FilthyHIde,salvageCost,0))
+    worthbuyinglist.append(salvagePrint('Rugged Leather Strap',salvageLeather,multiplier_prices,droprate_RuggedLeatherStrap,salvageCost,0))
+    worthbuyinglist.append(salvagePrint('Filthy Pelt',salvageLeather,multiplier_prices,droprate_FilthyPelt,salvageCost,0))
 
-#T6
-worthbuyinglist.append(salvagePrint('Salvageable Hide',salvageLeather,multiplier_prices,droprate_SalvageableHide,salvageCost,0))
-worthbuyinglist.append(salvagePrint('Hard Leather Strap',salvageLeather,multiplier_prices,droprate_HardLeatherStrap,salvageCost,0))
-worthbuyinglist.append(salvagePrint('Salvageable Pelt',salvageLeather,multiplier_prices,droprate_SalvageablePelt,salvageCost,0))
+    #T6
+    worthbuyinglist.append(salvagePrint('Salvageable Hide',salvageLeather,multiplier_prices,droprate_SalvageableHide,salvageCost,0))
+    worthbuyinglist.append(salvagePrint('Hard Leather Strap',salvageLeather,multiplier_prices,droprate_HardLeatherStrap,salvageCost,0))
+    worthbuyinglist.append(salvagePrint('Salvageable Pelt',salvageLeather,multiplier_prices,droprate_SalvageablePelt,salvageCost,0))
 
-#All
-worthbuyinglist.append(salvagePrint('Unstable Hide',salvageLeather,multiplier_prices,droprate_UnstableHide,salvageCost,0))
-worthbuyinglist.append(salvagePrint('Bloodstone-Warped Hide',salvageLeather,multiplier_prices,droprate_BloodstoneWarpedHide,salvageCost,0))
+    #All
+    worthbuyinglist.append(salvagePrint('Unstable Hide',salvageLeather,multiplier_prices,droprate_UnstableHide,salvageCost,0))
+    worthbuyinglist.append(salvagePrint('Bloodstone-Warped Hide',salvageLeather,multiplier_prices,droprate_BloodstoneWarpedHide,salvageCost,0))
 
-print('\n','#'*10,"Leather / / / Cloth",'#'*10)
+    print('\n','#'*10,"Leather / / / Cloth",'#'*10)
 
-#T1
-worthbuyinglist.append(salvagePrint('Shredded Garment',salvageCloth,multiplier_prices,droprate_ShreddedGarment,salvageCost,0))
-worthbuyinglist.append(salvagePrint('Half-Eaten Mass',salvageCloth,multiplier_prices,droprate_HalfEatenMass,salvageCost,0))
-worthbuyinglist.append(salvagePrint('Shredded Rag',salvageCloth,multiplier_prices,droprate_ShreddedRag,salvageCost,0))
+    #T1
+    worthbuyinglist.append(salvagePrint('Shredded Garment',salvageCloth,multiplier_prices,droprate_ShreddedGarment,salvageCost,0))
+    worthbuyinglist.append(salvagePrint('Half-Eaten Mass',salvageCloth,multiplier_prices,droprate_HalfEatenMass,salvageCost,0))
+    worthbuyinglist.append(salvagePrint('Shredded Rag',salvageCloth,multiplier_prices,droprate_ShreddedRag,salvageCost,0))
 
-#T2
-worthbuyinglist.append(salvagePrint('Worn Garment',salvageCloth,multiplier_prices,droprate_WornGarment,salvageCost,0))
-worthbuyinglist.append(salvagePrint('Decaying Mass',salvageCloth,multiplier_prices,droprate_DecayingMass,salvageCost,0))
-worthbuyinglist.append(salvagePrint('Worn Rag',salvageCloth,multiplier_prices,droprate_WornRag,salvageCost,0))
+    #T2
+    worthbuyinglist.append(salvagePrint('Worn Garment',salvageCloth,multiplier_prices,droprate_WornGarment,salvageCost,0))
+    worthbuyinglist.append(salvagePrint('Decaying Mass',salvageCloth,multiplier_prices,droprate_DecayingMass,salvageCost,0))
+    worthbuyinglist.append(salvagePrint('Worn Rag',salvageCloth,multiplier_prices,droprate_WornRag,salvageCost,0))
 
-#T3
-worthbuyinglist.append(salvagePrint('Ragged Garment',salvageCloth,multiplier_prices,droprate_RaggedGarment,salvageCost,0))
-worthbuyinglist.append(salvagePrint('Fetid Mass',salvageCloth,multiplier_prices,droprate_FetidMass,salvageCost,0))
-worthbuyinglist.append(salvagePrint('Soiled Rag',salvageCloth,multiplier_prices,droprate_SoiledRag,salvageCost,0))
+    #T3
+    worthbuyinglist.append(salvagePrint('Ragged Garment',salvageCloth,multiplier_prices,droprate_RaggedGarment,salvageCost,0))
+    worthbuyinglist.append(salvagePrint('Fetid Mass',salvageCloth,multiplier_prices,droprate_FetidMass,salvageCost,0))
+    worthbuyinglist.append(salvagePrint('Soiled Rag',salvageCloth,multiplier_prices,droprate_SoiledRag,salvageCost,0))
 
-#T4
-worthbuyinglist.append(salvagePrint('Frayed Garment',salvageCloth,multiplier_prices,droprate_FrayedGarment,salvageCost,0))
-worthbuyinglist.append(salvagePrint('Malodorous Mass',salvageCloth,multiplier_prices,droprate_MalodorousMass,salvageCost,0))
-worthbuyinglist.append(salvagePrint('Frayed Rag',salvageCloth,multiplier_prices,droprate_FrayedRag,salvageCost,0))
+    #T4
+    worthbuyinglist.append(salvagePrint('Frayed Garment',salvageCloth,multiplier_prices,droprate_FrayedGarment,salvageCost,0))
+    worthbuyinglist.append(salvagePrint('Malodorous Mass',salvageCloth,multiplier_prices,droprate_MalodorousMass,salvageCost,0))
+    worthbuyinglist.append(salvagePrint('Frayed Rag',salvageCloth,multiplier_prices,droprate_FrayedRag,salvageCost,0))
 
-#T5
-worthbuyinglist.append(salvagePrint('Torn Garment',salvageCloth,multiplier_prices,droprate_TornGarment,salvageCost,0))
-worthbuyinglist.append(salvagePrint('Half-Digested Mass',salvageCloth,multiplier_prices,droprate_HalfDigestedMass,salvageCost,0))
-worthbuyinglist.append(salvagePrint('Torn Rag',salvageCloth,multiplier_prices,droprate_TornRag,salvageCost,0))
+    #T5
+    worthbuyinglist.append(salvagePrint('Torn Garment',salvageCloth,multiplier_prices,droprate_TornGarment,salvageCost,0))
+    worthbuyinglist.append(salvagePrint('Half-Digested Mass',salvageCloth,multiplier_prices,droprate_HalfDigestedMass,salvageCost,0))
+    worthbuyinglist.append(salvagePrint('Torn Rag',salvageCloth,multiplier_prices,droprate_TornRag,salvageCost,0))
 
-#T6
-worthbuyinglist.append(salvagePrint('Discarded Garment',salvageCloth,multiplier_prices,droprate_DiscardedGarment,salvageCost,0))
-worthbuyinglist.append(salvagePrint('Regurgitated Mass',salvageCloth,multiplier_prices,droprate_RegurgitatedMass,salvageCost,0))
-worthbuyinglist.append(salvagePrint('Rag',salvageCloth,multiplier_prices,droprate_Rag,salvageCost,0))
+    #T6
+    worthbuyinglist.append(salvagePrint('Discarded Garment',salvageCloth,multiplier_prices,droprate_DiscardedGarment,salvageCost,0))
+    worthbuyinglist.append(salvagePrint('Regurgitated Mass',salvageCloth,multiplier_prices,droprate_RegurgitatedMass,salvageCost,0))
+    worthbuyinglist.append(salvagePrint('Rag',salvageCloth,multiplier_prices,droprate_Rag,salvageCost,0))
 
-#Extra Garments
-worthbuyinglist.append(salvagePrint('Garment_28',salvageCloth,multiplier_prices,droprate_Garment28,salvageCost,0))
-worthbuyinglist.append(salvagePrint('Garment_32',salvageCloth,multiplier_prices,droprate_Garment32,salvageCost,0))
+    #Extra Garments
+    worthbuyinglist.append(salvagePrint('Garment_28',salvageCloth,multiplier_prices,droprate_Garment28,salvageCost,0))
+    worthbuyinglist.append(salvagePrint('Garment_32',salvageCloth,multiplier_prices,droprate_Garment32,salvageCost,0))
 
-#All
-worthbuyinglist.append(salvagePrint('Unstable Rag',salvageCloth,multiplier_prices,droprate_UnstableRag,salvageCost,0))
+    #All
+    worthbuyinglist.append(salvagePrint('Unstable Rag',salvageCloth,multiplier_prices,droprate_UnstableRag,salvageCost,0))
 
-print('\n','#'*10,"Cloth / / / Wood",'#'*10)
+    print('\n','#'*10,"Cloth / / / Wood",'#'*10)
 
-worthbuyinglist.append(salvagePrint('Reclaimed Wood Chunk',salvageWood,multiplier_prices,droprate_ReclaimedWoodChunk,salvageCost,0))
+    worthbuyinglist.append(salvagePrint('Reclaimed Wood Chunk',salvageWood,multiplier_prices,droprate_ReclaimedWoodChunk,salvageCost,0))
 
-print('\n','#'*10,"Wood / / / Summary ",'#'*10)
-#Filter and sort the levels of "buy" using sorted and list comprehension. Don't care if swapping to a generator would be faster and more memory efficient
-#x[2] is called in key because I want to sort based on profit amount, not profit percent at this moment
-#Reverse gives me hightest first
-#list of lists prints on a single line and I want 1 list per line so this is asssembled in a for loop
-#This is Good candidate for refactoring into a function
-#I am fine with the list formatting rather than a table
-for x in sorted( [x for x in worthbuyinglist if 'MEGA BUY' in x ],key=lambda x:x[2], reverse=True):
-    print(x)
-for x in sorted( [x for x in worthbuyinglist if 'BUYBUYBUY' in x ],key=lambda x:x[2], reverse=True):
-    print(x)
-for x in sorted( [x for x in worthbuyinglist if 'Good' in x ],key=lambda x:x[2], reverse=True):
-    print(x)
-for x in sorted( [x for x in worthbuyinglist if 'Consider' in x ],key=lambda x:x[2], reverse=True):
-    print(x)
+    print('\n','#'*10,"Wood / / / Summary ",'#'*10)
+    #Filter and sort the levels of "buy" using sorted and list comprehension. Don't care if swapping to a generator would be faster and more memory efficient
+    #x[2] is called in key because I want to sort based on profit amount, not profit percent at this moment
+    #Reverse gives me hightest first
+    #list of lists prints on a single line and I want 1 list per line so this is asssembled in a for loop
+    #This is Good candidate for refactoring into a function
+    #I am fine with the list formatting rather than a table
+    for x in sorted( [x for x in worthbuyinglist if 'MEGA BUY' in x ],key=lambda x:x[2], reverse=True):
+        print(x)
+    for x in sorted( [x for x in worthbuyinglist if 'BUYBUYBUY' in x ],key=lambda x:x[2], reverse=True):
+        print(x)
+    for x in sorted( [x for x in worthbuyinglist if 'Good' in x ],key=lambda x:x[2], reverse=True):
+        print(x)
+    for x in sorted( [x for x in worthbuyinglist if 'Consider' in x ],key=lambda x:x[2], reverse=True):
+        print(x)
