@@ -2,23 +2,28 @@
 #Common functions only
 
 def generate_multiplier(unrefined_dct,refined_dct,refined_scalar,refined_lookup,buysell):
+    """The main purpose of this function is to process the material prices determine the best value per given raw material and the form it takes"""
+
     """Input:
-        unrefined material prices dictionary
-        refined material prices dictionary
-        the scalar values to get value of raw material from refined
-        lookup dictionary to get refined from unrefined
-        buysell value. It is the array position 0=buy 1=sell"""
+        unrefined_dct = dictionary unrefined material prices
+        refined_dct = dictionary of refined material prices
+        refined_scalar = dictionary showing how much of a raw material is required for the refined. refined material : # of raw material required
+        refined_lookup = dictionary to get refined material name from unrefined material name
+        buysell = 0 or 1 to indicate the position in the list. 0 = buy order price, 1 = sell listing price
+    """
 
     """Output:
-        multiplier for the best value/raw material
-        the decision to refine or not"""
+        multiplier_dct = dictionary for the best value/raw material
+        decision_dct = dictionary with refinement instruction/type
+    """
 
-    """Application note:
+    """Application notes:
             raw values only can be forced if "refined_scalar" is an empty dict
-            dictionaries passed are passed by reference so altering refined_lookup with the Tin/Coal/Primordium variants can be done inside here fine"""""
+            dictionaries passed are passed by reference so altering refined_lookup with the Tin/Coal/Primordium variants can be done inside here fine. This does present some possible testing challenges though
 
-    #value per RAW MATERIAL goes into the multiplier dict, decision of raw/refined goes into decision dict
-    #Compare and finalize values of material
+            To avoid problems and complexity, this function picks the buy or sell prices and picks the best form.
+    """""
+
     decision_dct = {}
     multiplier_dct = {}
 
@@ -84,6 +89,12 @@ def generate_multiplier(unrefined_dct,refined_dct,refined_scalar,refined_lookup,
 
 
 def compute_result(droprate_dict,multiplier_dict,TPCut):
+    """This is very straightforward so not much is needed to explain here.
+    1) Decide is the TP cut is required during calculation
+    2) Determine the value per raw material in each salvage item given item droprate and item value
+    3) Determine the sum of the salvage item
+    4) Return a dictionary of the raw material values in the salvage item and the value of the salvage item
+    """
     salvageValue_dct = {}
     sum_val = 0
     if TPCut == True:

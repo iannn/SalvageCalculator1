@@ -390,6 +390,23 @@ Function Declarations
 """
 #Organize API entries
 def sort_allAPI(allAPI):
+    """The purpose of this function is to sort the raw GW2 API wrapper return dictionaries (originally JSON objects) into the necessary dictionaries for use in this "calc_salvage" script"""
+
+    """Input:
+        bit list of commerceprices API objects. List, not dict
+    """
+
+    """Output:
+        unrefined_prices = dictionary of all unrefined material prices. "Raw" and "unrefined" are used interchangeable when they probably shouldn't be
+        refined_prices = dictionary of all refined material prices
+        salvageLeather = dictionary of corresponding salvage item names and prices
+        salvageWood = dictionary of corresponding salvage item names and prices
+        salvageMetal = dictionary of corresponding salvage item names and prices
+        salvageCloth = dictionary of corresponding salvage item names and prices
+
+        All use the format of:
+            "salvage item name" :[buy order price, sell listing price]
+    """
 
     """Design Note:
     A dictionary with the key:value pair id:name  is needed for this to work because these are sorting commerceprices data from the API, and only returns the following:
@@ -459,6 +476,17 @@ def sort_allAPI(allAPI):
 
 #General compute and print report
 def salvagePrint(itemName_str,itemCost_dct,multiplier_dct,droprate_dict,salvageCost_dct,buysell):
+    """ Input:
+        itemName_str = string name of salvage item
+        itemCost_dct = dictionary with salvage item costs. salvage item name : [buy order price, sell listing price]
+        multiplier_dct = dictionary of all material values. raw material name : buy or sell value
+        droprate_dict =
+        salvageCost_dct
+        buysell
+    """
+
+
+
     """This is the goal
 
     Hard Leather Strap  : {cost}
@@ -468,12 +496,12 @@ def salvagePrint(itemName_str,itemCost_dct,multiplier_dct,droprate_dict,salvageC
     Runecrafters        : {profit}  | {sum right}   |
     Rare                : {profit}  | {sum right}   |
 
-    return value is some kind of profit metric [salvage item, salvage method, profit]
-    [5-15) is meh
-    [15-25) is good
-    25 and above is BUYBUYBUY
+    return value is some kind of profit metric [salvage item, salvage method, salvage profit %, profit]
+        [7-20) "Consider" because profit is low and profit % may be terrible
+        [20-50) "Good" enough profit per salvage and maybe decent profit %
+        [50-100) "BUYBUYBUY" because this is a definitely good "can be bought, priced lower, and make good profit" with a probably good profit %
+        [100:) "MEGA BUY" because the profit on this is close to the cost of some salvage items themselves
 
-    print('{:<24} : {:>10}   {:<10}   {:<5}   {:>10}   {:>10}   {:>10}   {:>10}'.format('Material','Sell Price','State','Raw','Refined','Fine','Masterwork','Rare'))
     """
     worthit_list = []
 
@@ -485,6 +513,9 @@ def salvagePrint(itemName_str,itemCost_dct,multiplier_dct,droprate_dict,salvageC
     print("-"*(len(itemName_str)+8))
     print(formatline.format(*["Salvage Kit", "Profit","Total Value"]+orderedkeys))
     #print("-"*len(formatline)) maybe ad this in later. I don't really care to have the labels separated from the data
+
+    #This is difficult to test separately without a lot of setup but was shown to be accurate
+    #Checking for multiple items was the most difficult part to do properly but this expression is some kind of generator that will break as soon as a match is found "not any(x in ["MEGA BUY", "BUYBUYBUY", "Good"] for x in worthit_list)"
     for salvage_rarity,droprate_x in droprate_dict.items():
         itemValues_dct,itemSum_val = compute_result(droprate_x,multiplier_dct,True)
         methodprofit=round(itemSum_val - salvageCost_dct[salvage_rarity]-itemCost_dct[itemName_str][buysell],4)
@@ -496,7 +527,7 @@ def salvagePrint(itemName_str,itemCost_dct,multiplier_dct,droprate_dict,salvageC
             worthit_list = [itemName_str, salvage_rarity, methodprofit, "%d%%"%(100*(methodprofit/(salvageCost_dct[salvage_rarity]+itemCost_dct[itemName_str][buysell]))), "BUYBUYBUY"]
         elif (methodprofit >=20) and not any(x in ["MEGA BUY", "BUYBUYBUY"] for x in worthit_list):
             worthit_list = [itemName_str, salvage_rarity, methodprofit, "%d%%"%(100*(methodprofit/(salvageCost_dct[salvage_rarity]+itemCost_dct[itemName_str][buysell]))), "Good"]
-        elif (methodprofit >=7) and not any (x in ["MEGA BUY", "BUYBUYBUY", "Good"] for x in worthit_list):
+        elif (methodprofit >=7) and not any(x in ["MEGA BUY", "BUYBUYBUY", "Good"] for x in worthit_list):
             worthit_list = [itemName_str, salvage_rarity, methodprofit, "%d%%"%(100*(methodprofit/(salvageCost_dct[salvage_rarity]+itemCost_dct[itemName_str][buysell]))), "Consider"]
 
     return worthit_list
@@ -507,11 +538,11 @@ def salvagePrint(itemName_str,itemCost_dct,multiplier_dct,droprate_dict,salvageC
 ************************************"""
 
 """New case needs the following information:
-droprate dictionary
-material IDs added to allAPI list
-material IDs added to sort_allAPI function
-variable to allAPI output if needed
-salvagePrint function call
+    droprate dictionary
+    material IDs added to allAPI list
+    material IDs added to sort_allAPI function
+    variable to allAPI output if needed
+    salvagePrint function call
 """
 
 """
