@@ -18,7 +18,7 @@ def generate_multiplier(unrefined_dct,refined_dct,refined_scalar,refined_lookup,
     """
 
     """Application notes:
-            raw values only can be forced if "refined_scalar" is an empty dict
+            raw values only can be forced if "refined_lookup" is an empty dict
             dictionaries passed are passed by reference so altering refined_lookup with the Tin/Coal/Primordium variants can be done inside here fine. This does present some possible testing challenges though
 
             To avoid problems and complexity, this function picks the buy or sell prices and picks the best form.
