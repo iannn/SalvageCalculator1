@@ -35,16 +35,51 @@ The purpose of testing generate_multiplier is to make sure that:
     regular unrefiend and refined materials are being evaluated correctly
     materials can be "passed" on being refined correctly by not having their
 """
+
 """
-compute_data = [
-    ()
-]
+generate_multiplier needs
+    5 input arguments to run (unrefined_dct,refined_dct,refined_scalar,refined_lookup,buysell)
+    2 output arguments to check (expected_multiplier_dct,expected_decision_dct)
+    1 addition check of refined_lookup for changes
+
+2 of these are constants so they are prime candidates for being fixtures:
+    refined_scalar
+    refined_lookup
+
+each individual case needs unique value combinations for:
+    unrefined_dct = dictionary with unrefined material and price in the format of "name":[buy order price, sell listing price]
+    refined_dct = dictionary with refined material and price in the format of "name":[buy order price, sell listing price]
+    buysell = 0 or 1 representing the buy or sell price position
+    expected_multiplier_dct = dictionary with expected value of material price with best value in the format of "name": price
+    expected_decision_dct = dictionary with expected form of material in the format of "name":"format name"
+
+#Special Ore cases
+CopperOreWins = ()
+CopperIngotWins = ()
+BronzeIngotWins = ()
+
+IronOreWins
+IronIngotWins
+SteelIngotWins
+
+PlatinumOreWins
+PlatinumIngotWins
+DarksteelIngotWins
+
+#regular material test
+AncientWoodLogWins
+AncientWoodPlankWins
+
+#no refinement test
+SymbolOfControlWins
+
 """
 """
 @pytest.mark.parametrize("test_unrefined_dct,test_refined_dct,test_buysell,expected_multiplier_dct,expected_decision_dct,expected_refined_lookup")
 def test_generatingMultiplier():
     generate_multiplier(unrefined_dct,refined_dct,refined_scalar,refined_lookup,buysell)
 """
+
 """
 The purpose of testing is to check that the math of dictionary multiplication and summation is working correctly
 
@@ -52,8 +87,10 @@ Test cases:
     TP cut is True
     TP cut is False
 """
-@pytest.mark.parametrize("test_droprate,test_multiplier,test_TPcut,expected_salvageValues,expected_salvageSum",[({"a":1},{"a":1},False,{"a":1},1),
-                                                                                                                ({"a":2,"b":3},{"a":1,"b":1},False,{"a":2,"b":3},5)
+#Only basic calculation check is required
+#Currently only uses basic math cases to check
+@pytest.mark.parametrize("test_droprate,test_multiplier,test_TPcut,expected_salvageValues,expected_salvageSum",[({"a":2.22222,"b":1.12345},{"a":4,"b":3.33333},False,{"a":8.8889,"b":3.7448},12.6337),
+                                                                                                                ({"a":2,"b":3},{"a":1,"b":9},True,{"a":1.7,"b":22.95},24.65)
                                                                                                                 ])
 def test_sell(test_droprate,test_multiplier,test_TPcut,expected_salvageValues,expected_salvageSum):
     salvageValue_dct,sum_val = calc_helpers.compute_result(test_droprate,test_multiplier,test_TPcut)
