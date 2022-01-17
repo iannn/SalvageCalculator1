@@ -80,9 +80,27 @@ BronzeIngotWins = ({'Copper Ore': [0, 0]},
                 {'Copper Ore': 'B Ingot'},
                 {change to Bronze Ingot})
 
-IronOreWins
-IronIngotWins
-SteelIngotWins
+
+IronOreWins = ({'Iron Ore': [0, 10]},
+                {'Iron Ingot': [0, 30], 'Steel Ingot': [0, 46]},
+                1,
+                {'Iron Ore': 10},
+                {'Iron Ore': 'raw'},
+                {no change})
+
+IronIngotWins = ({'Iron Ore': [0, 6]},
+                {'Iron Ingot': [0, 173], 'Steel Ingot': [0, 50]},
+                1,
+                {'Iron Ore': 57.6667},
+                {'Iron Ore': 'I Ingot'},
+                {no change})
+
+SteelIngotWins = ({'Iron Ore': [0, 99]},
+                {'Iron Ingot': [0, 100], 'Steel Ingot': [0, 316]},
+                1,
+                {'Iron Ore': 100},
+                {'Iron Ore': 'S Ingot'},
+                {change to Steel Ingot })
 
 PlatinumOreWins
 PlatinumIngotWins
@@ -131,9 +149,38 @@ BronzeIngotWins = ({'Copper Ore': [0, 2]},
                                         'Jute Scrap':'Bolt of Jute','Wool Scrap':'Bolt of Wool','Cotton Scrap':'Bolt of Cotton','Linen Scrap':'Bolt of Linen','Silk Scrap':'Bolt of Silk','Gossamer Scrap':'Bolt of Gossamer',
                                         'Green Wood Log':'Green Wood Plank','Soft Wood Log':'Soft Wood Plank','Seasoned Wood Log':'Seasoned Wood Plank','Hard Wood Log':'Hard Wood Plank','Elder Wood Log':'Elder Wood Plank','Ancient Wood Log':'Ancient Wood Plank'})
 
+IronOreWins = ({'Iron Ore': [0, 10]},
+                {'Iron Ingot': [0, 30], 'Steel Ingot': [0, 46]},
+                1,
+                {'Iron Ore': 10},
+                {'Iron Ore': 'raw'},
+                {'Hardened Leather Section':'Cured Hardened Leather Square','Thick Leather Section':'Cured Thick Leather Square','Rugged Leather Section':'Cured Rugged Leather Square','Coarse Leather Section':'Cured Coarse Leather Square','Thin Leather Section':'Cured Thin Leather Square','Rawhide Leather Section':'Stretched Rawhide Leather Square',
+                                        'Copper Ore':'Copper Ingot','Silver Ore':'Silver Ingot','Iron Ore':'Iron Ingot','Gold Ore':'Gold Ingot','Platinum Ore':'Platinum Ingot','Mithril Ore':'Mithril Ingot','Orichalcum Ore':'Orichalcum Ingot',
+                                        'Jute Scrap':'Bolt of Jute','Wool Scrap':'Bolt of Wool','Cotton Scrap':'Bolt of Cotton','Linen Scrap':'Bolt of Linen','Silk Scrap':'Bolt of Silk','Gossamer Scrap':'Bolt of Gossamer',
+                                        'Green Wood Log':'Green Wood Plank','Soft Wood Log':'Soft Wood Plank','Seasoned Wood Log':'Seasoned Wood Plank','Hard Wood Log':'Hard Wood Plank','Elder Wood Log':'Elder Wood Plank','Ancient Wood Log':'Ancient Wood Plank'})
+
+IronIngotWins = ({'Iron Ore': [0, 6]},
+                {'Iron Ingot': [0, 173], 'Steel Ingot': [0, 50]},
+                1,
+                {'Iron Ore': 57.6667},
+                {'Iron Ore': 'I Ingot'},
+                {'Hardened Leather Section':'Cured Hardened Leather Square','Thick Leather Section':'Cured Thick Leather Square','Rugged Leather Section':'Cured Rugged Leather Square','Coarse Leather Section':'Cured Coarse Leather Square','Thin Leather Section':'Cured Thin Leather Square','Rawhide Leather Section':'Stretched Rawhide Leather Square',
+                                        'Copper Ore':'Copper Ingot','Silver Ore':'Silver Ingot','Iron Ore':'Iron Ingot','Gold Ore':'Gold Ingot','Platinum Ore':'Platinum Ingot','Mithril Ore':'Mithril Ingot','Orichalcum Ore':'Orichalcum Ingot',
+                                        'Jute Scrap':'Bolt of Jute','Wool Scrap':'Bolt of Wool','Cotton Scrap':'Bolt of Cotton','Linen Scrap':'Bolt of Linen','Silk Scrap':'Bolt of Silk','Gossamer Scrap':'Bolt of Gossamer',
+                                        'Green Wood Log':'Green Wood Plank','Soft Wood Log':'Soft Wood Plank','Seasoned Wood Log':'Seasoned Wood Plank','Hard Wood Log':'Hard Wood Plank','Elder Wood Log':'Elder Wood Plank','Ancient Wood Log':'Ancient Wood Plank'})
+
+SteelIngotWins = ({'Iron Ore': [0, 99]},
+                {'Iron Ingot': [0, 100], 'Steel Ingot': [0, 316]},
+                1,
+                {'Iron Ore': 100},
+                {'Iron Ore': 'S Ingot'},
+                {'Hardened Leather Section':'Cured Hardened Leather Square','Thick Leather Section':'Cured Thick Leather Square','Rugged Leather Section':'Cured Rugged Leather Square','Coarse Leather Section':'Cured Coarse Leather Square','Thin Leather Section':'Cured Thin Leather Square','Rawhide Leather Section':'Stretched Rawhide Leather Square',
+                                        'Copper Ore':'Copper Ingot','Silver Ore':'Silver Ingot','Iron Ore':'Steel Ingot','Gold Ore':'Gold Ingot','Platinum Ore':'Platinum Ingot','Mithril Ore':'Mithril Ingot','Orichalcum Ore':'Orichalcum Ingot',
+                                        'Jute Scrap':'Bolt of Jute','Wool Scrap':'Bolt of Wool','Cotton Scrap':'Bolt of Cotton','Linen Scrap':'Bolt of Linen','Silk Scrap':'Bolt of Silk','Gossamer Scrap':'Bolt of Gossamer',
+                                        'Green Wood Log':'Green Wood Plank','Soft Wood Log':'Soft Wood Plank','Seasoned Wood Log':'Seasoned Wood Plank','Hard Wood Log':'Hard Wood Plank','Elder Wood Log':'Elder Wood Plank','Ancient Wood Log':'Ancient Wood Plank'})
 
 
-@pytest.mark.parametrize("test_unrefined_dct,test_refined_dct,test_buysell,expected_multiplier_dct,expected_decision_dct,expected_refined_lookup",[CopperOreWins])
+@pytest.mark.parametrize("test_unrefined_dct,test_refined_dct,test_buysell,expected_multiplier_dct,expected_decision_dct,expected_refined_lookup",[CopperOreWins,CopperIngotWins,BronzeIngotWins,IronOreWins,IronIngotWins,SteelIngotWins])
 def test_generatingMultiplier(test_unrefined_dct,test_refined_dct,test_buysell,expected_multiplier_dct,expected_decision_dct,expected_refined_lookup,refined_scalar,refined_lookup):
     multiplier_dct, decision_dct = calc_helpers.generate_multiplier(test_unrefined_dct,test_refined_dct,refined_scalar,refined_lookup,test_buysell)
     assert multiplier_dct == expected_multiplier_dct
