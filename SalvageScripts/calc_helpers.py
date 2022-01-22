@@ -71,6 +71,7 @@ def generate_multiplier(unrefined_dct,refined_dct,refined_scalar,refined_lookup,
                     multiplier_dct['Platinum Ore'] = round((refined_dct['Darksteel Ingot'][buysell]-48)/refined_scalar['Darksteel Ingot'],4)
                     refined_lookup['Platinum Ore']='Darksteel Ingot'#Passed by reference so update persists
                 #Regular Platinum Ingot is therefore the best option
+                #Platinum Ingot is actually only made by Jewelers and Scribes but it doesn't need Primordium so that's why it's "default" refined
                 else:
                     decision_dct['Platinum Ore'] = 'P Ingot'
                     multiplier_dct['Platinum Ore'] = round(refined_dct['Platinum Ingot'][buysell]/refined_scalar['Platinum Ingot'],4)

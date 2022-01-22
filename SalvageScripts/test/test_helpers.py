@@ -102,9 +102,26 @@ SteelIngotWins = ({'Iron Ore': [0, 99]},
                 {'Iron Ore': 'S Ingot'},
                 {change to Steel Ingot })
 
-PlatinumOreWins
-PlatinumIngotWins
-DarksteelIngotWins
+PlatinumOreWins = ({'Platinum Ore': [0, 0]},
+                {'Platinum Ingot': [0, 0], 'Darksteel Ingot': [0, 0]},
+                1,
+                {'Platinum Ore': [0, 0]},
+                {'Platinum Ore': 'raw'},
+                {no change})
+
+PlatinumIngotWins = ({'Platinum Ore': [0, 0]},
+                {'Platinum Ingot': [0, 0], 'Darksteel Ingot': [0, 0]},
+                1,
+                {'Platinum Ore': [0, 0]},
+                {'Platinum Ore': 'P Ingot'},
+                {no change})
+
+DarksteelIngotWins = ({'Platinum Ore': [0, 0]},
+                {'Platinum Ingot': [0, 0], 'Darksteel Ingot': [0, 0]},
+                1,
+                {'Platinum Ore': [0, 0]},
+                {'Platinum Ore': 'D Ingot'},
+                {change to Darksteel Ingot})
 
 #ancient wood test dicts
 'Ancient Wood Log': [161, 181]
@@ -179,8 +196,39 @@ SteelIngotWins = ({'Iron Ore': [0, 99]},
                                         'Jute Scrap':'Bolt of Jute','Wool Scrap':'Bolt of Wool','Cotton Scrap':'Bolt of Cotton','Linen Scrap':'Bolt of Linen','Silk Scrap':'Bolt of Silk','Gossamer Scrap':'Bolt of Gossamer',
                                         'Green Wood Log':'Green Wood Plank','Soft Wood Log':'Soft Wood Plank','Seasoned Wood Log':'Seasoned Wood Plank','Hard Wood Log':'Hard Wood Plank','Elder Wood Log':'Elder Wood Plank','Ancient Wood Log':'Ancient Wood Plank'})
 
+PlatinumOreWins = ({'Platinum Ore': [0, 50]},
+                {'Platinum Ingot': [0, 100], 'Darksteel Ingot': [0, 148]},
+                1,
+                {'Platinum Ore': 50},
+                {'Platinum Ore': 'raw'},
+                {'Hardened Leather Section':'Cured Hardened Leather Square','Thick Leather Section':'Cured Thick Leather Square','Rugged Leather Section':'Cured Rugged Leather Square','Coarse Leather Section':'Cured Coarse Leather Square','Thin Leather Section':'Cured Thin Leather Square','Rawhide Leather Section':'Stretched Rawhide Leather Square',
+                                        'Copper Ore':'Copper Ingot','Silver Ore':'Silver Ingot','Iron Ore':'Iron Ingot','Gold Ore':'Gold Ingot','Platinum Ore':'Platinum Ingot','Mithril Ore':'Mithril Ingot','Orichalcum Ore':'Orichalcum Ingot',
+                                        'Jute Scrap':'Bolt of Jute','Wool Scrap':'Bolt of Wool','Cotton Scrap':'Bolt of Cotton','Linen Scrap':'Bolt of Linen','Silk Scrap':'Bolt of Silk','Gossamer Scrap':'Bolt of Gossamer',
+                                        'Green Wood Log':'Green Wood Plank','Soft Wood Log':'Soft Wood Plank','Seasoned Wood Log':'Seasoned Wood Plank','Hard Wood Log':'Hard Wood Plank','Elder Wood Log':'Elder Wood Plank','Ancient Wood Log':'Ancient Wood Plank'})
 
-@pytest.mark.parametrize("test_unrefined_dct,test_refined_dct,test_buysell,expected_multiplier_dct,expected_decision_dct,expected_refined_lookup",[CopperOreWins,CopperIngotWins,BronzeIngotWins,IronOreWins,IronIngotWins,SteelIngotWins])
+PlatinumIngotWins = ({'Platinum Ore': [0, 50]},
+                {'Platinum Ingot': [0, 200], 'Darksteel Ingot': [0, 200]},
+                1,
+                {'Platinum Ore': 100},
+                {'Platinum Ore': 'P Ingot'},
+                {'Hardened Leather Section':'Cured Hardened Leather Square','Thick Leather Section':'Cured Thick Leather Square','Rugged Leather Section':'Cured Rugged Leather Square','Coarse Leather Section':'Cured Coarse Leather Square','Thin Leather Section':'Cured Thin Leather Square','Rawhide Leather Section':'Stretched Rawhide Leather Square',
+                                        'Copper Ore':'Copper Ingot','Silver Ore':'Silver Ingot','Iron Ore':'Iron Ingot','Gold Ore':'Gold Ingot','Platinum Ore':'Platinum Ingot','Mithril Ore':'Mithril Ingot','Orichalcum Ore':'Orichalcum Ingot',
+                                        'Jute Scrap':'Bolt of Jute','Wool Scrap':'Bolt of Wool','Cotton Scrap':'Bolt of Cotton','Linen Scrap':'Bolt of Linen','Silk Scrap':'Bolt of Silk','Gossamer Scrap':'Bolt of Gossamer',
+                                        'Green Wood Log':'Green Wood Plank','Soft Wood Log':'Soft Wood Plank','Seasoned Wood Log':'Seasoned Wood Plank','Hard Wood Log':'Hard Wood Plank','Elder Wood Log':'Elder Wood Plank','Ancient Wood Log':'Ancient Wood Plank'})
+
+DarksteelIngotWins = ({'Platinum Ore': [0, 10]},
+                {'Platinum Ingot': [0, 1], 'Darksteel Ingot': [0, 448]},
+                1,
+                {'Platinum Ore': 200},
+                {'Platinum Ore': 'D Ingot'},
+                {'Hardened Leather Section':'Cured Hardened Leather Square','Thick Leather Section':'Cured Thick Leather Square','Rugged Leather Section':'Cured Rugged Leather Square','Coarse Leather Section':'Cured Coarse Leather Square','Thin Leather Section':'Cured Thin Leather Square','Rawhide Leather Section':'Stretched Rawhide Leather Square',
+                                        'Copper Ore':'Copper Ingot','Silver Ore':'Silver Ingot','Iron Ore':'Iron Ingot','Gold Ore':'Gold Ingot','Platinum Ore':'Darksteel Ingot','Mithril Ore':'Mithril Ingot','Orichalcum Ore':'Orichalcum Ingot',
+                                        'Jute Scrap':'Bolt of Jute','Wool Scrap':'Bolt of Wool','Cotton Scrap':'Bolt of Cotton','Linen Scrap':'Bolt of Linen','Silk Scrap':'Bolt of Silk','Gossamer Scrap':'Bolt of Gossamer',
+                                        'Green Wood Log':'Green Wood Plank','Soft Wood Log':'Soft Wood Plank','Seasoned Wood Log':'Seasoned Wood Plank','Hard Wood Log':'Hard Wood Plank','Elder Wood Log':'Elder Wood Plank','Ancient Wood Log':'Ancient Wood Plank'})
+
+
+
+@pytest.mark.parametrize("test_unrefined_dct,test_refined_dct,test_buysell,expected_multiplier_dct,expected_decision_dct,expected_refined_lookup",[CopperOreWins,CopperIngotWins,BronzeIngotWins,IronOreWins,IronIngotWins,SteelIngotWins,PlatinumOreWins,PlatinumIngotWins,DarksteelIngotWins])
 def test_generatingMultiplier(test_unrefined_dct,test_refined_dct,test_buysell,expected_multiplier_dct,expected_decision_dct,expected_refined_lookup,refined_scalar,refined_lookup):
     multiplier_dct, decision_dct = calc_helpers.generate_multiplier(test_unrefined_dct,test_refined_dct,refined_scalar,refined_lookup,test_buysell)
     assert multiplier_dct == expected_multiplier_dct
