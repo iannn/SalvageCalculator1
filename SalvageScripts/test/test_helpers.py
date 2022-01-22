@@ -53,88 +53,6 @@ each individual case needs unique value combinations for (in this order):
     expected_multiplier_dct = dictionary with expected value of material price with best value in the format of "name": price
     expected_decision_dct = dictionary with expected form of material in the format of "name":"format name"
     additional refined_lookup for change/no change
-
-#Temporary test metal dictionary
-unrefined {'Copper Ore': [17, 23], 'Iron Ore': [72, 89], 'Platinum Ore': [91, 92]}
-refined {'Copper Ingot': [24, 25], 'Bronze Ingot': [38, 47], 'Silver Ingot': [12, 14], 'Iron Ingot': [149, 173], 'Steel Ingot': [227, 275], 'Gold Ingot': [27, 29], 'Platinum Ingot': [151, 180], 'Darksteel Ingot': [228, 280]}
-
-#Special Ore cases
-CopperOreWins = ({'Copper Ore': [0, 0]},
-                {'Copper Ingot': [0, 0],'Bronze Ingot': [0, 0]},
-                1,
-                {'Copper Ore': 0},
-                {'Copper Ore': 'raw'},
-                {no change})
-
-CopperIngotWins = ({'Copper Ore': [0, 0]},
-                {'Copper Ingot': [0, 0],'Bronze Ingot': [0, 0]},
-                1,
-                {'Copper Ore': 0},
-                {'Copper Ore': 'C Ingot'},
-                {no change})
-
-BronzeIngotWins = ({'Copper Ore': [0, 0]},
-                {'Copper Ingot': [0, 0],'Bronze Ingot': [0, 0]},
-                1,
-                {'Copper Ore': 0},
-                {'Copper Ore': 'B Ingot'},
-                {change to Bronze Ingot})
-
-
-IronOreWins = ({'Iron Ore': [0, 10]},
-                {'Iron Ingot': [0, 30], 'Steel Ingot': [0, 46]},
-                1,
-                {'Iron Ore': 10},
-                {'Iron Ore': 'raw'},
-                {no change})
-
-IronIngotWins = ({'Iron Ore': [0, 6]},
-                {'Iron Ingot': [0, 173], 'Steel Ingot': [0, 50]},
-                1,
-                {'Iron Ore': 57.6667},
-                {'Iron Ore': 'I Ingot'},
-                {no change})
-
-SteelIngotWins = ({'Iron Ore': [0, 99]},
-                {'Iron Ingot': [0, 100], 'Steel Ingot': [0, 316]},
-                1,
-                {'Iron Ore': 100},
-                {'Iron Ore': 'S Ingot'},
-                {change to Steel Ingot })
-
-PlatinumOreWins = ({'Platinum Ore': [0, 0]},
-                {'Platinum Ingot': [0, 0], 'Darksteel Ingot': [0, 0]},
-                1,
-                {'Platinum Ore': [0, 0]},
-                {'Platinum Ore': 'raw'},
-                {no change})
-
-PlatinumIngotWins = ({'Platinum Ore': [0, 0]},
-                {'Platinum Ingot': [0, 0], 'Darksteel Ingot': [0, 0]},
-                1,
-                {'Platinum Ore': [0, 0]},
-                {'Platinum Ore': 'P Ingot'},
-                {no change})
-
-DarksteelIngotWins = ({'Platinum Ore': [0, 0]},
-                {'Platinum Ingot': [0, 0], 'Darksteel Ingot': [0, 0]},
-                1,
-                {'Platinum Ore': [0, 0]},
-                {'Platinum Ore': 'D Ingot'},
-                {change to Darksteel Ingot})
-
-#ancient wood test dicts
-'Ancient Wood Log': [161, 181]
-'Ancient Wood Plank': [506, 575]
-
-#regular material test
-AncientWoodLogWins = ()
-AncientWoodPlankWins
-
-
-#no refinement test
-SymbolOfControlWins
-
 """
 
 #Special Ore cases
@@ -226,9 +144,38 @@ DarksteelIngotWins = ({'Platinum Ore': [0, 10]},
                                         'Jute Scrap':'Bolt of Jute','Wool Scrap':'Bolt of Wool','Cotton Scrap':'Bolt of Cotton','Linen Scrap':'Bolt of Linen','Silk Scrap':'Bolt of Silk','Gossamer Scrap':'Bolt of Gossamer',
                                         'Green Wood Log':'Green Wood Plank','Soft Wood Log':'Soft Wood Plank','Seasoned Wood Log':'Seasoned Wood Plank','Hard Wood Log':'Hard Wood Plank','Elder Wood Log':'Elder Wood Plank','Ancient Wood Log':'Ancient Wood Plank'})
 
+AncientWoodLogWins = ({'Ancient Wood Log': [0, 10]},
+                    {'Ancient Wood Plank': [0, 30]},
+                    1,
+                    {'Ancient Wood Log': 10},
+                    {'Ancient Wood Log': 'raw'},
+                    {'Hardened Leather Section':'Cured Hardened Leather Square','Thick Leather Section':'Cured Thick Leather Square','Rugged Leather Section':'Cured Rugged Leather Square','Coarse Leather Section':'Cured Coarse Leather Square','Thin Leather Section':'Cured Thin Leather Square','Rawhide Leather Section':'Stretched Rawhide Leather Square',
+                                            'Copper Ore':'Copper Ingot','Silver Ore':'Silver Ingot','Iron Ore':'Iron Ingot','Gold Ore':'Gold Ingot','Platinum Ore':'Platinum Ingot','Mithril Ore':'Mithril Ingot','Orichalcum Ore':'Orichalcum Ingot',
+                                            'Jute Scrap':'Bolt of Jute','Wool Scrap':'Bolt of Wool','Cotton Scrap':'Bolt of Cotton','Linen Scrap':'Bolt of Linen','Silk Scrap':'Bolt of Silk','Gossamer Scrap':'Bolt of Gossamer',
+                                            'Green Wood Log':'Green Wood Plank','Soft Wood Log':'Soft Wood Plank','Seasoned Wood Log':'Seasoned Wood Plank','Hard Wood Log':'Hard Wood Plank','Elder Wood Log':'Elder Wood Plank','Ancient Wood Log':'Ancient Wood Plank'})
+
+AncientWoodPlankWins = ({'Ancient Wood Log': [0, 10]},
+                        {'Ancient Wood Plank': [0, 150]},
+                        1,
+                        {'Ancient Wood Log': 50},
+                        {'Ancient Wood Log': 'refined'},
+                        {'Hardened Leather Section':'Cured Hardened Leather Square','Thick Leather Section':'Cured Thick Leather Square','Rugged Leather Section':'Cured Rugged Leather Square','Coarse Leather Section':'Cured Coarse Leather Square','Thin Leather Section':'Cured Thin Leather Square','Rawhide Leather Section':'Stretched Rawhide Leather Square',
+                                                'Copper Ore':'Copper Ingot','Silver Ore':'Silver Ingot','Iron Ore':'Iron Ingot','Gold Ore':'Gold Ingot','Platinum Ore':'Platinum Ingot','Mithril Ore':'Mithril Ingot','Orichalcum Ore':'Orichalcum Ingot',
+                                                'Jute Scrap':'Bolt of Jute','Wool Scrap':'Bolt of Wool','Cotton Scrap':'Bolt of Cotton','Linen Scrap':'Bolt of Linen','Silk Scrap':'Bolt of Silk','Gossamer Scrap':'Bolt of Gossamer',
+                                                'Green Wood Log':'Green Wood Plank','Soft Wood Log':'Soft Wood Plank','Seasoned Wood Log':'Seasoned Wood Plank','Hard Wood Log':'Hard Wood Plank','Elder Wood Log':'Elder Wood Plank','Ancient Wood Log':'Ancient Wood Plank'})
+
+SymbolOfControlWins = ({'Symbol Of Control': [0, 123]},
+                    {},
+                    1,
+                    {'Symbol Of Control': 123},
+                    {'Symbol Of Control': 'none'},
+                    {'Hardened Leather Section':'Cured Hardened Leather Square','Thick Leather Section':'Cured Thick Leather Square','Rugged Leather Section':'Cured Rugged Leather Square','Coarse Leather Section':'Cured Coarse Leather Square','Thin Leather Section':'Cured Thin Leather Square','Rawhide Leather Section':'Stretched Rawhide Leather Square',
+                                            'Copper Ore':'Copper Ingot','Silver Ore':'Silver Ingot','Iron Ore':'Iron Ingot','Gold Ore':'Gold Ingot','Platinum Ore':'Platinum Ingot','Mithril Ore':'Mithril Ingot','Orichalcum Ore':'Orichalcum Ingot',
+                                            'Jute Scrap':'Bolt of Jute','Wool Scrap':'Bolt of Wool','Cotton Scrap':'Bolt of Cotton','Linen Scrap':'Bolt of Linen','Silk Scrap':'Bolt of Silk','Gossamer Scrap':'Bolt of Gossamer',
+                                            'Green Wood Log':'Green Wood Plank','Soft Wood Log':'Soft Wood Plank','Seasoned Wood Log':'Seasoned Wood Plank','Hard Wood Log':'Hard Wood Plank','Elder Wood Log':'Elder Wood Plank','Ancient Wood Log':'Ancient Wood Plank'})
 
 
-@pytest.mark.parametrize("test_unrefined_dct,test_refined_dct,test_buysell,expected_multiplier_dct,expected_decision_dct,expected_refined_lookup",[CopperOreWins,CopperIngotWins,BronzeIngotWins,IronOreWins,IronIngotWins,SteelIngotWins,PlatinumOreWins,PlatinumIngotWins,DarksteelIngotWins])
+@pytest.mark.parametrize("test_unrefined_dct,test_refined_dct,test_buysell,expected_multiplier_dct,expected_decision_dct,expected_refined_lookup",[CopperOreWins,CopperIngotWins,BronzeIngotWins,IronOreWins,IronIngotWins,SteelIngotWins,PlatinumOreWins,PlatinumIngotWins,DarksteelIngotWins,AncientWoodLogWins,AncientWoodPlankWins,SymbolOfControlWins])
 def test_generatingMultiplier(test_unrefined_dct,test_refined_dct,test_buysell,expected_multiplier_dct,expected_decision_dct,expected_refined_lookup,refined_scalar,refined_lookup):
     multiplier_dct, decision_dct = calc_helpers.generate_multiplier(test_unrefined_dct,test_refined_dct,refined_scalar,refined_lookup,test_buysell)
     assert multiplier_dct == expected_multiplier_dct
@@ -242,11 +189,21 @@ Test cases:
     TP cut is True
     TP cut is False
 """
+#The math on this is funky because decimal place rounding needs to be tested here too
+TPcutFalse = ({"a":2.22222,"b":1.12345},
+            {"a":4,"b":3.33333},
+            False,
+            {"a":8.8889,"b":3.7448},
+            12.6337)
+TPcutTrue = ({"a":2,"b":3},
+            {"a":1,"b":9},
+            True,
+            {"a":1.7,"b":22.95},
+            24.65)
+
 #Only basic calculation check is required
 #Currently only uses basic math cases to check
-@pytest.mark.parametrize("test_droprate,test_multiplier,test_TPcut,expected_salvageValues,expected_salvageSum",[({"a":2.22222,"b":1.12345},{"a":4,"b":3.33333},False,{"a":8.8889,"b":3.7448},12.6337),
-                                                                                                                ({"a":2,"b":3},{"a":1,"b":9},True,{"a":1.7,"b":22.95},24.65)
-                                                                                                                ])
+@pytest.mark.parametrize("test_droprate,test_multiplier,test_TPcut,expected_salvageValues,expected_salvageSum",[TPcutFalse,TPcutTrue])
 def test_sell(test_droprate,test_multiplier,test_TPcut,expected_salvageValues,expected_salvageSum):
     salvageValue_dct,sum_val = calc_helpers.compute_result(test_droprate,test_multiplier,test_TPcut)
     assert salvageValue_dct == expected_salvageValues
