@@ -1,6 +1,10 @@
 # SalvageCalculator1
 First pass of salvage calculator scripts
 
+requires GuildWars2-API-Client
+https://github.com/JuxhinDB/gw2-api-interface
+pip install GuildWars2-API-Client
+
 Main files:
 calc_salvage.py - to calculate the value and profits from salvaging salvage items for profit
 calc_unid.py - to calculate the value and profits from salvaging unids
