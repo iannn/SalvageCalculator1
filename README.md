@@ -22,6 +22,7 @@ calc_salvage is looking really good and pretty much done. Can calculate the sell
 Savings from salvaging not done yet.
 Forge promotions not included yet either.
 Refactor to merge item drop rates into a mega dictionary for salvage type should also be done.
+Should split the print up a bit to do math, print, decision. Allows for more flexibility and selective printing
 
 calc_unid needs a complete rework.
 

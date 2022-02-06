@@ -480,9 +480,9 @@ def salvagePrint(itemName_str,itemCost_dct,multiplier_dct,droprate_dict,salvageC
         itemName_str = string name of salvage item
         itemCost_dct = dictionary with salvage item costs. salvage item name : [buy order price, sell listing price]
         multiplier_dct = dictionary of all material values. raw material name : buy or sell value
-        droprate_dict =
-        salvageCost_dct
-        buysell
+        droprate_dict = droprate of item in question. Should have all 3 levels of kit
+        salvageCost_dct = the cost per salvage kit type
+        buysell = 0 is for passing through buy order indicators, 1 is for passing through sell listing indicators
     """
 
 
@@ -506,7 +506,8 @@ def salvagePrint(itemName_str,itemCost_dct,multiplier_dct,droprate_dict,salvageC
     worthit_list = []
 
 
-    orderedkeys = list(droprate_dict['Copper'].keys())
+    orderedkeys = list(droprate_dict['Copper'].keys()) #Copper chosen arbitrarily/was the first case always in so easiest to get keys from
+    
     #the "%" operator here is actually used as the indicator for "%d" to format strings, like with C
     formatline = "{:<14} : {:>10} | {:>12} | " + '  '.join(["{:>%d}" % len(l) for l in orderedkeys])
     print("\n{salvageName} : {salvagePrice}".format(salvageName=itemName_str, salvagePrice=itemCost_dct[itemName_str][buysell]))
